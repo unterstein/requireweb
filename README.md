@@ -1,18 +1,4 @@
-Just a simple play scala app template
+a small web app for gathering requirements
 =====================================
 
-Includes the following libraries
-
-backend:
-- Play
-- Scala
-- Neo4j
-- Spring.data
-
-frontend:
-- bootstrap
-- bootstrap.datetimepicker
-- font.awesome
-- jquery
-- jquery.autogrowtextarea
-- select2
+tbd
