@@ -4,7 +4,7 @@ import play.Project._
 
 object ApplicationBuild extends Build {
 
-  val appName         = "play-neo4j-template"
+  val appName         = "requireweb"
   val appVersion      = "1.0-SNAPSHOT"
 
   val appDependencies = Seq(
