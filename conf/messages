@@ -1,6 +1,6 @@
 # meta
-title=app
-app.title=<i class="fa fa-tachometer"></i> app
+title=require.web - a small web app for gathering requirements
+app.title=<i class="fa fa-tachometer"></i> require.web
 keywords=
 description=
 
