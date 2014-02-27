@@ -24,18 +24,23 @@ public class Requirement extends CommentAbleModel {
   @RelatedTo(type = Relations.REQUIREMENT_REQUIREMENT, direction = Direction.INCOMING)
   public Set<Requirement> children;
 
+  @RelatedTo(type = Relations.PROJECT_REQUIREMENT, direction = Direction.OUTGOING)
+  public Project project;
+
   public String headline;
 
   public String text;
 
-  public boolean accepted;
-
   @GraphProperty(propertyType = Long.class)
   public Date dueDate;
 
+  public boolean accepted;
+
   public boolean implemented;
 
-  public double effort;
+  public double estimatedEffort;
+
+  public double realEffort;
 
   public static Iterator<Requirement> findListForUser(User user) {
     return Neo4JServiceProvider.get().requirementRepository.findByAuthorOrderByIdAsc(user).iterator();
