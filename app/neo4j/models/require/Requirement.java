@@ -21,7 +21,7 @@ public class Requirement extends CommentAbleModel {
 
   public String headline;
 
-  public String comment;
+  public String text;
 
   public boolean accepted;
 
