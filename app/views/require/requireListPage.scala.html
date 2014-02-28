@@ -40,8 +40,8 @@
     </div>
   </div>
 
-  <!-- new project dialog -->
-  <div class="modal fade" id="newModal">
+  <!-- project modal -->
+  <div class="modal fade" id="projectModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -53,16 +53,16 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="newProjectName" class="control-label">@Messages("name")</label>
-                  <input type="text" class="form-control" id="newProjectName" name="newProjectName" placeholder="@Messages("field.name.placeholder")" />
+                  <label for="projectName" class="control-label">@Messages("name")</label>
+                  <input type="text" class="form-control" id="projectName" name="projectName" placeholder="@Messages("field.name.placeholder")" />
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="newProjectDescription" class="control-label">@Messages("field.description")</label>
-                  <textarea class="form-control" name="newProjectDescription" id="newProjectDescription"></textarea>
+                  <label for="projectDescription" class="control-label">@Messages("field.description")</label>
+                  <textarea class="form-control" name="projectDescription" id="projectDescription"></textarea>
                 </div>
               </div>
             </div>
@@ -71,6 +71,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
           <button type="button" class="btn btn-primary" id="newProjectAdd">@Messages("create")</button>
+          <button type="button" class="btn btn-primary" id="projectEdit">@Messages("edit")</button>
         </div>
       </div>
     </div>
