@@ -24,7 +24,7 @@
                 <a href="@routes.RequirementController.requirementListId(project.id)">
                     @project.name
                     <i class="fa fa-trash-o delete pull-right" onClick="pDelete(@project.id); return false;"></i>
-                    <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id); return false;"></i>
+                    <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id, '@project.name', '@project.description'); return false;"></i>
                 </a>
               </li>
             }
@@ -50,6 +50,7 @@
         </div>
         <div class="modal-body">
           <form>
+            <input type="hidden" id="projectId" name="projectId" />
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">

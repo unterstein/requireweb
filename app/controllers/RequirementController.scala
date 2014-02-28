@@ -31,20 +31,22 @@ object RequirementController extends BaseController {
 
   }
 
-  def addProject(name: String, description: String) = AuthenticatedLoggingAction(UserRole.USER) {
+  def addProject() = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
-      val project = Project.create(name, description, PlaySession.getUser)
+      // TODO param access
+      val project = Project.create(request.body.asFormUrlEncoded.get("name")(0), request.body.asFormUrlEncoded.get("description")(0), PlaySession.getUser)
       Ok(routes.RequirementController.requirementListId(project.id).url)
   }
 
-  def editProject(id: Long, name: String, description: String) = AuthenticatedLoggingAction(UserRole.USER) {
+  def editProject(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
       val user = PlaySession.getUser
       // TODO contributors
       if (project != null && project.author.id == user.id) {
-        project.name = name
-        project.description = description
+        // TODO param access
+        project.name = request.body.asFormUrlEncoded.get("name")(0)
+        project.description = request.body.asFormUrlEncoded.get("description")(0)
         Neo4JServiceProvider.get().projectRepository.save(project)
         Ok(routes.RequirementController.requirementListId(project.id).url)
       } else {

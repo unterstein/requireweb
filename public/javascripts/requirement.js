@@ -13,11 +13,21 @@ $(function () {
   $("#newProjectAdd").click(function () {
     var name = $("#projectName").val();
     var description = $("#projectDescription").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.addProject(name, description));
+    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), { 'name': name, 'description': description});
   });
+  $("#projectEdit").click(function () {
+    var name = $("#projectName").val();
+    var description = $("#projectDescription").val();
+    var id = $("#projectId").val();
+    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), { 'name': name, 'description': description});
+  });
+  /** other stuff */
   hideAll();
-  window.pEdit = function (id) {
+  window.pEdit = function (id, name, description) {
     $("#projectModal").modal("show");
+    $("#projectName").val(name);
+    $("#projectDescription").val(description);
+    $("#projectId").val(id);
     $("#projectEdit").show();
   }
   window.pDelete = function (id) {
