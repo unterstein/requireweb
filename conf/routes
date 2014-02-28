@@ -19,9 +19,10 @@ POST        /users/postCreate                    controllers.UserController.post
 # Requirements
 GET         /requirements                        controllers.RequirementController.requirementList
 GET         /requirements/:id                    controllers.RequirementController.requirementListId(id: Long)
-POST        /project/add                         controllers.RequirementController.addProject
+POST        /project                             controllers.RequirementController.addProject
+POST        /project/:id/requirement             controllers.RequirementController.addRequirement(id: Long)
 POST        /project/:id                         controllers.RequirementController.editProject(id: Long)
-POST        /project/:id/delete                  controllers.RequirementController.delete(id: Long)
+POST        /project/:id/delete                  controllers.RequirementController.deleteProject(id: Long)
 
 # Authentication
 GET         /login                               controllers.AuthenticationController.login
