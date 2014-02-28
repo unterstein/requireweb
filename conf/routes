@@ -3,31 +3,32 @@
 # ~~~~
 
 # Home page
-GET         /                                    controllers.ApplicationController.index
+GET         /                                       controllers.ApplicationController.index
 
 # Dashboard
-GET         /dashboard                           controllers.DashboardController.dashboard
+GET         /dashboard                              controllers.DashboardController.dashboard
 
 # User
-GET         /users                               controllers.UserController.userList
-GET         /users/create                        controllers.UserController.create
-GET         /users/edit/:id                      controllers.UserController.edit(id: Long)
-POST        /users/edit/:id/edit                 controllers.UserController.postEdit(id: Long)
-POST        /users/edit/:id/delete               controllers.UserController.delete(id: Long)
-POST        /users/postCreate                    controllers.UserController.postCreate
+GET         /users                                  controllers.UserController.userList
+GET         /users/create                           controllers.UserController.create
+GET         /users/edit/:id                         controllers.UserController.edit(id: Long)
+POST        /users/edit/:id/edit                    controllers.UserController.postEdit(id: Long)
+POST        /users/edit/:id/delete                  controllers.UserController.delete(id: Long)
+POST        /users/postCreate                       controllers.UserController.postCreate
 
 # Requirements
-GET         /requirements                        controllers.RequirementController.requirementList
+GET         /requirements                           controllers.RequirementController.requirementList
+POST        /requirements/:name/:description        controllers.RequirementController.addProject(name: String, description: String)
 
 # Authentication
-GET         /login                               controllers.AuthenticationController.login
-GET         /logout                              controllers.AuthenticationController.logout
-POST        /login                               controllers.AuthenticationController.loginUser
-POST        /register                            controllers.AuthenticationController.registerUser
-GET         /register                            controllers.AuthenticationController.registerRedirect
+GET         /login                                  controllers.AuthenticationController.login
+GET         /logout                                 controllers.AuthenticationController.logout
+POST        /login                                  controllers.AuthenticationController.loginUser
+POST        /register                               controllers.AuthenticationController.registerUser
+GET         /register                               controllers.AuthenticationController.registerRedirect
 
 # Javascript routing
-GET         /assets/javascripts/routes.js        controllers.ApplicationController.jsRoutes
+GET         /assets/javascripts/routes.js           controllers.ApplicationController.jsRoutes
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                        controllers.Assets.at(path="/public", file)
+GET         /assets/*file                           controllers.Assets.at(path="/public", file)

@@ -19,4 +19,12 @@ public class Project extends CommentAbleModel {
 
   @RelatedTo(type = Relations.PROJECT_CONTRIBUTOR, direction = Direction.INCOMING)
   public Set<User> contributors;
+
+  public static Project create(String name, String description, User author) {
+    Project result = new Project();
+    result.name = name;
+    result.description = description;
+    result.author = author;
+    return result;
+  }
 }
