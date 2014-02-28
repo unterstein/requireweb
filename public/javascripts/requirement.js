@@ -1,4 +1,5 @@
 $(function () {
+  /** project stuff */
   $("#newProject").click(function () {
     $("#projectModal").modal("show");
     $("#newProjectAdd").show();
@@ -35,4 +36,10 @@ $(function () {
     $("#newProjectAdd").hide();
     $("#projectEdit").hide();
   }
+
+
+  /** requirement stuff */
+  $("#newMainRequirement").click(function() {
+    return false;
+  })
 });
