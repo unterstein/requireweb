@@ -1,4 +1,4 @@
-@()(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@(id: Long = -1L)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
 @import global.Global
 
@@ -20,7 +20,7 @@
         <div class="panel-body">
           <ul class="nav nav-pills nav-stacked">
             @Neo4JServiceProvider.get().projectRepository.findByAuthorOrderByIdAsc(PlaySession.getUser).map { project =>
-              <li>
+              <li @if(project.id == id) {class="active"}>
                 @project.name
               </li>
             }
@@ -66,7 +66,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
-          <button type="button" class="btn btn-primary">@Messages("create")</button>
+          <button type="button" class="btn btn-primary" id="newProjectAdd">@Messages("create")</button>
         </div>
       </div>
     </div>

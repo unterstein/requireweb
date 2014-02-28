@@ -11,10 +11,15 @@ object RequirementController extends BaseController {
       Ok(views.html.require.requireListPage())
   }
 
+  def requirementListId(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      Ok(views.html.require.requireListPage(id))
+  }
+
   def addProject(name: String, description: String) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       val project = Project.create(name, description, PlaySession.getUser)
-      Ok("")
+      Ok(routes.RequirementController.requirementListId(project.id).url)
   }
 
 }

@@ -18,6 +18,7 @@ POST        /users/postCreate                       controllers.UserController.p
 
 # Requirements
 GET         /requirements                           controllers.RequirementController.requirementList
+GET         /requirements/:id                       controllers.RequirementController.requirementListId(id: Long)
 POST        /requirements/:name/:description        controllers.RequirementController.addProject(name: String, description: String)
 
 # Authentication

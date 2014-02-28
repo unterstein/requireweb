@@ -3,6 +3,7 @@ package neo4j.models.require;
 import neo4j.models.CommentAbleModel;
 import neo4j.models.user.User;
 import neo4j.relations.Relations;
+import neo4j.services.Neo4JServiceProvider;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -25,6 +26,7 @@ public class Project extends CommentAbleModel {
     result.name = name;
     result.description = description;
     result.author = author;
+    Neo4JServiceProvider.get().projectRepository.save(result);
     return result;
   }
 }
