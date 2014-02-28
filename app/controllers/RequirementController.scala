@@ -9,6 +9,7 @@ object RequirementController extends BaseController {
 
   def requirementList = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
+      // TODO not load all projects
       val projects = Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser)
       if(projects.size() > 0) {
         Ok(views.html.require.requireListPage(projects.get(0)))
