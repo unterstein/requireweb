@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="col-md-9">
-      <a class="btn btn-primary marginButton" id="newMainRequirement" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
+      <a class="btn btn-primary marginButton newRequirement" data-parent="0" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
       @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).map { requirement =>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -44,6 +44,7 @@
           </div>
           <div class="panel-body">
             @requirement.description
+            <a class="btn btn-primary marginButton newRequirement" data-parent="@requirement.id" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
           </div>
         </div>
       }
@@ -99,6 +100,7 @@
         <div class="modal-body">
           <form>
             <input type="hidden" id="requireProjectId" />
+            <input type="hidden" id="requireParent" />
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">

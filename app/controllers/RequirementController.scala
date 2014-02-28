@@ -84,6 +84,13 @@ object RequirementController extends BaseController {
           formWithErrors => Ok(formWithErrors.errorsAsJson),
           value => {
             val requirement = Requirement.create(value.requireName, value.requireDescription, user, project)
+            if (value.requireParent > 0) {
+              val parent = Neo4JServiceProvider.get().requirementRepository.findOne(value.requireParent)
+              if (parent != null && parent.project.id == requirement.project.id) {
+                requirement.parent = parent
+                Neo4JServiceProvider.get().requirementRepository.save(requirement)
+              }
+            }
             Ok(routes.RequirementController.requirementListId(id).url)
           }
         )
@@ -101,11 +108,12 @@ object RequirementController extends BaseController {
       "projectDescription" -> text
     )(CaseProject.apply)(CaseProject.unapply))
 
-  case class CaseRequirement(requireName: String, requireDescription: String)
+  case class CaseRequirement(requireName: String, requireDescription: String, requireParent: Int)
 
   val requireForm: Form[CaseRequirement] = Form(
     mapping(
       "requireName" -> nonEmptyText,
-      "requireDescription" -> text
+      "requireDescription" -> text,
+      "requireParent" -> number
     )(CaseRequirement.apply)(CaseRequirement.unapply))
 }

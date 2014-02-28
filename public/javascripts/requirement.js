@@ -52,10 +52,11 @@ $(function () {
 
 
   /** requirement stuff */
-  $("#newMainRequirement").click(function() {
+  $(".newRequirement").click(function() {
     $("#requireModal").modal("show");
     $("#newRequireAdd").show();
     $("#requireProjectId").val($(this).data("id"));
+    $("#requireParent").val($(this).data("parent"));
     return false;
   });
   /** add/edit buttons in modals */
@@ -63,7 +64,8 @@ $(function () {
     var id = $("#requireProjectId").val();
     var name = $("#requireName").val();
     var description = $("#requireDescription").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), { 'requireName': name, 'requireDescription': description}, function(data) {
+    var parent = $("#requireParent").val();
+    ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), { 'requireName': name, 'requireDescription': description, 'requireParent': parent}, function(data) {
       $(".has-error").removeClass("has-error");
       for(var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");
