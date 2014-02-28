@@ -14,13 +14,23 @@ $(function () {
   $("#newProjectAdd").click(function () {
     var name = $("#projectName").val();
     var description = $("#projectDescription").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), { 'projectName': name, 'projectDescription': description});
+    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), { 'projectName': name, 'projectDescription': description}, function(data) {
+      $(".has-error").removeClass("has-error");
+      if(data.projectName != undefined) {
+        $("#projectName").closest(".form-group").addClass("has-error");
+      }
+    });
   });
   $("#projectEdit").click(function () {
     var name = $("#projectName").val();
     var description = $("#projectDescription").val();
     var id = $("#projectId").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), { 'projectName': name, 'projectDescription': description});
+    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), { 'projectName': name, 'projectDescription': description}, function(data) {
+      $(".has-error").removeClass("has-error");
+      if(data.projectName != undefined) {
+        $("#projectName").closest(".form-group").addClass("has-error");
+      }
+    });
   });
   /** other stuff */
   hideAll();
@@ -33,6 +43,7 @@ $(function () {
   }
 
   function hideAll() {
+    $(".has-error").removeClass("has-error");
     $("#newProjectAdd").hide();
     $("#projectEdit").hide();
     $("#requireEdit").hide();
