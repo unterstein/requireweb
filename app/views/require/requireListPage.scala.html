@@ -135,8 +135,10 @@
       <h3 class="panel-title">@requirement.name</h3>
     </div>
     <div class="panel-body">
-      @requirement.description
       <a class="btn btn-primary marginButton newRequirement" data-parent="@requirement.id" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
+      <p>
+        @requirement.description
+      </p>
       @if(requirement.children != null) {
         @requirement.children.map { subRequirement =>
           <!-- TODO prefetch -->
