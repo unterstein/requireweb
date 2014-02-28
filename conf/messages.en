@@ -30,6 +30,7 @@ file.label=File
 file.select=Browse
 day.input.pattern=MM/dd/yyyy hh:mm
 save=Save
+create=Create
 edit=Edit
 back=Back
 delete=Delete

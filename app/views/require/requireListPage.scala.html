@@ -6,8 +6,12 @@
 @import neo4j.models.require.Requirement
 @import scala.collection.JavaConversions._
 
-@mainPage(Html(Messages("require.list.title")), fluid = true) {
-  <div class="row main_row">
+@scripts = {
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/requirement.js")'></script>
+}
+
+@mainPage(Html(Messages("require.list.title")), scripts = scripts, fluid = true) {
+  <div class="row mainRow">
     <div class="col-md-3">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -18,11 +22,10 @@
             @Neo4JServiceProvider.get().projectRepository.findByAuthorOrderByIdAsc(PlaySession.getUser).map { project =>
               <li>
                 @project.name
-                @project
               </li>
             }
             <li>
-              <a href="#"><i class="fa fa-plus"></i> @Messages("require.project.new")</a>
+              <a id="newProject" href="#"><i class="fa fa-plus"></i> @Messages("require.project.new")</a>
             </li>
           </ul>
         </div>
@@ -30,6 +33,25 @@
     </div>
     <div class="col-md-9">
       md9
+    </div>
+  </div>
+
+  <!-- new project dialog -->
+  <div class="modal fade" id="newModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">@Messages("require.project.new")</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
+          <button type="button" class="btn btn-primary">@Messages("create")</button>
+        </div>
+      </div>
     </div>
   </div>
 }
