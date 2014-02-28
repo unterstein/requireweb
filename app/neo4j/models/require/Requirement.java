@@ -1,7 +1,9 @@
 package neo4j.models.require;
 
 import neo4j.models.CommentAbleModel;
+import neo4j.models.user.User;
 import neo4j.relations.Relations;
+import neo4j.services.Neo4JServiceProvider;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.GraphProperty;
@@ -35,4 +37,13 @@ public class Requirement extends CommentAbleModel {
 
   public double realEffort;
 
+  public static Requirement create(String name, String description, User author, Project project) {
+    Requirement result = new Requirement();
+    result.name = name;
+    result.description = description;
+    result.author = author;
+    result.project = project;
+    Neo4JServiceProvider.get().requirementRepository.save(result);
+    return result;
+  }
 }

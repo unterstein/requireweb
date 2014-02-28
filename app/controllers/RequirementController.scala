@@ -1,7 +1,7 @@
 package controllers
 
 import neo4j.models.user.UserRole
-import neo4j.models.require.Project
+import neo4j.models.require.{Requirement, Project}
 import neo4j.services.Neo4JServiceProvider
 import play.api.data.Form
 import play.api.data.Forms._
@@ -80,9 +80,16 @@ object RequirementController extends BaseController {
       val user = PlaySession.getUser
       // TODO contributors ?
       if (project != null && project.author.id == user.id) {
-
+        requireForm.bindFromRequest.fold(
+          formWithErrors => Ok(formWithErrors.errorsAsJson),
+          value => {
+            val requirement = Requirement.create(value.requireName, value.requireDescription, user, project)
+            Ok(routes.RequirementController.requirementListId(id).url)
+          }
+        )
+      } else {
+        Ok(routes.RequirementController.requirementList().url)
       }
-      Ok(views.html.require.requireListPage())
   }
 
 
@@ -93,4 +100,12 @@ object RequirementController extends BaseController {
       "projectName" -> nonEmptyText,
       "projectDescription" -> text
     )(CaseProject.apply)(CaseProject.unapply))
+
+  case class CaseRequirement(requireName: String, requireDescription: String)
+
+  val requireForm: Form[CaseRequirement] = Form(
+    mapping(
+      "requireName" -> nonEmptyText,
+      "requireDescription" -> text
+    )(CaseRequirement.apply)(CaseRequirement.unapply))
 }
