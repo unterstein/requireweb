@@ -2,6 +2,7 @@
 
 @import global.Global
 
+@import neo4j.services.Neo4JServiceProvider
 @import neo4j.models.require.Requirement
 @import scala.collection.JavaConversions._
 
@@ -13,7 +14,14 @@
           <h3 class="panel-title">@Messages("require.side.title")</h3>
         </div>
         <div class="panel-body">
-          Panel content
+          <ul>
+            @Neo4JServiceProvider.get().projectRepository.findByAuthorOrderByIdAsc(PlaySession.getUser).map { project =>
+              <li>
+                @project.name
+                @project
+              </li>
+            }
+          </ul>
         </div>
       </div>
     </div>

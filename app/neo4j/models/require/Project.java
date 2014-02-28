@@ -14,6 +14,8 @@ import java.util.Set;
 @TypeAlias("Project")
 public class Project extends CommentAbleModel {
 
+  public String name;
+
   @RelatedTo(type = Relations.PROJECT_REQUIREMENT, direction = Direction.INCOMING)
   public Set<Requirement> requirements;
 
