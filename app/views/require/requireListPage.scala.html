@@ -38,15 +38,7 @@
     <div class="col-md-9">
       <a class="btn btn-primary marginButton newRequirement" data-parent="0" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
       @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).map { requirement =>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">@requirement.name</h3>
-          </div>
-          <div class="panel-body">
-            @requirement.description
-            <a class="btn btn-primary marginButton newRequirement" data-parent="@requirement.id" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
-          </div>
-        </div>
+        @renderRequirement(requirement)
       }
     </div>
   </div>
@@ -133,6 +125,24 @@
           <button type="button" class="btn btn-primary" id="requireEdit">@Messages("edit")</button>
         </div>
       </div>
+    </div>
+  </div>
+}
+
+@renderRequirement(requirement: Requirement) = {
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">@requirement.name</h3>
+    </div>
+    <div class="panel-body">
+      @requirement.description
+      <a class="btn btn-primary marginButton newRequirement" data-parent="@requirement.id" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
+      @if(requirement.children != null) {
+        @requirement.children.map { subRequirement =>
+          <!-- TODO prefetch -->
+          @renderRequirement(Neo4JServiceProvider.get().requirementRepository.findOne(subRequirement.id))
+        }
+      }
     </div>
   </div>
 }
