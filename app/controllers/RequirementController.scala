@@ -9,7 +9,12 @@ object RequirementController extends BaseController {
 
   def requirementList = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
-      Ok(views.html.require.requireListPage())
+      val projects = Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser)
+      if(projects.size() > 0) {
+        Ok(views.html.require.requireListPage(projects.get(0)))
+      } else {
+        Ok(views.html.require.requireListPage())
+      }
   }
 
   def requirementListId(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
