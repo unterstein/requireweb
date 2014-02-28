@@ -77,6 +77,7 @@ user.edit=Edit user
 # requirements
 require.list.title=<i class="fa fa-book"></i> Requirement management
 require.side.title=Project list
+require.project.new=Add new project
 
 
 # errors
