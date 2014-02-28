@@ -35,11 +35,15 @@ $(function () {
   function hideAll() {
     $("#newProjectAdd").hide();
     $("#projectEdit").hide();
+    $("#requireEdit").hide();
+    $("#newRequireAdd").hide();
   }
 
 
   /** requirement stuff */
   $("#newMainRequirement").click(function() {
+    $("#requireModal").modal("show");
+    $("#newRequireAdd").show();
     return false;
   })
 });

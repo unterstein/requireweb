@@ -64,6 +64,8 @@ field.userRole=User role
 field.userState= User state
 field.password=Password
 field.password.placeholder=Please enter a password
+field.estimatedEffort=Estimated Effort
+field.estimatedEffort.placeholder=Please enter estimated effort
 
 # dashboard
 dashboard.title=<i class="fa fa-signal"></i> Dashboard

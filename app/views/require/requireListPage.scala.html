@@ -53,12 +53,12 @@
         </div>
         <div class="modal-body">
           <form>
-            <input type="hidden" id="projectId" name="projectId" />
+            <input type="hidden" id="projectId" />
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="projectName" class="control-label">@Messages("name")</label>
-                  <input type="text" class="form-control" id="projectName" name="projectName" placeholder="@Messages("field.name.placeholder")" />
+                  <input type="text" class="form-control" id="projectName" placeholder="@Messages("field.name.placeholder")" />
                 </div>
               </div>
             </div>
@@ -66,7 +66,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="projectDescription" class="control-label">@Messages("field.description")</label>
-                  <textarea class="form-control" name="projectDescription" id="projectDescription"></textarea>
+                  <textarea class="form-control" id="projectDescription"></textarea>
                 </div>
               </div>
             </div>
@@ -76,6 +76,52 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
           <button type="button" class="btn btn-primary" id="newProjectAdd">@Messages("create")</button>
           <button type="button" class="btn btn-primary" id="projectEdit">@Messages("edit")</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- requirement modal -->
+  <div class="modal fade" id="requireModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">@Messages("require.new")</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <input type="hidden" id="projectId" />
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="requireName" class="control-label">@Messages("name")</label>
+                  <input type="text" class="form-control" id="requireName" placeholder="@Messages("field.name.placeholder")" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="requireDescription" class="control-label">@Messages("field.description")</label>
+                  <textarea class="form-control" id="requireDescription"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="requireEstimatedEffort" class="control-label">@Messages("field.estimatedEffort")</label>
+                  <input type="text" class="form-control" id="requireEstimatedEffort" placeholder="@Messages("field.estimatedEffort.placeholder")" />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
+          <button type="button" class="btn btn-primary" id="newRequireAdd">@Messages("create")</button>
+          <button type="button" class="btn btn-primary" id="requireEdit">@Messages("edit")</button>
         </div>
       </div>
     </div>
