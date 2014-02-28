@@ -17,8 +17,6 @@ public class User extends CommentAbleModel {
   @Indexed
   public String email;
 
-  public String name;
-
   public String password;
 
   public UserState userState;
@@ -64,10 +62,6 @@ public class User extends CommentAbleModel {
     Neo4JServiceProvider.get().userRepository.save(user);
   }
 
-  public boolean hasMinRole(UserRole userRole) {
-    return this.userRole.getRoleNumber() >= userRole.getRoleNumber();
-  }
-
   public static Iterator<User> findListForUser(User user) {
     switch (user.userRole) {
       case ADMIN:
@@ -79,6 +73,10 @@ public class User extends CommentAbleModel {
       default:
         return new ArrayList<User>().iterator();
     }
+  }
+
+  public boolean hasMinRole(UserRole userRole) {
+    return this.userRole.getRoleNumber() >= userRole.getRoleNumber();
   }
 
   @Override

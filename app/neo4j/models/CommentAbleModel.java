@@ -13,4 +13,7 @@ public class CommentAbleModel extends AbstractAuthoredModel {
   @RelatedTo(type = Relations.COMMENTABLE_COMMENT, direction = Direction.INCOMING)
   public Set<Comment> comments;
 
+  public String name;
+
+  public String description;
 }

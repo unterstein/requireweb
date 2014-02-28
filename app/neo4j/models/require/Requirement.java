@@ -24,10 +24,6 @@ public class Requirement extends CommentAbleModel {
   @RelatedTo(type = Relations.PROJECT_REQUIREMENT, direction = Direction.OUTGOING)
   public Project project;
 
-  public String headline;
-
-  public String text;
-
   @GraphProperty(propertyType = Long.class)
   public Date dueDate;
 
