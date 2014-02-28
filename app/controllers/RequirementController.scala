@@ -71,7 +71,7 @@ object RequirementController extends BaseController {
       if (project != null && project.author.id == user.id) {
         Neo4JServiceProvider.get().projectRepository.delete(project)
       }
-      Ok(views.html.require.requireListPage())
+      Ok(routes.RequirementController.requirementList().url)
   }
 
   def addRequirement(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {

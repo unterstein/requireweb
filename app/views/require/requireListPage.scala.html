@@ -22,7 +22,7 @@
             @Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser).map { project =>
               <li @if(currentProject != null && project.id == currentProject.id) {class="active"}>
                 <a href="@routes.RequirementController.requirementListId(project.id)">
-                    @project.name
+                    &nbsp; @project.name
                     <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteProject(project.id)" data-success="@routes.RequirementController.requirementList" onClick="return false;"></i>
                     <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id, '@project.name', '@project.description'); return false;"></i>
                 </a>
@@ -36,9 +36,16 @@
       </div>
     </div>
     <div class="col-md-9">
-      <a class="btn btn-primary pull-left" id="newMainRequirement" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
+      <a class="btn btn-primary marginButton" id="newMainRequirement" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
       @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).map { requirement =>
-        @requirement.name
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">@requirement.name</h3>
+          </div>
+          <div class="panel-body">
+            @requirement.description
+          </div>
+        </div>
       }
     </div>
   </div>

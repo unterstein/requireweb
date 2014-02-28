@@ -17,6 +17,10 @@ textarea {
   margin-right: 0;
 }
 
+.marginButton {
+  margin-bottom: 20px;
+}
+
 /**
  * upload field
  */
