@@ -12,6 +12,14 @@ textarea {
   min-height: 250px !important;
 }
 
+.main_row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/**
+ * upload field
+ */
 .uploadField {
   overflow: hidden;
 }
