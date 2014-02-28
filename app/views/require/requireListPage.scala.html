@@ -23,7 +23,7 @@
               <li @if(currentProject != null && project.id == currentProject.id) {class="active"}>
                 <a href="@routes.RequirementController.requirementListId(project.id)">
                     @project.name
-                    <i class="fa fa-trash-o delete pull-right" onClick="pDelete(@project.id); return false;"></i>
+                    <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.delete(project.id)" data-success="@routes.RequirementController.requirementList" onClick="return false;"></i>
                     <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id, '@project.name', '@project.description'); return false;"></i>
                 </a>
               </li>

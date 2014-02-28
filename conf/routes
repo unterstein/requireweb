@@ -21,6 +21,7 @@ GET         /requirements                        controllers.RequirementControll
 GET         /requirements/:id                    controllers.RequirementController.requirementListId(id: Long)
 POST        /project/add                         controllers.RequirementController.addProject
 POST        /project/:id                         controllers.RequirementController.editProject(id: Long)
+POST        /project/:id/delete                  controllers.RequirementController.delete(id: Long)
 
 # Authentication
 GET         /login                               controllers.AuthenticationController.login

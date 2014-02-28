@@ -11,7 +11,7 @@ object RequirementController extends BaseController {
     implicit request =>
       // TODO not load all projects
       val projects = Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser)
-      if(projects.size() > 0) {
+      if (projects.size() > 0) {
         Ok(views.html.require.requireListPage(projects.get(0)))
       } else {
         Ok(views.html.require.requireListPage())
@@ -52,6 +52,16 @@ object RequirementController extends BaseController {
       } else {
         Ok(routes.RequirementController.requirementList().url)
       }
+  }
+
+  def delete(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
+      val user = PlaySession.getUser
+      if (project != null && project.author.id == user.id) {
+        Neo4JServiceProvider.get().projectRepository.delete(project)
+      }
+      Ok(views.html.require.requireListPage())
   }
 
 }

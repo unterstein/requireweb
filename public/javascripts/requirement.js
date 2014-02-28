@@ -30,9 +30,6 @@ $(function () {
     $("#projectId").val(id);
     $("#projectEdit").show();
   }
-  window.pDelete = function (id) {
-
-  }
 
   function hideAll() {
     $("#newProjectAdd").hide();
