@@ -21,7 +21,11 @@
           <ul class="nav nav-pills nav-stacked">
             @Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser).map { project =>
               <li @if(currentProject != null && project.id == currentProject.id) {class="active"}>
-                <a href="@routes.RequirementController.requirementListId(project.id)">@project.name</a>
+                <a href="@routes.RequirementController.requirementListId(project.id)">
+                    @project.name
+                    <i class="fa fa-trash-o delete pull-right"></i>
+                    <i class="fa fa-edit edit pull-right"></i>
+                </a>
               </li>
             }
             <li>
