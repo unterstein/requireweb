@@ -1,4 +1,4 @@
-@(id: Long = -1L)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@(currentProject: neo4j.models.require.Project = null)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
 @import global.Global
 
@@ -19,9 +19,9 @@
         </div>
         <div class="panel-body">
           <ul class="nav nav-pills nav-stacked">
-            @Neo4JServiceProvider.get().projectRepository.findByAuthorOrderByIdAsc(PlaySession.getUser).map { project =>
-              <li @if(project.id == id) {class="active"}>
-                @project.name
+            @Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser).toList.sortBy(_.id).map { project =>
+              <li @if(currentProject != null && project.id == currentProject.id) {class="active"}>
+                <a href="@routes.RequirementController.requirementListId(project.id)">@project.name</a>
               </li>
             }
             <li>

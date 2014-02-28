@@ -11,5 +11,5 @@ import java.util.Set;
 public interface ProjectRepository extends GraphRepository<Project> {
 
   @Query("START user=node({0}) MATCH user-[:" + Relations.MODEL_AUTHOR + "|" + Relations.PROJECT_CONTRIBUTOR + "]->project WHERE (project: Project) RETURN project")
-  public Set<Project> findByAuthorOrderByIdAsc(User author);
+  public Set<Project> findByAuthorOrContributor(User author);
 }
