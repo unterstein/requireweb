@@ -66,12 +66,12 @@ field.password=Password
 field.password.placeholder=Please enter a password
 
 # dashboard
-dashboard.title=<i class="fa fa-signal"></i> Dashboard - all important information on one view
+dashboard.title=<i class="fa fa-signal"></i> Dashboard
 
 # users
 user.edit.title=Edit user
 user.create.title=Create new user
-user.list.title=<i class="fa fa-users"></i> List of users
+user.list.title=<i class="fa fa-users"></i> User management
 user.open=Edit user
 user.create=Create new user
 user.edit=Edit user
