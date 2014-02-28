@@ -48,7 +48,9 @@ navi.dashboard=Dashboard
 navi.logout=Log out
 navi.login=Log in
 navi.users=Users
+navi.require=Requirements
 
+# fields
 field.headline=Headline
 field.headline.placeholder=Please enter a headline
 field.text=Text
@@ -71,6 +73,10 @@ user.list.title=<i class="fa fa-users"></i> List of users
 user.open=Edit user
 user.create=Create new user
 user.edit=Edit user
+
+# requirements
+require.list.title=<i class="fa fa-book"></i> Requirement management
+
 
 # errors
 error.passwordNotMatch=Passwords do not match

@@ -16,6 +16,9 @@ POST        /users/edit/:id/edit                 controllers.UserController.post
 POST        /users/edit/:id/delete               controllers.UserController.delete(id: Long)
 POST        /users/postCreate                    controllers.UserController.postCreate
 
+# Requirements
+GET         /requirements                        controllers.RequirementController.requirementList
+
 # Authentication
 GET         /login                               controllers.AuthenticationController.login
 GET         /logout                              controllers.AuthenticationController.logout

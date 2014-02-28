@@ -5,29 +5,7 @@
 @import neo4j.models.require.Requirement
 @import scala.collection.JavaConversions._
 
-@mainPage(Html(Messages("require.list.title"))) {
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>@Messages("name")</th>
-            <th>@Messages("email")</th>
-          </tr>
-        </thead>
-        <tbody>
-          @Requirement.findListForUser(PlaySession.getUser).map { requirement =>
-              @buildRequirement(requirement)
-          }
-        </tbody>
-      </table>
-    </div>
-  </div>
-}
+@mainPage(Html(Messages("require.list.title")), fluid = true) {
+  huhu
 
-@buildRequirement(requirement: Requirement) = {
-  <tr>
-    <td>@requirement.id</td>
-    <td>@requirement.headline</td>
-  </tr>
 }

@@ -1,4 +1,4 @@
-@(headline: Html = Html(""), headline2: Html = Html(""), scripts: Html = Html(""), css: Html = Html(""))(content: Html)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@(headline: Html = Html(""), headline2: Html = Html(""), scripts: Html = Html(""), css: Html = Html(""), fluid: Boolean = false)(content: Html)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
 <!DOCTYPE html>
 
@@ -38,6 +38,7 @@
             <ul class="nav navbar-nav">
               @if(PlaySession.isLoggedIn) {
                 @buildNav("dashboard", "signal", routes.DashboardController.dashboard)
+                @buildNav("require", "book", routes.RequirementController.requirementList)
                 @buildNav("users", "users", routes.UserController.userList)
                 @buildNav("logout", "sign-out", routes.AuthenticationController.logout)
               } else {
@@ -49,9 +50,13 @@
       </div>
     </header>
 
-    <main class="container">
-      <h1 class="page-header">@headline</h1>
-      @content
+    <main>
+      <div class="container">
+        <h1 class="page-header">@headline</h1>
+      </div>
+      <div class="container@if(fluid){-fluid}">
+        @content
+      </div>
     </main>
 
     <!-- delete modal -->
