@@ -36,7 +36,9 @@
       </div>
     </div>
     <div class="col-md-9">
-      md9
+      @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).map { requirement =>
+        @requirement.name
+      }
     </div>
   </div>
 
