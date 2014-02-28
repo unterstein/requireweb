@@ -19,6 +19,11 @@
         @inputRow("email", "email", form.data.get("email"), form.errors("email").size > 0)
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        @textareaRow("description", form.data.get("description"), form.errors("description").size > 0)
+      </div>
+    </div>
     @if(id == 0 || PlaySession.isAdmin || PlaySession.getUser.id == id) {
       <div class="row">
         <div class="col-md-12">

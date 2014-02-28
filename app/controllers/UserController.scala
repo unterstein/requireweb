@@ -46,6 +46,7 @@ object UserController extends BaseController {
               dbUser.userRole = UserRole.valueOf(value.userRole)
               dbUser.userState = UserState.valueOf(value.userState)
             }
+            dbUser.description = value.description
             // TODO history data + changer
             Neo4JServiceProvider.get().userRepository.save(dbUser)
             Redirect(routes.UserController.userList)
@@ -73,6 +74,7 @@ object UserController extends BaseController {
               user.userRole = UserRole.USER
               user.userState = UserState.ACTIVE
             }
+            user.description = value.description
             Neo4JServiceProvider.get().userRepository.save(user)
             Redirect(routes.UserController.userList)
           }
@@ -88,14 +90,14 @@ object UserController extends BaseController {
       val user = Neo4JServiceProvider.get().userRepository.findOne(id)
       // admins are allowed to change all user, others are allowed to change only them self
       if (user != null && (PlaySession.hasMinRole(UserRole.ADMIN) || user.id == PlaySession.getUser.id)) {
-        val caseUser = CaseUser(user.name, user.email, "", user.userState.toString, user.userRole.toString)
+        val caseUser = CaseUser(user.name, user.email, "", user.userState.toString, user.userRole.toString, user.description)
         Ok(views.html.user.userEditPage(id, userForm.fill(caseUser), "edit"))
       } else {
         Redirect(routes.UserController.userList)
       }
   }
 
-  case class CaseUser(name: String, email: String, password: String, userState: String, userRole: String)
+  case class CaseUser(name: String, email: String, password: String, userState: String, userRole: String, description: String)
 
   val userForm: Form[CaseUser] = Form(
     mapping(
@@ -103,7 +105,8 @@ object UserController extends BaseController {
       "email" -> email,
       "password" -> text,
       "userState" -> nonEmptyText.verifying("error.choose", userState => UserState.enumModel().keys.contains(userState.toString)),
-      "userRole" -> nonEmptyText.verifying("error.choose", userRole => UserRole.enumModel().keys.contains(userRole.toString))
+      "userRole" -> nonEmptyText.verifying("error.choose", userRole => UserRole.enumModel().keys.contains(userRole.toString)),
+      "description" -> text
     )(CaseUser.apply)(CaseUser.unapply))
 
 }

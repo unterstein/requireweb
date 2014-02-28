@@ -57,6 +57,7 @@ field.headline.placeholder=Please enter a headline
 field.text=Text
 field.name=Name
 field.name.placeholder=Please enter a name
+field.description=Description
 field.email=E-Mail
 field.email.placeholder=Please enter an E-Mail
 field.userRole=User role
