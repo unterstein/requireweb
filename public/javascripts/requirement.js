@@ -1,5 +1,5 @@
-$(function() {
-  $("#newProject").click(function() {
+$(function () {
+  $("#newProject").click(function () {
     $("#newModal").modal("show");
     return false;
   });
@@ -7,9 +7,15 @@ $(function() {
   $("#newModal").on("show.bs.modal", function () {
     $(this).find(":input").val("");
   });
-  $("#newProjectAdd").click(function() {
+  $("#newProjectAdd").click(function () {
     var name = $("#newProjectName").val();
     var description = $("#newProjectDescription").val();
     ajaxCall(jsRoutes.controllers.RequirementController.addProject(name, description));
   });
+  window.pEdit = function (id) {
+
+  }
+  window.pDelete = function (id) {
+
+  }
 });

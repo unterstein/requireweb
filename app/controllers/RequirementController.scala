@@ -17,10 +17,10 @@ object RequirementController extends BaseController {
       val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
       val user = PlaySession.getUser
       // TODO contributors
-      if(project != null && project.author.id == user.id) {
+      if (project != null && project.author.id == user.id) {
         Ok(views.html.require.requireListPage(project))
       } else {
-        Redirect(routes.RequirementController.requirementList)
+        Redirect(routes.RequirementController.requirementList())
       }
 
   }
@@ -29,6 +29,21 @@ object RequirementController extends BaseController {
     implicit request =>
       val project = Project.create(name, description, PlaySession.getUser)
       Ok(routes.RequirementController.requirementListId(project.id).url)
+  }
+
+  def editProject(id: Long, name: String, description: String) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
+      val user = PlaySession.getUser
+      // TODO contributors
+      if (project != null && project.author.id == user.id) {
+        project.name = name
+        project.description = description
+        Neo4JServiceProvider.get().projectRepository.save(project)
+        Ok(routes.RequirementController.requirementListId(project.id).url)
+      } else {
+        Ok(routes.RequirementController.requirementList().url)
+      }
   }
 
 }

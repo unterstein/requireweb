@@ -19,7 +19,8 @@ object ApplicationController extends BaseController {
         import routes.javascript._
         Ok(
           Routes.javascriptRouter("jsRoutes")(
-            RequirementController.addProject
+            RequirementController.addProject,
+            RequirementController.editProject
           )
         ).as("text/javascript")
   }
