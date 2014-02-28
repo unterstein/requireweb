@@ -18,7 +18,7 @@ object ApplicationController extends BaseController {
       implicit request =>
         import routes.javascript._
         Ok(
-          Routes.javascriptRouter("adminJsRoutes")(
+          Routes.javascriptRouter("jsRoutes")(
             
           )
         ).as("text/javascript")
