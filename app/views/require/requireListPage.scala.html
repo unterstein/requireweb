@@ -45,7 +45,16 @@
           <h4 class="modal-title">@Messages("require.project.new")</h4>
         </div>
         <div class="modal-body">
-          <p>One fine body&hellip;</p>
+          <form>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="newProjectName" class="control-label">@Messages("name")</label>
+                  <input type="text" class="form-control" id="newProjectName" name="newProjectName" placeholder="@Messages("field.name.placeholder")" />
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
