@@ -19,7 +19,7 @@
         </div>
         <div class="panel-body">
           <ul class="nav nav-pills nav-stacked">
-            @Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser).toList.sortBy(_.id).map { project =>
+            @Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser).map { project =>
               <li @if(currentProject != null && project.id == currentProject.id) {class="active"}>
                 <a href="@routes.RequirementController.requirementListId(project.id)">@project.name</a>
               </li>

@@ -6,10 +6,10 @@ import neo4j.relations.Relations;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
-import java.util.Set;
+import java.util.List;
 
 public interface ProjectRepository extends GraphRepository<Project> {
 
-  @Query("START user=node({0}) MATCH user-[:" + Relations.MODEL_AUTHOR + "|" + Relations.PROJECT_CONTRIBUTOR + "]->project WHERE (project: Project) RETURN project")
-  public Set<Project> findByAuthorOrContributor(User author);
+  @Query("START user=node({0}) MATCH user-[:" + Relations.MODEL_AUTHOR + "|" + Relations.PROJECT_CONTRIBUTOR + "]->project WHERE (project: Project) RETURN project ORDER BY project.id ASC")
+  public List<Project> findByAuthorOrContributor(User author);
 }
