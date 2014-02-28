@@ -38,11 +38,10 @@ object RequirementController extends BaseController {
       projectForm.bindFromRequest.fold(
         formWithErrors => Ok(formWithErrors.errorsAsJson),
         value => {
-          val project = Project.create(value.requireName, value.requireDescription, PlaySession.getUser)
+          val project = Project.create(value.projectName, value.projectDescription, PlaySession.getUser)
           Ok(routes.RequirementController.requirementListId(project.id).url)
         }
       )
-      Ok(routes.RequirementController.requirementList().url)
   }
 
   def editProject(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
@@ -54,8 +53,8 @@ object RequirementController extends BaseController {
         projectForm.bindFromRequest.fold(
           formWithErrors => Ok(formWithErrors.errorsAsJson),
           value => {
-            project.name = value.requireName
-            project.description = value.requireDescription
+            project.name = value.projectName
+            project.description = value.projectDescription
             Neo4JServiceProvider.get().projectRepository.save(project)
             Ok(routes.RequirementController.requirementListId(project.id).url)
           }
@@ -87,11 +86,11 @@ object RequirementController extends BaseController {
   }
 
 
-  case class CaseProject(requireName: String, requireDescription: String)
+  case class CaseProject(projectName: String, projectDescription: String)
 
   val projectForm: Form[CaseProject] = Form(
     mapping(
-      "requireName" -> nonEmptyText,
-      "requireDescription" -> text
+      "projectName" -> nonEmptyText,
+      "projectDescription" -> text
     )(CaseProject.apply)(CaseProject.unapply))
 }
