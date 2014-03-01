@@ -42,6 +42,15 @@ $(function () {
     $("#projectEdit").show();
   }
 
+  window.rEdit = function (id, name, description, estimatedEffort) {
+    $("#requireModal").modal("show");
+    $("#requireName").val(name);
+    $("#reuireDescription").val(description);
+    $("#requireId").val(id);
+    $("#requireEstimatedEffort").val(estimatedEffort);
+    $("#requireEdit").show();
+  }
+
   function hideAll() {
     $(".has-error").removeClass("has-error");
     $("#newProjectAdd").hide();

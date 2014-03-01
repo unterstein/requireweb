@@ -135,6 +135,7 @@
       <h3 class="panel-title">
         @requirement.name
         <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteRequirement(requirement.id)" data-success="@routes.RequirementController.requirementListId(requirement.project.id)" onClick="return false;"></i>
+        <i class="fa fa-edit edit pull-right" onClick="rEdit(@requirement.id, '@requirement.name', '@requirement.description', '@requirement.estimatedEffort'); return false;"></i>
       </h3>
     </div>
     <div class="panel-body">
