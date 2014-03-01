@@ -70,14 +70,25 @@ object RequirementController extends BaseController {
       val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
       val user = PlaySession.getUser
       if (project != null && project.author.id == user.id) {
-        Neo4JServiceProvider.get().projectRepository.delete(project)
         if(project.requirements != null) {
           project.requirements.map { requirement =>
             deleteRequirementRecursive(requirement)
           }
         }
+        Neo4JServiceProvider.get().projectRepository.delete(project)
       }
       Ok(routes.RequirementController.requirementList().url)
+  }
+
+  def deleteRequirement(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
+      val projectId = requirement.project.id
+      val user = PlaySession.getUser
+      if (requirement != null && requirement.author.id == user.id) {
+        deleteRequirementRecursive(requirement)
+      }
+      Ok(routes.RequirementController.requirementListId(projectId).url)
   }
 
   private def deleteRequirementRecursive(inputRequirement: Requirement): Unit = {

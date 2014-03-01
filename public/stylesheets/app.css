@@ -21,6 +21,10 @@ textarea {
   margin-bottom: 20px;
 }
 
+.delete, .edit {
+  cursor: pointer !important;
+}
+
 /**
  * upload field
  */
