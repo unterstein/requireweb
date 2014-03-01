@@ -21,7 +21,8 @@ object ApplicationController extends BaseController {
           Routes.javascriptRouter("jsRoutes")(
             RequirementController.addProject,
             RequirementController.editProject,
-            RequirementController.addRequirement
+            RequirementController.addRequirement,
+            RequirementController.editRequirement
           )
         ).as("text/javascript")
   }

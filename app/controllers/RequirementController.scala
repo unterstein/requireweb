@@ -117,12 +117,35 @@ object RequirementController extends BaseController {
               if (parent != null && parent.project.id == requirement.project.id) {
                 requirement.parent = parent
               }
-              if(StringUtils.isNotBlank(value.requireEstimatedEffort)) {
-                requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort)
+              if (StringUtils.isNotBlank(value.requireEstimatedEffort)) {
+                requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort.replace(",", "."))
               }
               Neo4JServiceProvider.get().requirementRepository.save(requirement)
             }
             Ok(routes.RequirementController.requirementListId(id).url)
+          }
+        )
+      } else {
+        Ok(routes.RequirementController.requirementList().url)
+      }
+  }
+
+  def editRequirement(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
+      val user = PlaySession.getUser
+      // TODO contributors
+      if (requirement != null && requirement.author.id == user.id) {
+        requireForm.bindFromRequest.fold(
+          formWithErrors => Ok(formWithErrors.errorsAsJson),
+          value => {
+            requirement.name = value.requireName
+            requirement.description = value.requireDescription
+            if (StringUtils.isNotBlank(value.requireEstimatedEffort)) {
+              requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort.replace(",", "."))
+            }
+            Neo4JServiceProvider.get().requirementRepository.save(requirement)
+            Ok(routes.RequirementController.requirementListId(requirement.project.id).url)
           }
         )
       } else {

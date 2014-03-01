@@ -10,10 +10,8 @@ $(function () {
     hideAll();
     $(this).find(":input").val("");
   });
-  /** add/edit buttons in modals */
+  /** add/edit buttons in projet modal */
   $("#newProjectAdd").click(function () {
-    var name = $("#projectName").val();
-    var description = $("#projectDescription").val();
     ajaxCall(jsRoutes.controllers.RequirementController.addProject(), $("#projectForm").serialize(), function(data) {
       $(".has-error").removeClass("has-error");
       for(var prop in data) {
@@ -22,8 +20,6 @@ $(function () {
     });
   });
   $("#projectEdit").click(function () {
-    var name = $("#projectName").val();
-    var description = $("#projectDescription").val();
     var id = $("#projectId").val();
     ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), $("#projectForm").serialize(), function(data) {
       $(".has-error").removeClass("has-error");
@@ -48,6 +44,7 @@ $(function () {
     $("#reuireDescription").val(description);
     $("#requireId").val(id);
     $("#requireEstimatedEffort").val(estimatedEffort);
+    $("#requireParent").val("-1"); // TODO not needed yet
     $("#requireEdit").show();
   }
 
@@ -68,7 +65,7 @@ $(function () {
     $("#requireParent").val($(this).data("parent"));
     return false;
   });
-  /** add/edit buttons in modals */
+  /** add/edit buttons in require modal */
   $("#newRequireAdd").click(function () {
     var id = $("#requireProjectId").val();
     ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), $("#requireForm").serialize(), function(data) {
@@ -78,4 +75,14 @@ $(function () {
       }
     });
   });
+  $("#requireEdit").click(function () {
+    var id = $("#requireId").val();
+    ajaxCall(jsRoutes.controllers.RequirementController.editRequirement(id), $("#requireForm").serialize(), function(data) {
+      $(".has-error").removeClass("has-error");
+      for(var prop in data) {
+        $("#" + prop).closest(".form-group").addClass("has-error");
+      }
+    });
+  });
+
 });
