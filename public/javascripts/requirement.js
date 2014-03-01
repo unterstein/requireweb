@@ -41,7 +41,7 @@ $(function () {
   window.rEdit = function (id, name, description, estimatedEffort) {
     $("#requireModal").modal("show");
     $("#requireName").val(name);
-    $("#reuireDescription").val(description);
+    $("#requireDescription").val(description);
     $("#requireId").val(id);
     $("#requireEstimatedEffort").val(estimatedEffort);
     $("#requireParent").val("-1"); // TODO not needed yet

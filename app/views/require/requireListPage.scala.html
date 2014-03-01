@@ -1,4 +1,5 @@
 @(currentProject: neo4j.models.require.Project = null)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@import org.apache.commons.lang.StringUtils
 
 @import global.Global
 
@@ -141,14 +142,18 @@
     </div>
     <div class="panel-body">
       <a class="btn btn-primary marginButton newRequirement" data-parent="@requirement.id" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
+      @if(StringUtils.isNotBlank(requirement.description)) {
       <div class="form-group">
         <label class="control-label">@Messages("field.description")</label>
         <p class="form-control-static">@requirement.description</p>
       </div>
+      }
+      @if(requirement.estimatedEffort > 0) {
       <div class="form-group">
         <label class="control-label">@Messages("field.estimatedEffort")</label>
         <p class="form-control-static">@requirement.estimatedEffort</p>
       </div>
+      }
       @if(requirement.children != null && requirement.children.size() > 0) {
         <h4>@Messages("require.sub.title")</h4>
         @requirement.children.map { subRequirement =>
