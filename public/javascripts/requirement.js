@@ -44,7 +44,7 @@ $(function () {
     $("#requireDescription").val(description);
     $("#requireId").val(id);
     $("#requireEstimatedEffort").val(estimatedEffort);
-    $("#requireParent").val("-1"); // TODO not needed yet
+    $("#requireParent").val("-1"); // TODO not needed yet, but keep in mind ;)
     $("#requireEdit").show();
   }
 
