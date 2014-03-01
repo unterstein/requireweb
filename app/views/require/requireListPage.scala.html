@@ -149,8 +149,8 @@
         <label class="control-label">@Messages("field.estimatedEffort")</label>
         <p class="form-control-static">@requirement.estimatedEffort</p>
       </div>
-      @if(requirement.children != null) {
-        <h4>Sub requirements</h4>
+      @if(requirement.children != null && requirement.children.size() > 0) {
+        <h4>@Messages("require.sub.title")</h4>
         @requirement.children.map { subRequirement =>
           <!-- TODO prefetch -->
           @renderRequirement(Neo4JServiceProvider.get().requirementRepository.findOne(subRequirement.id))
