@@ -64,8 +64,8 @@ field.userRole=User role
 field.userState= User state
 field.password=Password
 field.password.placeholder=Please enter a password
-field.estimatedEffort=Estimated Effort
-field.estimatedEffort.placeholder=Please enter estimated effort
+field.estimatedEffort=Estimated Effort [hours]
+field.estimatedEffort.placeholder=Please enter estimated effort in hours
 
 # dashboard
 dashboard.title=<i class="fa fa-signal"></i> Dashboard
@@ -84,10 +84,10 @@ require.side.title=Project list
 require.project.new=Add new project
 require.new=Add new requirement
 
-
 # errors
 error.passwordNotMatch=Passwords do not match
 error.duplicateEmail=E-Mail already exists
 error.signInFailed=Login failed
 error.email=Email required
 error.required=Field required
+error.format=Wrong input format

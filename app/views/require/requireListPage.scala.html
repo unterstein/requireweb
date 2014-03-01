@@ -52,13 +52,13 @@
           <h4 class="modal-title">@Messages("require.project.new")</h4>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="projectForm">
             <input type="hidden" id="projectId" />
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="projectName" class="control-label">@Messages("name")</label>
-                  <input type="text" class="form-control" id="projectName" placeholder="@Messages("field.name.placeholder")" />
+                  <input type="text" class="form-control" id="projectName" name="projectName" placeholder="@Messages("field.name.placeholder")" />
                 </div>
               </div>
             </div>
@@ -66,7 +66,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="projectDescription" class="control-label">@Messages("field.description")</label>
-                  <textarea class="form-control" id="projectDescription"></textarea>
+                  <textarea class="form-control" id="projectDescription" name="projectDescription"></textarea>
                 </div>
               </div>
             </div>
@@ -90,14 +90,14 @@
           <h4 class="modal-title">@Messages("require.new")</h4>
         </div>
         <div class="modal-body">
-          <form>
-            <input type="hidden" id="requireProjectId" />
-            <input type="hidden" id="requireParent" />
+          <form id="requireForm">
+            <input type="hidden" id="requireProjectId" name="requireProjectId" />
+            <input type="hidden" id="requireParent" name="requireParent" />
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="requireName" class="control-label">@Messages("name")</label>
-                  <input type="text" class="form-control" id="requireName" placeholder="@Messages("field.name.placeholder")" />
+                  <input type="text" class="form-control" id="requireName" name="requireName" placeholder="@Messages("field.name.placeholder")" />
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="requireDescription" class="control-label">@Messages("field.description")</label>
-                  <textarea class="form-control" id="requireDescription"></textarea>
+                  <textarea class="form-control" id="requireDescription" name="requireDescription"></textarea>
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="requireEstimatedEffort" class="control-label">@Messages("field.estimatedEffort")</label>
-                  <input type="text" class="form-control" id="requireEstimatedEffort" placeholder="@Messages("field.estimatedEffort.placeholder")" />
+                  <input type="text" class="form-control" id="requireEstimatedEffort" name="requireEstimatedEffort" placeholder="@Messages("field.estimatedEffort.placeholder")" />
                 </div>
               </div>
             </div>
@@ -141,6 +141,8 @@
       <a class="btn btn-primary marginButton newRequirement" data-parent="@requirement.id" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
       <p>
         @requirement.description
+        <br/>
+        @requirement.estimatedEffort
       </p>
       @if(requirement.children != null) {
         @requirement.children.map { subRequirement =>

@@ -14,7 +14,7 @@ $(function () {
   $("#newProjectAdd").click(function () {
     var name = $("#projectName").val();
     var description = $("#projectDescription").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), { 'projectName': name, 'projectDescription': description}, function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), $("#projectForm").serialize(), function(data) {
       $(".has-error").removeClass("has-error");
       for(var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");
@@ -25,7 +25,7 @@ $(function () {
     var name = $("#projectName").val();
     var description = $("#projectDescription").val();
     var id = $("#projectId").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), { 'projectName': name, 'projectDescription': description}, function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), $("#projectForm").serialize(), function(data) {
       $(".has-error").removeClass("has-error");
       for(var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");
@@ -62,10 +62,7 @@ $(function () {
   /** add/edit buttons in modals */
   $("#newRequireAdd").click(function () {
     var id = $("#requireProjectId").val();
-    var name = $("#requireName").val();
-    var description = $("#requireDescription").val();
-    var parent = $("#requireParent").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), { 'requireName': name, 'requireDescription': description, 'requireParent': parent}, function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), $("#requireForm").serialize(), function(data) {
       $(".has-error").removeClass("has-error");
       for(var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");

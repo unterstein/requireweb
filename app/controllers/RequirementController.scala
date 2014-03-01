@@ -6,6 +6,7 @@ import neo4j.services.Neo4JServiceProvider
 import play.api.data.Form
 import play.api.data.Forms._
 import scala.collection.JavaConversions._
+import org.apache.commons.lang.StringUtils
 
 
 object RequirementController extends BaseController {
@@ -115,8 +116,11 @@ object RequirementController extends BaseController {
               val parent = Neo4JServiceProvider.get().requirementRepository.findOne(value.requireParent)
               if (parent != null && parent.project.id == requirement.project.id) {
                 requirement.parent = parent
-                Neo4JServiceProvider.get().requirementRepository.save(requirement)
               }
+              if(StringUtils.isNotBlank(value.requireEstimatedEffort)) {
+                requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort)
+              }
+              Neo4JServiceProvider.get().requirementRepository.save(requirement)
             }
             Ok(routes.RequirementController.requirementListId(id).url)
           }
@@ -135,12 +139,15 @@ object RequirementController extends BaseController {
       "projectDescription" -> text
     )(CaseProject.apply)(CaseProject.unapply))
 
-  case class CaseRequirement(requireName: String, requireDescription: String, requireParent: Int)
+  case class CaseRequirement(requireName: String, requireDescription: String, requireParent: Int, requireEstimatedEffort: String)
 
   val requireForm: Form[CaseRequirement] = Form(
     mapping(
       "requireName" -> nonEmptyText,
       "requireDescription" -> text,
-      "requireParent" -> number
+      "requireParent" -> number,
+      "requireEstimatedEffort" -> text.verifying("error.format", effort => {
+        if(effort == null) { true } else { isDoubleNumber(effort.replace("," ,".")) }
+      })
     )(CaseRequirement.apply)(CaseRequirement.unapply))
 }
