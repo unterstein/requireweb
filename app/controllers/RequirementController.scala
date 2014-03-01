@@ -5,6 +5,7 @@ import neo4j.models.require.{Requirement, Project}
 import neo4j.services.Neo4JServiceProvider
 import play.api.data.Form
 import play.api.data.Forms._
+import scala.collection.JavaConversions._
 
 
 object RequirementController extends BaseController {
@@ -70,8 +71,23 @@ object RequirementController extends BaseController {
       val user = PlaySession.getUser
       if (project != null && project.author.id == user.id) {
         Neo4JServiceProvider.get().projectRepository.delete(project)
+        if(project.requirements != null) {
+          project.requirements.map { requirement =>
+            deleteRequirementRecursive(requirement)
+          }
+        }
       }
       Ok(routes.RequirementController.requirementList().url)
+  }
+
+  private def deleteRequirementRecursive(inputRequirement: Requirement): Unit = {
+    val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(inputRequirement.id)
+    if(requirement.children != null) {
+      requirement.children.map { children =>
+        deleteRequirementRecursive(children)
+      }
+    }
+    Neo4JServiceProvider.get().requirementRepository.delete(requirement)
   }
 
   def addRequirement(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
