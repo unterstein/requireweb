@@ -28,6 +28,7 @@ public class Project extends CommentAbleModel {
     result.name = name;
     result.description = description;
     result.author = author;
+    result.projectState = ProjectState.IN_PLANNING;
     Neo4JServiceProvider.get().projectRepository.save(result);
     return result;
   }
