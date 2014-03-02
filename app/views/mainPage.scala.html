@@ -104,7 +104,7 @@
 </html>
 
 @buildNav(name: String, cssClass: String, route: Object) = {
-  <li class="@("active".when(route.toString.equals(request.uri)))">
+  <li class="@("active".when(request.uri.contains(route.toString)))">
     <a href="@route">
       <i class="fa fa-@cssClass"></i> @Messages("navi." + name)
     </a>
