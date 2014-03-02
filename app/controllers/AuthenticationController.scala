@@ -41,14 +41,18 @@ object AuthenticationController extends BaseController {
 
   def registerUser = LoggingAction {
     implicit request =>
-      registerForm.bindFromRequest.fold(
-        formWithErrors => Ok(html.signin.loginPage(loginForm, formWithErrors)),
-        value => {
-          val user = User.create(value.registerEmail, value.registerPassword, null) // create the user
-          PlayLog.create("User registered", LogLevel.INFO, LogCategory.SESSION, request, user)
-          Redirect(value.registerUrl).withSession(PlaySession.AUTH_SESSION -> value.registerEmail) // redirect please
-        }
-      )
+      if(Global.registerAllowed) {
+        registerForm.bindFromRequest.fold(
+          formWithErrors => Ok(html.signin.loginPage(loginForm, formWithErrors)),
+          value => {
+            val user = User.create(value.registerEmail, value.registerPassword, null) // create the user
+            PlayLog.create("User registered", LogLevel.INFO, LogCategory.SESSION, request, user)
+            Redirect(value.registerUrl).withSession(PlaySession.AUTH_SESSION -> value.registerEmail) // redirect please
+          }
+        )
+      } else {
+        Redirect(routes.AuthenticationController.login)
+      }
   }
 
   def logout = LoggingAction {

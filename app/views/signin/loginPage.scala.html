@@ -1,5 +1,6 @@
 @(loginForm: play.api.data.Form[AuthenticationController.Login], registerForm: play.api.data.Form[AuthenticationController.Register])(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
+@import global.Global
 @import play.api.i18n.Messages
 @import scala.collection.JavaConversions._
 
@@ -13,9 +14,11 @@
       <div class="col-md-6">
         @views.html.signin.loginPanel(loginForm)
       </div>
-      <div class="col-md-6">
-        @views.html.signin.registerPanel(registerForm)
-      </div>
+      @if(Global.registerAllowed) {
+        <div class="col-md-6">
+          @views.html.signin.registerPanel(registerForm)
+        </div>
+      }
     </div>
   </section>
 }

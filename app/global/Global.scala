@@ -57,13 +57,15 @@ object Global extends GlobalSettings {
   def getFileSystemImplementation(): String = fileSystemImplementation
 
   private def initDevLogging() = {
-    performanceLogging = Play.isProd(app) || config().getBoolean("dev.performance.logging").get
-    playLogLogging = Play.isProd(app) || config().getBoolean("dev.playLog.logging").get
+    performanceLogging = Play.isProd(app) || config().getBoolean("dev.performance.logging").getOrElse(false)
+    playLogLogging = Play.isProd(app) || config().getBoolean("dev.playLog.logging").getOrElse(false)
   }
 
   def config(): Configuration = app.configuration
 
   def isDev: Boolean = Play.isDev(app)
+
+  def registerAllowed: Boolean = config().getBoolean("register.allowed").getOrElse(false)
 
   def isPerformanceLogging = performanceLogging
 
