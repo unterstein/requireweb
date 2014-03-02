@@ -33,6 +33,8 @@ public class Requirement extends CommentAbleModel {
 
   public boolean implemented;
 
+  public boolean tested;
+
   public double estimatedEffort;
 
   public double realEffort;
