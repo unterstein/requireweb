@@ -72,6 +72,14 @@
     $("select.select2, .select2 select").select2({
       minimumResultsForSearch: 7
     });
+    $(".datetimepicker").each(function() {
+      $(this).datetimepicker({
+        pickSeconds: false,
+        pickTime: $(this).find(":input").data("time"),
+        startDate: new Date(),
+        format: $(this).find(":input").data("format")
+      });
+    });
   });
 
   function doFileUpload() {

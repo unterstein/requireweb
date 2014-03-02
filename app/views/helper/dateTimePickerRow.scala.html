@@ -1,0 +1,8 @@
+@(name: String, value: Option[String], error: Boolean, i18n: String = "", time: Boolean = false)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+<div class="form-group @("has-error".when(error == true))">
+  <label for="@name" class="control-label">@Messages(if(i18n == "") { "field." + name.replace("[$x]", "") } else { i18n })</label>
+  <div class="datetimepicker input-group date">
+    <input name="@name" id="@name" type="text" class="form-control" data-time="@time" data-format="@Messages("day.input.pattern." + time)" name="startDate" placeholder="@Messages("day.input.pattern." + time)" value="@value">
+    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+  </div>
+</div>

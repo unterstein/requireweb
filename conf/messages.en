@@ -28,7 +28,8 @@ no=No
 cancel=Cancel
 file.label=File
 file.select=Browse
-day.input.pattern=MM/dd/yyyy hh:mm
+day.input.pattern.true=MM/dd/yyyy hh:mm
+day.input.pattern.false=MM/dd/yyyy
 save=Save
 create=Create
 edit=Edit
@@ -66,6 +67,7 @@ field.password=Password
 field.password.placeholder=Please enter a password
 field.estimatedEffort=Estimated Effort [hours]
 field.estimatedEffort.placeholder=Please enter estimated effort in hours
+field.date=Date
 
 # dashboard
 dashboard.title=<i class="fa fa-signal"></i> Dashboard
