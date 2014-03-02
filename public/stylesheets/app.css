@@ -25,6 +25,10 @@ textarea {
   cursor: pointer !important;
 }
 
+.dropdown i {
+  width: 20px;
+}
+
 /**
  * upload field
  */

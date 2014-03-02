@@ -1,0 +1,84 @@
+@(logLevel: neo4j.models.log.LogLevel)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+
+@import org.springframework.data.neo4j.conversion.EndResult
+@import neo4j.models.log.PlayLog
+@import neo4j.services.Neo4JServiceProvider
+@import scala.collection.JavaConversions._
+@import play.api.i18n.Messages
+
+@scripts = {
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/jquery.dataTables.min.js")'></script>
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/admin.js")'></script>
+}
+
+@css = {
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery.dataTables.css")">
+}
+
+@mainPage(Html(Messages("logs")), scripts, css) {
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">@Messages("status.logs.all")</div>
+
+          <div class="panel-body">
+            <table class="table table-striped table-hover tablesorter desc">
+              <thead>
+                <tr>
+                  <th>@Messages("status.date")</th>
+                  <th>@Messages("status.logs.logLevel")</th>
+                  <th>@Messages("status.logs.logCategory")</th>
+                  <th>@Messages("status.logs.httpUrl")</th>
+                  <th>@Messages("status.logs.httpMethod")</th>
+                  <th>@Messages("status.logs.message")</th>
+                  <th>@Messages("status.logs.user")</th>
+                  <th>@Messages("status.logs.exception")</th>
+                </tr>
+              </thead>
+              <tbody>
+              @{
+                var logs: EndResult[PlayLog] = null
+                if (logLevel == null) {
+                  logs = Neo4JServiceProvider.get().playLogRepository.findAll()
+                } else {
+                  logs = Neo4JServiceProvider.get().playLogRepository.findByLogLevel(logLevel)
+                }
+                logs.iterator.map {
+                  playLog =>
+                    buildRow(playLog)
+                }
+              }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@buildRow(playLog: PlayLog) = {
+  <tr>
+    <td class="nowrap">@playLog.formattedDate(Messages("date.pattern"))</td>
+    <td>@playLog.logLevel</td>
+    <td>@playLog.logCategory</td>
+    <td>@playLog.httpUrl</td>
+    <td>@playLog.httpMethod</td>
+    <td>@playLog.message</td>
+    <td>@playLog.userIdentifier</td>
+    <td>
+    @{
+      if(playLog.exception != null) {
+        buildException(playLog.exception.replace("\n", "<br/>").replace("\"", "'"))
+      }
+    }
+    </td>
+  </tr>
+}
+
+@buildException(exception: String) = {
+  <a href="#" onClick="return false;" class="btn btn-default showException" data-content="@exception">
+    @Messages("status.logs.openException")
+  </a>
+}

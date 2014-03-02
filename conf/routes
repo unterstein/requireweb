@@ -26,6 +26,12 @@ POST        /project/:id/requirement             controllers.RequirementControll
 POST        /project/:id                         controllers.RequirementController.editProject(id: Long)
 POST        /project/:id/delete                  controllers.RequirementController.deleteProject(id: Long)
 
+# Admin
+GET         /admin/performance                   controllers.AdminController.performance
+GET         /admin/allperformance                controllers.AdminController.allPerformance
+GET         /admin/logs                          controllers.AdminController.logs
+GET         /admin/logs/:logLevel                controllers.AdminController.logsByLogLevel(logLevel: String)
+
 # Authentication
 GET         /login                               controllers.AuthenticationController.login
 GET         /logout                              controllers.AuthenticationController.logout

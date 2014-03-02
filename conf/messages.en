@@ -94,3 +94,65 @@ error.signInFailed=Login failed
 error.email=Email required
 error.required=Field required
 error.format=Wrong input format
+
+#########################################################################################################
+##################### ADMIN AREA
+#########################################################################################################
+
+# admin
+status.date=Date
+day.input.pattern=MM/dd/yyyy hh:mm
+date.pattern=MM/dd/yyyy - K:mm:ss a
+navi.adminRoot=Admin
+navi.performance=Aggregated performance
+navi.allPerformance=Single performance
+navi.logs=Logs
+
+## performance
+performance=Performance
+status.performance.requests=Request performance
+status.performance.httpUrl=Url
+status.performance.httpMethod=HTTP method
+status.performance.duration=Request duration [ms]
+status.performance.user=User
+status.performance.aggregation=Aggregated requests
+status.performance.aggregation.min=Min [ms]
+status.performance.aggregation.max=Max [ms]
+status.performance.aggregation.avg=Average [ms]
+status.performance.aggregation.total=Total requests
+status.performance.urls=Requests per url
+status.performance.urls.url=Url
+status.performance.urls.max=Max [ms]
+status.performance.urls.min=Min [ms]
+status.performance.urls.avg=Avg [avg]
+status.performance.urls.total=Total requests
+status.performance.time=Requests per time
+status.performance.time.lastMonth=Last 30 days
+status.performance.time.lastWeek=Last 7 days
+status.performance.time.lastDay=Last day
+status.performance.time.lastHour=Last hour
+status.performance.time.lastMinute=Last minute
+
+## logs
+logs=Logs
+status.logs.all=All logs
+status.logs.httpUrl=Url
+status.logs.httpMethod=HTTP method
+status.logs.message=Log message
+status.logs.logCategory=Category
+status.logs.logLevel=Log level
+status.logs.exception=Exception
+status.logs.user=User
+status.logs.openException=Show/hide exception
+
+## stats
+stats=Statistics
+status.stats.all=All stats
+status.stats.user=Users [#]
+status.stats.votes=Votes [#]
+status.stats.authorized=Authorized voters [#]
+status.stats.voted=Actually voted voters [#]
+status.stats.smsReceived=Sms send by system [#]
+
+# error
+noAggregation=Sorry, no aggregation available.

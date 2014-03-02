@@ -1,0 +1,122 @@
+@()(implicit request: play.api.mvc.Request[Any], lang: Lang)
+
+@import neo4j.models.log.PerformanceLog
+@import neo4j.services.Neo4JServiceProvider
+@import play.api.i18n.Messages
+
+@scripts = {
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/jquery.dataTables.min.js")'></script>
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/admin.js")'></script>
+}
+
+@css = {
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery.dataTables.css")">
+}
+
+@mainPage(Html(Messages("performance")), scripts, css) {
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">@Messages("status.performance.aggregation")</div>
+
+          <div class="panel-body">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>@Messages("status.performance.aggregation.min")</th>
+                  <th>@Messages("status.performance.aggregation.max")</th>
+                  <th>@Messages("status.performance.aggregation.avg")</th>
+                  <th>@Messages("status.performance.aggregation.total")</th>
+                </tr>
+              </thead>
+              <tbody>
+                @{
+                  try {
+                    buildAggregation(Neo4JServiceProvider.get.performanceLogRepository.findRequestResult())
+                  } catch {
+                    case e: Exception => buildNoAggregation()
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">@Messages("status.performance.time")</div>
+
+          <div class="panel-body">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>@Messages("status.performance.time.lastMonth")</th>
+                  <th>@Messages("status.performance.time.lastWeek")</th>
+                  <th>@Messages("status.performance.time.lastDay")</th>
+                  <th>@Messages("status.performance.time.lastHour")</th>
+                  <th>@Messages("status.performance.time.lastMinute")</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>@Neo4JServiceProvider.get.performanceLogRepository.findTimeResult(7*90000000*30)</td>
+                  <td>@Neo4JServiceProvider.get.performanceLogRepository.findTimeResult(7*90000000)</td>
+                  <td>@Neo4JServiceProvider.get.performanceLogRepository.findTimeResult(90000000)</td>
+                  <td>@Neo4JServiceProvider.get.performanceLogRepository.findTimeResult(3600000)</td>
+                  <td>@Neo4JServiceProvider.get.performanceLogRepository.findTimeResult(60000)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">@Messages("status.performance.urls")</div>
+
+          <div class="panel-body">
+            <table class="table table-striped table-hover tablesorter asc">
+              <thead>
+                <tr>
+                  <th>@Messages("status.performance.urls.url")</th>
+                  <th>@Messages("status.performance.urls.min")</th>
+                  <th>@Messages("status.performance.urls.max")</th>
+                  <th>@Messages("status.performance.urls.avg")</th>
+                  <th>@Messages("status.performance.urls.total")</th>
+                </tr>
+              </thead>
+              <tbody>
+              @for(urlMap: neo4j.repositories.PerformanceLogRepository.UrlMap <- Neo4JServiceProvider.get().performanceLogRepository.findRequestMaps()) {
+                @if(urlMap.getTotal > 1) {
+                  <tr>
+                    <td>@urlMap.getUrl</td>
+                    <td>@urlMap.getMin</td>
+                    <td>@urlMap.getMax</td>
+                    <td>@urlMap.getAvg</td>
+                    <td>@urlMap.getTotal</td>
+                  </tr>
+                }
+              }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+}
+
+@buildAggregation(result: neo4j.repositories.PerformanceLogRepository.RequestResult) = {
+  <tr>
+    <td>@result.getMin</td>
+    <td>@result.getMax</td>
+    <td>@result.getAvg</td>
+    <td>@result.getTotal</td>
+  </tr>
+}
+
+@buildNoAggregation() = {
+  <tr>
+    <td colspan="4" class="noInvoices">@Messages("noAggregation")</td>
+  </tr>
+}

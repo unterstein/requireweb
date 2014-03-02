@@ -43,6 +43,17 @@
                 @buildNav("dashboard", "signal", routes.DashboardController.dashboard)
                 @buildNav("require", "book", routes.RequirementController.requirementList)
                 @buildNav("users", "users", routes.UserController.userList)
+                @if(PlaySession.isAdmin) {
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-umbrella"></i> @Messages("navi.adminRoot") <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      @buildNav("performance", "bars", routes.AdminController.performance)
+                      @buildNav("allPerformance", "bolt", routes.AdminController.allPerformance)
+                      <li class="divider"></li>
+                      @buildNav("logs", "archive", routes.AdminController.logs)
+                    </ul>
+                  </li>
+                }
                 @buildNav("logout", "sign-out", routes.AuthenticationController.logout)
               } else {
                 @buildNav("login", "sign-in", routes.AuthenticationController.login)

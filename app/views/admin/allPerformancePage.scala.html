@@ -1,0 +1,61 @@
+@()(implicit request: play.api.mvc.Request[Any], lang: Lang)
+
+@import neo4j.models.log.PerformanceLog
+@import neo4j.services.Neo4JServiceProvider
+@import play.api.i18n.Messages
+@import scala.collection.JavaConversions._
+
+@scripts = {
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/jquery.dataTables.min.js")'></script>
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/admin.js")'></script>
+}
+
+@css = {
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery.dataTables.css")">
+}
+
+@mainPage(Html(Messages("performance")), scripts, css) {
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">@Messages("status.performance.requests")</div>
+
+          <div class="panel-body">
+            <table class="table table-striped table-hover tablesorter desc">
+              <thead>
+                <tr>
+                  <th>@Messages("status.date")</th>
+                  <th>@Messages("status.performance.httpUrl")</th>
+                  <th>@Messages("status.performance.httpMethod")</th>
+                  <th>@Messages("status.performance.user")</th>
+                  <th>@Messages("status.performance.duration")</th>
+                </tr>
+              </thead>
+              <tbody>
+              @for(performanceLog: PerformanceLog <- Neo4JServiceProvider.get().performanceLogRepository.findAll().iterator()) {
+                <tr>
+                  <td class="nowrap">@performanceLog.formattedDate(Messages("date.pattern"))</td>
+                  <td>@performanceLog.httpUrl</td>
+                  <td>@performanceLog.httpMethod</td>
+                  <td>@performanceLog.userIdentifier</td>
+                  <td>@performanceLog.duration</td>
+                </tr>
+              }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@buildAggregation(result: neo4j.repositories.PerformanceLogRepository.RequestResult) = {
+  <tr>
+    <td>@result.getMin</td>
+    <td>@result.getMax</td>
+    <td>@result.getAvg</td>
+    <td>@result.getTotal</td>
+  </tr>
+}
