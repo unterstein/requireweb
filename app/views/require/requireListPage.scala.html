@@ -136,6 +136,7 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         @requirement.name
+        (@Messages("require.own") @requirement.estimatedEffort @Messages("require.hours") @if(requirement.children != null && requirement.children.size() >0 ){, @Messages("require.children") @Neo4JServiceProvider.get().requirementRepository.findChildEstimatedEffort(requirement) @Messages("require.hours")})
         <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteRequirement(requirement.id)" data-success="@routes.RequirementController.requirementListId(requirement.project.id)" onClick="return false;"></i>
         <i class="fa fa-edit edit pull-right" onClick="rEdit(@requirement.id, '@requirement.name', '@requirement.description', '@requirement.estimatedEffort'); return false;"></i>
       </h3>
