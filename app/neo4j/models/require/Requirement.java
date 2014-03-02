@@ -29,6 +29,8 @@ public class Requirement extends CommentAbleModel {
   @GraphProperty(propertyType = Long.class)
   public Date dueDate;
 
+  public int orderPosition;
+
   public boolean accepted;
 
   public boolean implemented;
