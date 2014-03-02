@@ -170,7 +170,7 @@ object RequirementController extends BaseController {
       "requireDescription" -> text,
       "requireParent" -> number,
       "requireEstimatedEffort" -> text.verifying("error.format", effort => {
-        if(effort == null) { true } else { isDoubleNumber(effort.replace("," ,".")) }
+        if(StringUtils.isBlank(effort)) { true } else { isDoubleNumber(effort.replace("," ,".")) }
       })
     )(CaseRequirement.apply)(CaseRequirement.unapply))
 }
