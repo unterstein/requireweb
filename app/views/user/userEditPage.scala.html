@@ -35,10 +35,10 @@
     }
     @if(PlaySession.isAdmin) {
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6 select2">
           @dropDownRow("userRole", form.data.get("userRole"), form.errors("userRole").size > 0, UserRole.enumModel())
         </div>
-        <div class="col-md-4 col-md-offset-2">
+        <div class="col-md-6 select2">
           @dropDownRow("userState", form.data.get("userState"), form.errors("userState").size > 0, UserState.enumModel())
         </div>
       </div>

@@ -69,7 +69,9 @@
         that.selectAll();
       }, 100);
     });
-    $("select.select2").select2();
+    $("select.select2, .select2 select").select2({
+      minimumResultsForSearch: 7
+    });
   });
 
   function doFileUpload() {
