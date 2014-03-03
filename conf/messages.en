@@ -86,9 +86,12 @@ require.side.title=Project list
 require.project.new=Add new project
 require.new=Add new requirement
 require.sub.title=Sub requirements
-require.hours=hours
+require.category=Category
 require.own=own
 require.children=children
+require.sum=sum
+require.info=Requirement #
+require.efforts=Efforts
 
 # errors
 error.passwordNotMatch=Passwords do not match

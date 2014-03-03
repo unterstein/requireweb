@@ -6,24 +6,24 @@ $(function () {
     return false;
   });
   /** clear behavior */
-  $("#projectModal").on("show.bs.modal", function () {
+  $("#projectModal, #requireModal").on("show.bs.modal", function () {
     hideAll();
     $(this).find(":input").val("");
   });
   /** add/edit buttons in projet modal */
   $("#newProjectAdd").click(function () {
-    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), $("#projectForm").serialize(), function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), $("#projectForm").serialize(), function (data) {
       $(".has-error").removeClass("has-error");
-      for(var prop in data) {
+      for (var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");
       }
     });
   });
   $("#projectEdit").click(function () {
     var id = $("#projectId").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), $("#projectForm").serialize(), function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), $("#projectForm").serialize(), function (data) {
       $(".has-error").removeClass("has-error");
-      for(var prop in data) {
+      for (var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");
       }
     });
@@ -56,9 +56,8 @@ $(function () {
     $("#newRequireAdd").hide();
   }
 
-
   /** requirement stuff */
-  $(".newRequirement").click(function() {
+  $(".newRequirement").click(function () {
     $("#requireModal").modal("show");
     $("#newRequireAdd").show();
     $("#requireProjectId").val($(this).data("id"));
@@ -68,21 +67,30 @@ $(function () {
   /** add/edit buttons in require modal */
   $("#newRequireAdd").click(function () {
     var id = $("#requireProjectId").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), $("#requireForm").serialize(), function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), $("#requireForm").serialize(), function (data) {
       $(".has-error").removeClass("has-error");
-      for(var prop in data) {
+      for (var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");
       }
     });
   });
   $("#requireEdit").click(function () {
     var id = $("#requireId").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.editRequirement(id), $("#requireForm").serialize(), function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.editRequirement(id), $("#requireForm").serialize(), function (data) {
       $(".has-error").removeClass("has-error");
-      for(var prop in data) {
+      for (var prop in data) {
         $("#" + prop).closest(".form-group").addClass("has-error");
       }
     });
+  });
+  $(".requireInfo").click(function () {
+    var modal = $("#requireInfoModal")
+    modal.modal("show");
+    var title = modal.find(".modal-title");
+    title.html(title.data("title") + $(this).data("name"));
+    modal.find(".own").html(parseFloat($(this).data("effortown")));
+    modal.find(".children").html(parseFloat($(this).data("effortchildren")));
+    modal.find(".sum").html(parseFloat($(this).data("effortchildren")) + parseFloat($(this).data("effortown")));
   });
 
 });
