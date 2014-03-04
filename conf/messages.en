@@ -65,8 +65,10 @@ field.userRole=User role
 field.userState= User state
 field.password=Password
 field.password.placeholder=Please enter a password
-field.estimatedEffort=Estimated Effort [hours]
+field.estimatedEffort=Estimated effort [hours]
 field.estimatedEffort.placeholder=Please enter estimated effort in hours
+field.realEffort=Real effort [hours]
+field.realEffort.placeholder=Please enter real effort in hours
 field.date=Date
 
 # dashboard

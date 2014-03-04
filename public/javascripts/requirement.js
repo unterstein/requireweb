@@ -91,6 +91,9 @@ $(function () {
     modal.find(".own").html(parseFloat($(this).data("effortown")));
     modal.find(".children").html(parseFloat($(this).data("effortchildren")));
     modal.find(".sum").html(parseFloat($(this).data("effortchildren")) + parseFloat($(this).data("effortown")));
+    modal.find(".ownreal").html(parseFloat($(this).data("effortownreal")));
+    modal.find(".childrenreal").html(parseFloat($(this).data("effortchildrenreal")));
+    modal.find(".sumreal").html(parseFloat($(this).data("effortchildrenreal")) + parseFloat($(this).data("effortownreal")));
   });
 
 });

@@ -145,20 +145,24 @@
               <tr>
                 <th>@Messages("require.category")</th>
                 <th>@Messages("field.estimatedEffort")</th>
+                <th>@Messages("field.realEffort")</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>@Messages("require.own")</td>
                 <td class="own"></td>
+                <td class="ownreal"></td>
               </tr>
               <tr>
                 <td>@Messages("require.children")</td>
                 <td class="children"></td>
+                <td class="childrenreal"></td>
               </tr>
               <tr>
                 <td>@Messages("require.sum")</td>
                 <td class="sum"></td>
+                <td class="sumreal"></td>
               </tr>
             </tbody>
           </table>
@@ -178,7 +182,7 @@
         @requirement.name
         <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteRequirement(requirement.id)" data-success="@routes.RequirementController.requirementListId(requirement.project.id)" onClick="return false;"></i>
         <i class="fa fa-edit edit pull-right" onClick="rEdit(@requirement.id, '@requirement.name', '@requirement.description', '@requirement.estimatedEffort'); return false;"></i>
-        <i class="fa fa-info-circle requireInfo pull-right" data-name="@requirement.name" data-effortown="@requirement.estimatedEffort" data-effortchildren="@Neo4JServiceProvider.get().requirementRepository.findChildEstimatedEffort(requirement)"  onClick="return false;"></i>
+        <i class="fa fa-info-circle requireInfo pull-right" data-name="@requirement.name" data-effortown="@requirement.estimatedEffort" data-effortownreal="@requirement.realEffort" data-effortchildren="@Neo4JServiceProvider.get().requirementRepository.findChildEstimatedEffort(requirement)" data-effortchildrenreal="@Neo4JServiceProvider.get().requirementRepository.findChildRealEffort(requirement)" onClick="return false;"></i>
       </h3>
     </div>
     <div class="panel-body">
