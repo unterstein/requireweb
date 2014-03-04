@@ -60,7 +60,15 @@
 
     /* focus behavior */
     $(document).on("shown.bs.modal", ".modal", function () {
-      $($(this).find(".modal-body :input[type!='hidden']")[0]).focus();
+      var inputs = $(this).find(".modal-body :input[type!='hidden']");
+      if (inputs.length > 0) {
+        $(inputs[0]).focus();
+      } else {
+        var buttons = $(this).find(".btn");
+        if (buttons.length > 0) {
+          $(buttons[0]).focus();
+        }
+      }
     });
     doAfterAjaxHandling();
     $(document).on("focus", ".fullText", function () {
