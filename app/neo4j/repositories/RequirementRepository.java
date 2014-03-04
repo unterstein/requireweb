@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RequirementRepository extends GraphRepository<Requirement> {
 
-  @Query("START project=node({0}) MATCH project<-[:" + Relations.PROJECT_REQUIREMENT + "]-requirement WHERE NOT requirement-[:" + Relations.REQUIREMENT_REQUIREMENT + "]->() RETURN requirement ORDER BY requirement.id ASC")
+  @Query("START project=node({0}) MATCH project<-[:" + Relations.PROJECT_REQUIREMENT + "]-requirement WHERE NOT requirement-[:" + Relations.REQUIREMENT_REQUIREMENT + "]->() RETURN requirement")
   public List<Requirement> findMainRequirementsByProject(Project project);
 
   @Query("START requirement=node({0}) MATCH requirement<-[:" + Relations.REQUIREMENT_REQUIREMENT + "*]-children RETURN sum(children.estimatedEffort)")

@@ -38,7 +38,7 @@
     </div>
     <div class="col-md-9">
       <a class="btn btn-primary marginButton newRequirement" data-parent="0" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
-      @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).map { requirement =>
+      @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
         @renderRequirement(requirement)
       }
     </div>
@@ -179,7 +179,7 @@
   <div class="panel panel-default @if(requirement.expanedInUi){on}else{off}">
     <div class="panel-heading">
       <h3 class="panel-title">
-        @requirement.name
+        @requirement.id - @requirement.name
         <i class="fa fa-plus-square-o showReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-minus-square-o hideReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteRequirement(requirement.id)" data-success="@routes.RequirementController.requirementListId(requirement.project.id)" onClick="return false;"></i>
