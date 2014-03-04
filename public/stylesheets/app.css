@@ -31,6 +31,10 @@ textarea {
   display: none;
 }
 
+.panel-heading i {
+  width: 18px;
+}
+
 .showReq, .hideReq {
   margin-left: 20px !important;
 }
