@@ -25,7 +25,9 @@ textarea {
   cursor: pointer !important;
 }
 
-.on .showReq, .off .hideReq, .off .panel-body {
+.on > .panel-heading > .panel-title > .showReq,
+.off > .panel-heading > .panel-title > .hideReq,
+.off > .panel-body {
   display: none;
 }
 
