@@ -153,6 +153,18 @@ object RequirementController extends BaseController {
       }
   }
 
+  def toggleExpandedState(id: Long, expanded: Boolean) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
+      val user = PlaySession.getUser
+      // TODO contributors
+      if (requirement != null && requirement.author.id == user.id) {
+        requirement.expanedInUi = expanded
+        Neo4JServiceProvider.get().requirementRepository.save(requirement)
+      }
+      Ok("")
+  }
+
 
   case class CaseProject(projectName: String, projectDescription: String)
 

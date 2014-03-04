@@ -21,8 +21,16 @@ textarea {
   margin-bottom: 20px;
 }
 
-.delete, .edit, .requireInfo {
+.delete, .edit, .requireInfo, .showReq, .hideReq {
   cursor: pointer !important;
+}
+
+.on .showReq, .off .hideReq, .off .panel-body {
+  display: none;
+}
+
+.showReq, .hideReq {
+  margin-left: 20px !important;
 }
 
 .dropdown i {

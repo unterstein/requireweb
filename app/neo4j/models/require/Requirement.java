@@ -41,12 +41,15 @@ public class Requirement extends CommentAbleModel {
 
   public double realEffort;
 
+  public boolean expanedInUi;
+
   public static Requirement create(String name, String description, User author, Project project) {
     Requirement result = new Requirement();
     result.name = name;
     result.description = description;
     result.author = author;
     result.project = project;
+    result.expanedInUi = true;
     Neo4JServiceProvider.get().requirementRepository.save(result);
     return result;
   }

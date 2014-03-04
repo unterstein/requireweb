@@ -96,4 +96,14 @@ $(function () {
     modal.find(".sumreal").html(parseFloat($(this).data("effortchildrenreal")) + parseFloat($(this).data("effortownreal")));
   });
 
+  /** expanded toggle */
+  $(".showReq").click(function() {
+    ajaxCall(jsRoutes.controllers.RequirementController.toggleExpandedState($(this).data("id"), true));
+    $(this).closest(".panel").removeClass("off").addClass("on");
+  });
+  $(".hideReq").click(function() {
+    ajaxCall(jsRoutes.controllers.RequirementController.toggleExpandedState($(this).data("id"), false));
+    $(this).closest(".panel").removeClass("on").addClass("off");
+  });
+
 });
