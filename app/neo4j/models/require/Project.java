@@ -23,8 +23,11 @@ public class Project extends CommentAbleModel {
 
   public ProjectState projectState;
 
-  public static Project create(String name, String description, User author) {
+  public String shortName;
+
+  public static Project create(String shortName, String name, String description, User author) {
     Project result = new Project();
+    result.shortName = shortName;
     result.name = name;
     result.description = description;
     result.author = author;

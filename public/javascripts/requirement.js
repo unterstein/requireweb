@@ -30,9 +30,10 @@ $(function () {
   });
   /** other stuff */
   hideAll();
-  window.pEdit = function (id, name, description) {
+  window.pEdit = function (id, name, shortName, description) {
     $("#projectModal").modal("show");
     $("#projectName").val(name);
+    $("#shortName").val(shortName);
     $("#projectDescription").val(description);
     $("#projectId").val(id);
     $("#projectEdit").show();

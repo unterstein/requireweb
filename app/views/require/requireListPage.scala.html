@@ -23,9 +23,9 @@
             @Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser).map { project =>
               <li @if(currentProject != null && project.id == currentProject.id) {class="active"}>
                 <a href="@routes.RequirementController.requirementListId(project.id)">
-                    &nbsp; @project.name
+                    &nbsp; @project.shortName
                     <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteProject(project.id)" data-success="@routes.RequirementController.requirementList" onClick="return false;"></i>
-                    <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id, '@project.name', '@project.description'); return false;"></i>
+                    <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id, '@project.name', '@project.shortName', '@project.description'); return false;"></i>
                 </a>
               </li>
             }
@@ -39,7 +39,7 @@
     <div class="col-md-9">
       <a class="btn btn-primary marginButton newRequirement" data-parent="0" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.new")</a>
       @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
-        @renderRequirement(requirement)
+        @renderRequirement(currentProject.shortName, requirement)
       }
     </div>
   </div>
@@ -58,8 +58,16 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="projectName" class="control-label">@Messages("name")</label>
+                  <label for="projectName" class="control-label">@Messages("field.name")</label>
                   <input type="text" class="form-control" id="projectName" name="projectName" placeholder="@Messages("field.name.placeholder")" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="shortName" class="control-label">@Messages("field.shortName")</label>
+                  <input type="text" class="form-control" id="shortName" name="shortName" placeholder="@Messages("field.shortName.placeholder")" maxlength="10" />
                 </div>
               </div>
             </div>
@@ -175,11 +183,11 @@
   </div>
 }
 
-@renderRequirement(requirement: Requirement) = {
+@renderRequirement(shortName: String, requirement: Requirement) = {
   <div class="panel panel-default @if(requirement.expanedInUi){on}else{off}">
     <div class="panel-heading">
       <h3 class="panel-title">
-        @requirement.id - @requirement.name
+        @shortName@requirement.id - @requirement.name
         <i class="fa fa-plus-square-o showReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-minus-square-o hideReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteRequirement(requirement.id)" data-success="@routes.RequirementController.requirementListId(requirement.project.id)" onClick="return false;"></i>
@@ -205,7 +213,7 @@
         <h4>@Messages("require.sub.title")</h4>
         @requirement.children.map { subRequirement =>
           <!-- TODO prefetch -->
-          @renderRequirement(Neo4JServiceProvider.get().requirementRepository.findOne(subRequirement.id))
+          @renderRequirement(shortName, Neo4JServiceProvider.get().requirementRepository.findOne(subRequirement.id))
         }
       }
     </div>
