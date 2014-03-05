@@ -72,6 +72,11 @@
           });
       });
     });
+    /* hash behavior */
+    $(window).on('hashchange', function() {
+      handleHash();
+    });
+    handleHash();
 
     /* focus behavior */
     $(document).on("shown.bs.modal", ".modal", function () {
@@ -119,6 +124,17 @@
         $(this).siblings('.uploadLabel').val(/([^\\\/]+)$/.exec(this.value)[1]); // Extract the filename
         $(this).siblings('.uploadLabel').change();
       });
+  }
+
+  function handleHash() {
+    var hash = window.location.hash;
+    if (hash != undefined && hash.length > 0) {
+      var panel = $("a[name='" + hash.replace("#", "") + "']").next(".panel");
+      panel.removeClass("panel-default").addClass("panel-warning");
+      setTimeout(function() {
+        panel.removeClass("panel-warning").addClass("panel-default");
+      }, 800);
+    }
   }
 })();
 
