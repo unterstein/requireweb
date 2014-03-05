@@ -203,10 +203,11 @@
 }
 
 @renderRequirement(shortName: String, requirement: Requirement) = {
+  <a name="req@requirement.id"></a>
   <div class="panel panel-default @if(requirement.expanedInUi){on}else{off}">
     <div class="panel-heading">
       <h3 class="panel-title">
-        @shortName@requirement.id - @requirement.name
+        <a href="#req@requirement.id">@shortName@requirement.id - @requirement.name</a>
         <i class="fa fa-plus-square-o showReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-minus-square-o hideReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteRequirement(requirement.id)" data-success="@routes.RequirementController.requirementListId(requirement.project.id)" onClick="return false;"></i>
