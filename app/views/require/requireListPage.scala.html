@@ -183,7 +183,7 @@
         <i class="fa fa-plus-square-o showReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-minus-square-o hideReq pull-right" data-id="@requirement.id" onClick="return false;"></i>
         <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteRequirement(requirement.id)" data-success="@routes.RequirementController.requirementListId(requirement.project.id)" onClick="return false;"></i>
-        <i class="fa fa-edit edit pull-right" onClick="rEdit(@requirement.id, '@requirement.name', '@requirement.description', '@requirement.estimatedEffort'); return false;"></i>
+        <i class="fa fa-edit edit pull-right" onClick="rEdit(@requirement.id); return false;"></i>
         <i class="fa fa-info-circle requireInfo pull-right" data-name="@requirement.name" data-effortown="@requirement.estimatedEffort" data-effortownreal="@requirement.realEffort" data-effortchildren="@Neo4JServiceProvider.get().requirementRepository.findChildEstimatedEffort(requirement)" data-effortchildrenreal="@Neo4JServiceProvider.get().requirementRepository.findChildRealEffort(requirement)" onClick="return false;"></i>
       </h3>
     </div>

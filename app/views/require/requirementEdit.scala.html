@@ -23,7 +23,7 @@
   <input type="hidden" id="requireId" name="requireId" value="@form.data.get("requireId")" />
   <div class="row">
     <div class="col-md-12">
-      @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0, "field.name")
+      @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0, "field.name", "field.name.placeholder")
     </div>
   </div>
   <div class="row">
@@ -33,7 +33,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      @inputRow("requireEstimatedEffort", "text", form.data.get("requireEstimatedEffort"), form.errors("requireEstimatedEffort").size > 0, "field.estimatedEffort")
+      @inputRow("requireEstimatedEffort", "text", form.data.get("requireEstimatedEffort"), form.errors("requireEstimatedEffort").size > 0, "field.estimatedEffort", "field.estimatedEffort.placeholder")
     </div>
   </div>
 </form>
