@@ -34,18 +34,18 @@
     <tbody>
       <tr>
         <td>@Messages("require.own")</td>
-        <td></td>
-        <td></td>
+        <td>@requirement.estimatedEffort</td>
+        <td>@requirement.realEffort</td>
       </tr>
       <tr>
         <td>@Messages("require.children")</td>
-        <td></td>
-        <td></td>
+        <td>@info.childEstimatedEffort</td>
+        <td>@info.childRealEffort</td>
       </tr>
       <tr>
         <td>@Messages("require.sum")</td>
-        <td></td>
-        <td></td>
+        <td>@{requirement.estimatedEffort+info.childEstimatedEffort}</td>
+        <td>@{requirement.realEffort+info.childRealEffort}</td>
       </tr>
     </tbody>
   </table>

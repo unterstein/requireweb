@@ -35,6 +35,7 @@ public interface RequirementRepository extends GraphRepository<Requirement> {
   public double findChildRealEffort(Requirement requirement);
 
   public static class RequirementInfo {
-
+    public double childEstimatedEffort;
+    public double childRealEffort;
   }
 }

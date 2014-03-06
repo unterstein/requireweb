@@ -22,6 +22,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import scala.collection.JavaConversions._
 import org.apache.commons.lang.StringUtils
+import neo4j.repositories.RequirementRepository.RequirementInfo
 
 
 object RequirementController extends BaseController {
@@ -107,13 +108,15 @@ object RequirementController extends BaseController {
         val user = PlaySession.getUser
         // TODO contributors
         if (requirement != null && requirement.author.id == user.id) {
-
-          Ok(views.html.require.requirementInfoDialog(requirement, null))
+          val info = new RequirementInfo
+          info.childRealEffort = Neo4JServiceProvider.get().requirementRepository.findChildRealEffort(requirement)
+          info.childEstimatedEffort = Neo4JServiceProvider.get().requirementRepository.findChildEstimatedEffort(requirement)
+          Ok(views.html.require.requirementInfoDialog(requirement, info))
         } else {
-          Ok(views.html.require.requirementInfoDialog(null, null))
+          Ok("") // TODO error dialog
         }
       } else {
-        Ok(views.html.require.requirementInfoDialog(null, null))
+        Ok("") // TODO error dialog
       }
   }
 
