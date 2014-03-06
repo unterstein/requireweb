@@ -19,6 +19,7 @@ POST        /users/postCreate                       controllers.UserController.p
 # Requirements
 GET         /requirements                           controllers.RequirementController.requirementList
 GET         /requirements/:id                       controllers.RequirementController.requirementListId(id: Long)
+GET         /requirements/:id/edit                  controllers.RequirementController.requirementEditPanel(id: Long)
 POST        /requirements/:id/delete                controllers.RequirementController.deleteRequirement(id: Long)
 POST        /requirements/:id                       controllers.RequirementController.editRequirement(id: Long)
 POST        /requirements/:id/expand/:expand        controllers.RequirementController.toggleExpandedState(id: Long, expand: Boolean)

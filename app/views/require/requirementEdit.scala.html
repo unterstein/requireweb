@@ -14,16 +14,16 @@
 * limitations under the License.
 *@
 @(id: Long, form: Form[controllers.RequirementController.CaseRequirement], mode: String = "create")(implicit request: play.api.mvc.Request[Any], lang: Lang)
+
+@import views.html.helper.{inputRow, textareaRow, formErrors, dropDownRow}
+
 <form id="requireForm">
-  <input type="hidden" id="requireProjectId" name="requireProjectId" />
-  <input type="hidden" id="requireParent" name="requireParent" />
-  <input type="hidden" id="requireId" name="requireId" />
+  <input type="hidden" id="requireProjectId" name="requireProjectId" value="@form.data.get("requireProjectId")" />
+  <input type="hidden" id="requireParent" name="requireParent" value="@form.data.get("requireParent")" />
+  <input type="hidden" id="requireId" name="requireId" value="@form.data.get("requireId")" />
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
-        <label for="requireName" class="control-label">@Messages("name")</label>
-        <input type="text" class="form-control" id="requireName" name="requireName" placeholder="@Messages("field.name.placeholder")" />
-      </div>
+      @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0, "name")
     </div>
   </div>
   <div class="row">

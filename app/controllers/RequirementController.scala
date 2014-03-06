@@ -47,7 +47,6 @@ object RequirementController extends BaseController {
       } else {
         Redirect(routes.RequirementController.requirementList())
       }
-
   }
 
   def addProject() = AuthenticatedLoggingAction(UserRole.USER) {
@@ -79,6 +78,21 @@ object RequirementController extends BaseController {
         )
       } else {
         Ok(routes.RequirementController.requirementList().url)
+      }
+  }
+
+  def requirementEditPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
+      val user = PlaySession.getUser
+      // TODO contributors
+      if (requirement != null && requirement.author.id == user.id) {
+        val caseRequirement = CaseRequirement(requirement.name, requirement.description,
+          if(requirement.parent != null) requirement.parent.id else -1L,
+          requirement.project.id, "" + requirement.estimatedEffort)
+        Ok(views.html.require.requirementEdit(id, requireForm.fill(caseRequirement), "edit"))
+      } else {
+        Ok(views.html.require.requirementEdit(-1L, requireForm, "create"))
       }
   }
 
@@ -155,6 +169,7 @@ object RequirementController extends BaseController {
         requireForm.bindFromRequest.fold(
           formWithErrors => Ok(formWithErrors.errorsAsJson),
           value => {
+            // TODO compare requirement.project with id
             requirement.name = value.requireName
             requirement.description = value.requireDescription
             if (StringUtils.isNotBlank(value.requireEstimatedEffort)) {
@@ -191,13 +206,14 @@ object RequirementController extends BaseController {
       "projectDescription" -> text
     )(CaseProject.apply)(CaseProject.unapply))
 
-  case class CaseRequirement(requireName: String, requireDescription: String, requireParent: Int, requireEstimatedEffort: String)
+  case class CaseRequirement(requireName: String, requireDescription: String, requireParent: Long, requireProjectId: Long, requireEstimatedEffort: String)
 
   val requireForm: Form[CaseRequirement] = Form(
     mapping(
       "requireName" -> nonEmptyText,
       "requireDescription" -> text,
-      "requireParent" -> number,
+      "requireParent" -> longNumber,
+      "requireProjectId" -> longNumber,
       "requireEstimatedEffort" -> text.verifying("error.format", effort => {
         if(StringUtils.isBlank(effort)) { true } else { isDoubleNumber(effort.replace("," ,".")) }
       })
