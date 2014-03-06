@@ -74,6 +74,7 @@ field.realEffort.placeholder=Please enter real effort in hours
 field.date=Date
 field.requireName=Name
 field.requireName.placeholder=Please enter a name
+field.requireDescription=Description
 field.requireEstimatedEffort=Estimated effort [hours]
 field.requireEstimatedEffort.placeholder=Please enter estimated effort in hours
 field.requireRealEffort=Real effort [hours]
