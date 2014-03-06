@@ -67,44 +67,7 @@
   <div class="modal fade" id="projectModal">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">@Messages("require.project.new")</h4>
-        </div>
-        <div class="modal-body">
-          <form id="projectForm">
-            <input type="hidden" id="projectId" />
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="projectName" class="control-label">@Messages("field.name")</label>
-                  <input type="text" class="form-control" id="projectName" name="projectName" placeholder="@Messages("field.name.placeholder")" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="shortName" class="control-label">@Messages("field.shortName")</label>
-                  <input type="text" class="form-control" id="shortName" name="shortName" placeholder="@Messages("field.shortName.placeholder")" maxlength="10" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="projectDescription" class="control-label">@Messages("field.description")</label>
-                  <textarea class="form-control" id="projectDescription" name="projectDescription"></textarea>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
-          <button type="button" class="btn btn-primary submit" id="newProjectAdd">@Messages("create")</button>
-          <button type="button" class="btn btn-primary submit" id="projectEdit">@Messages("edit")</button>
-        </div>
+        @views.html.require.projectEditDialog(-1L, RequirementController.projectForm, "create")
       </div>
     </div>
   </div>
@@ -112,7 +75,9 @@
   <!-- requirement modal -->
   <div class="modal fade" id="requireModal">
     <div class="modal-dialog">
-    @views.html.require.requirementEditDialog(-1L, RequirementController.requireForm, "create")
+      <div class="modal-content">
+        @views.html.require.requirementEditDialog(-1L, RequirementController.requireForm, "create")
+      </div>
     </div>
   </div>
 

@@ -1,0 +1,57 @@
+@**
+* Copyright (C) 2014 Johannes Unterstein, unterstein@me.com, unterstein.info
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+
+* http://www.apache.org/licenses/LICENSE-2.0
+
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*@
+@(id: Long, form: Form[controllers.RequirementController.CaseProject], mode: String)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+
+@import views.html.helper.{inputRow, textareaRow, formErrors, dropDownRow}
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">@Messages("require.project.new")</h4>
+</div>
+<div class="modal-body">
+  <form id="projectForm">
+    <input type="hidden" id="projectId" />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="projectName" class="control-label">@Messages("field.name")</label>
+          <input type="text" class="form-control" id="projectName" name="projectName" placeholder="@Messages("field.name.placeholder")" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="shortName" class="control-label">@Messages("field.shortName")</label>
+          <input type="text" class="form-control" id="shortName" name="shortName" placeholder="@Messages("field.shortName.placeholder")" maxlength="10" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="projectDescription" class="control-label">@Messages("field.description")</label>
+          <textarea class="form-control" id="projectDescription" name="projectDescription"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
+  <button type="button" class="btn btn-primary submit" id="newProjectAdd">@Messages("create")</button>
+  <button type="button" class="btn btn-primary submit" id="projectEdit">@Messages("edit")</button>
+</div>
