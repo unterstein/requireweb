@@ -72,6 +72,12 @@ field.estimatedEffort.placeholder=Please enter estimated effort in hours
 field.realEffort=Real effort [hours]
 field.realEffort.placeholder=Please enter real effort in hours
 field.date=Date
+field.requireName=Name
+field.requireName.placeholder=Please enter a name
+field.requireEstimatedEffort=Estimated effort [hours]
+field.requireEstimatedEffort.placeholder=Please enter estimated effort in hours
+field.requireRealEffort=Real effort [hours]
+field.requireRealEffort.placeholder=Please enter real effort in hours
 
 # dashboard
 dashboard.title=<i class="fa fa-signal"></i> Dashboard
