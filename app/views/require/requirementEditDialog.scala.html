@@ -29,17 +29,17 @@
     <input type="hidden" id="requireId" name="requireId" value="@form.data.get("requireId")" />
     <div class="row">
       <div class="col-md-12">
-      @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0)
+        @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0)
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-      @textareaRow("requireDescription", form.data.get("requireDescription"), form.errors("requireDescription").size > 0)
+        @textareaRow("requireDescription", form.data.get("requireDescription"), form.errors("requireDescription").size > 0)
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-      @inputRow("requireEstimatedEffort", "text", form.data.get("requireEstimatedEffort"), form.errors("requireEstimatedEffort").size > 0)
+        @inputRow("requireEstimatedEffort", "text", form.data.get("requireEstimatedEffort"), form.errors("requireEstimatedEffort").size > 0)
       </div>
     </div>
   </form>

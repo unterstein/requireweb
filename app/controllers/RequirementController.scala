@@ -203,10 +203,11 @@ object RequirementController extends BaseController {
   }
 
 
-  case class CaseProject(shortName: String, projectName: String, projectDescription: String)
+  case class CaseProject(id: Long, shortName: String, projectName: String, projectDescription: String)
 
   val projectForm: Form[CaseProject] = Form(
     mapping(
+      "projectId" -> default(longNumber, -1L),
       "shortName" -> nonEmptyText(minLength = 3, maxLength = 10),
       "projectName" -> nonEmptyText,
       "projectDescription" -> text

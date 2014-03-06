@@ -72,6 +72,9 @@ field.estimatedEffort.placeholder=Please enter estimated effort in hours
 field.realEffort=Real effort [hours]
 field.realEffort.placeholder=Please enter real effort in hours
 field.date=Date
+field.projectName=Name
+field.projectName.placeholder=Please enter a name
+field.projectDescription=Description
 field.requireName=Name
 field.requireName.placeholder=Please enter a name
 field.requireDescription=Description
@@ -94,7 +97,8 @@ user.edit=Edit user
 # requirements
 require.list.title=<i class="fa fa-book"></i> Requirement management
 require.side.title=Project list
-require.project.new=Add new project
+require.project.create=Add new project
+require.project.edit=Edit project
 require.create=new requirement
 require.edit=edit requirement
 require.sub.title=Sub requirements

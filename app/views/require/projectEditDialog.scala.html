@@ -19,39 +19,34 @@
 
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h4 class="modal-title">@Messages("require.project.new")</h4>
+  <h4 class="modal-title">@Messages("require.project." + mode)</h4>
 </div>
 <div class="modal-body">
   <form id="projectForm">
+    @formErrors(form.asInstanceOf[Form[Any]])
     <input type="hidden" id="projectId" />
     <div class="row">
       <div class="col-md-12">
-        <div class="form-group">
-          <label for="projectName" class="control-label">@Messages("field.name")</label>
-          <input type="text" class="form-control" id="projectName" name="projectName" placeholder="@Messages("field.name.placeholder")" />
-        </div>
+        @inputRow("projectName", "text", form.data.get("projectName"), form.errors("projectName").size > 0)
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="form-group">
-          <label for="shortName" class="control-label">@Messages("field.shortName")</label>
-          <input type="text" class="form-control" id="shortName" name="shortName" placeholder="@Messages("field.shortName.placeholder")" maxlength="10" />
-        </div>
+        @inputRow("shortName", "text", form.data.get("shortName"), form.errors("shortName").size > 0)
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="form-group">
-          <label for="projectDescription" class="control-label">@Messages("field.description")</label>
-          <textarea class="form-control" id="projectDescription" name="projectDescription"></textarea>
-        </div>
+        @textareaRow("projectDescription", form.data.get("projectDescription"), form.errors("projectDescription").size > 0)
       </div>
     </div>
   </form>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
+  @if(mode == "create") {
   <button type="button" class="btn btn-primary submit" id="newProjectAdd">@Messages("create")</button>
+  } else {
   <button type="button" class="btn btn-primary submit" id="projectEdit">@Messages("edit")</button>
+  }
 </div>
