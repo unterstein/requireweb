@@ -100,6 +100,23 @@ object RequirementController extends BaseController {
       }
   }
 
+  def requirementInfoPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      if(id > 0) {
+        val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
+        val user = PlaySession.getUser
+        // TODO contributors
+        if (requirement != null && requirement.author.id == user.id) {
+
+          Ok(views.html.require.requirementInfoDialog(requirement, null))
+        } else {
+          Ok(views.html.require.requirementInfoDialog(null, null))
+        }
+      } else {
+        Ok(views.html.require.requirementInfoDialog(null, null))
+      }
+  }
+
   def projectEditPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       if(id > 0) {

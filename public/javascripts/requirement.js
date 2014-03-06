@@ -79,16 +79,12 @@ $(function () {
     });
   });
   $(".requireInfo").click(function () {
-    var modal = $("#requireInfoModal")
-    modal.modal("show");
-    var title = modal.find(".modal-title");
-    title.html(title.data("title") + $(this).data("name"));
-    modal.find(".own").html(parseFloat($(this).data("effortown")));
-    modal.find(".children").html(parseFloat($(this).data("effortchildren")));
-    modal.find(".sum").html(parseFloat($(this).data("effortchildren")) + parseFloat($(this).data("effortown")));
-    modal.find(".ownreal").html(parseFloat($(this).data("effortownreal")));
-    modal.find(".childrenreal").html(parseFloat($(this).data("effortchildrenreal")));
-    modal.find(".sumreal").html(parseFloat($(this).data("effortchildrenreal")) + parseFloat($(this).data("effortownreal")));
+    var id = $(this).data("id");
+    ajaxCall(jsRoutes.controllers.RequirementController.requirementInfoPanel(id), null, function(data) {
+      var modal = $("#requireInfoModal");
+      modal.modal("show");
+      modal.find(".modal-content").html(data);
+    });
   });
 
   /** expanded toggle */

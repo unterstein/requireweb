@@ -33,4 +33,8 @@ public interface RequirementRepository extends GraphRepository<Requirement> {
 
   @Query("START requirement=node({0}) MATCH requirement<-[:" + Relations.REQUIREMENT_REQUIREMENT + "*]-children RETURN sum(children.realEffort)")
   public double findChildRealEffort(Requirement requirement);
+
+  public static class RequirementInfo {
+
+  }
 }
