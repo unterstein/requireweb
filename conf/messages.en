@@ -94,7 +94,8 @@ user.edit=Edit user
 require.list.title=<i class="fa fa-book"></i> Requirement management
 require.side.title=Project list
 require.project.new=Add new project
-require.new=new requirement
+require.create=new requirement
+require.edit=edit requirement
 require.sub.title=Sub requirements
 require.category=Category
 require.own=own

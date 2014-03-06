@@ -21,12 +21,12 @@ $(function () {
     return false;
   });
   /** clear behavior */
-  $("#projectModal, #requireModal").on("show.bs.modal", function () {
+  $("#projectModal").on("show.bs.modal", function () {
     hideAll();
     $(this).find(":input").val("");
   });
   /** add/edit buttons in projet modal */
-  $("#newProjectAdd").click(function () {
+  $(document).on("click", "#newProjectAdd", function () {
     ajaxCall(jsRoutes.controllers.RequirementController.addProject(), $("#projectForm").serialize(), function (data) {
       $(".has-error").removeClass("has-error");
       for (var prop in data) {
@@ -34,7 +34,7 @@ $(function () {
       }
     });
   });
-  $("#projectEdit").click(function () {
+  $(document).on("click", "#projectEdit", function () {
     var id = $("#projectId").val();
     ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), $("#projectForm").serialize(), function (data) {
       $(".has-error").removeClass("has-error");
@@ -58,8 +58,7 @@ $(function () {
     ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(id), null, function(data) {
       var modal = $("#requireModal");
       modal.modal("show");
-      modal.find(".modal-body").html(data);
-      $("#requireEdit").show();
+      modal.find(".modal-content").html(data);
     });
   }
 
@@ -67,29 +66,28 @@ $(function () {
     $(".has-error").removeClass("has-error");
     $("#newProjectAdd").hide();
     $("#projectEdit").hide();
-    $("#requireEdit").hide();
-    $("#newRequireAdd").hide();
   }
 
   /** requirement stuff */
-  $(".newRequirement").click(function () {
+  $(document).on("click", ".newRequirement", function () {
     $("#requireModal").modal("show");
-    $("#newRequireAdd").show();
     $("#requireProjectId").val($(this).data("id"));
     $("#requireParent").val($(this).data("parent"));
     return false;
   });
   /** add/edit buttons in require modal */
-  $("#newRequireAdd").click(function () {
+  $(document).on("click", "#newRequireAdd", function () {
     var id = $("#requireProjectId").val();
     ajaxCall(jsRoutes.controllers.RequirementController.addRequirement(id), $("#requireForm").serialize(), function (data) {
-      $("#requireModal .modal-body").html(data);
+      $("#requireModal .modal-content").html(data);
+      $("#requireModal").find(".modal-body :input[type!='hidden']")[0].focus();
     });
   });
-  $("#requireEdit").click(function () {
+  $(document).on("click", "#requireEdit", function () {
     var id = $("#requireId").val();
     ajaxCall(jsRoutes.controllers.RequirementController.editRequirement(id), $("#requireForm").serialize(), function (data) {
-      $("#requireModal .modal-body").html(data);
+      $("#requireModal .modal-content").html(data);
+      $("#requireModal").find(".modal-body :input[type!='hidden']")[0].focus();
     });
   });
   $(".requireInfo").click(function () {
