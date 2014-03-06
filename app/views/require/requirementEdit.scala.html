@@ -23,23 +23,17 @@
   <input type="hidden" id="requireId" name="requireId" value="@form.data.get("requireId")" />
   <div class="row">
     <div class="col-md-12">
-      @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0, "name")
+      @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0, "field.name")
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
-        <label for="requireDescription" class="control-label">@Messages("field.description")</label>
-        <textarea class="form-control" id="requireDescription" name="requireDescription"></textarea>
-      </div>
+      @textareaRow("requireDescription", form.data.get("requireDescription"), form.errors("requireDescription").size > 0, "field.description")
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
-        <label for="requireEstimatedEffort" class="control-label">@Messages("field.estimatedEffort")</label>
-        <input type="text" class="form-control" id="requireEstimatedEffort" name="requireEstimatedEffort" placeholder="@Messages("field.estimatedEffort.placeholder")" />
-      </div>
+      @inputRow("requireEstimatedEffort", "text", form.data.get("requireEstimatedEffort"), form.errors("requireEstimatedEffort").size > 0, "field.estimatedEffort")
     </div>
   </div>
 </form>
