@@ -83,14 +83,18 @@ object RequirementController extends BaseController {
 
   def requirementEditPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
-      val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
-      val user = PlaySession.getUser
-      // TODO contributors
-      if (requirement != null && requirement.author.id == user.id) {
-        val caseRequirement = CaseRequirement(requirement.id, requirement.name, requirement.description,
-          if(requirement.parent != null) requirement.parent.id else -1L,
-          requirement.project.id, "" + requirement.estimatedEffort)
-        Ok(views.html.require.requirementEdit(id, requireForm.fill(caseRequirement), "edit"))
+      if(id > 0) {
+        val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
+        val user = PlaySession.getUser
+        // TODO contributors
+        if (requirement != null && requirement.author.id == user.id) {
+          val caseRequirement = CaseRequirement(requirement.id, requirement.name, requirement.description,
+            if(requirement.parent != null) requirement.parent.id else -1L,
+            requirement.project.id, "" + requirement.estimatedEffort)
+          Ok(views.html.require.requirementEdit(id, requireForm.fill(caseRequirement), "edit"))
+        } else {
+          Ok(views.html.require.requirementEdit(-1L, requireForm, "create"))
+        }
       } else {
         Ok(views.html.require.requirementEdit(-1L, requireForm, "create"))
       }

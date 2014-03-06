@@ -70,9 +70,15 @@ $(function () {
 
   /** requirement stuff */
   $(document).on("click", ".newRequirement", function () {
-    $("#requireModal").modal("show");
-    $("#requireProjectId").val($(this).data("id"));
-    $("#requireParent").val($(this).data("parent"));
+    var id = $(this).data("id");
+    var parent = $(this).data("parent");
+    ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(-1), null, function(data) {
+      var modal = $("#requireModal");
+      modal.modal("show");
+      modal.find(".modal-content").html(data);
+      $("#requireProjectId").val(id);
+      $("#requireParent").val(parent);
+    });
     return false;
   });
   /** add/edit buttons in require modal */
