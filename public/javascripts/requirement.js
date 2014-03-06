@@ -92,10 +92,7 @@ $(function () {
   $("#requireEdit").click(function () {
     var id = $("#requireId").val();
     ajaxCall(jsRoutes.controllers.RequirementController.editRequirement(id), $("#requireForm").serialize(), function (data) {
-      $(".has-error").removeClass("has-error");
-      for (var prop in data) {
-        $("#" + prop).closest(".form-group").addClass("has-error");
-      }
+      $("#requireModal .modal-body").html(data);
     });
   });
   $(".requireInfo").click(function () {
