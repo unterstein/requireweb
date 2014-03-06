@@ -91,12 +91,12 @@ object RequirementController extends BaseController {
           val caseRequirement = CaseRequirement(requirement.id, requirement.name, requirement.description,
             if(requirement.parent != null) requirement.parent.id else -1L,
             requirement.project.id, "" + requirement.estimatedEffort)
-          Ok(views.html.require.requirementEdit(id, requireForm.fill(caseRequirement), "edit"))
+          Ok(views.html.require.requirementEditDialog(id, requireForm.fill(caseRequirement), "edit"))
         } else {
-          Ok(views.html.require.requirementEdit(-1L, requireForm, "create"))
+          Ok(views.html.require.requirementEditDialog(-1L, requireForm, "create"))
         }
       } else {
-        Ok(views.html.require.requirementEdit(-1L, requireForm, "create"))
+        Ok(views.html.require.requirementEditDialog(-1L, requireForm, "create"))
       }
   }
 
@@ -144,7 +144,7 @@ object RequirementController extends BaseController {
       if (project != null && project.author.id == user.id) {
         requireForm.bindFromRequest.fold(
           formWithErrors => {
-            Ok(views.html.require.requirementEdit(-1L, formWithErrors, "create"))
+            Ok(views.html.require.requirementEditDialog(-1L, formWithErrors, "create"))
           },
           value => {
             val requirement = Requirement.create(value.requireName, value.requireDescription, user, project)
@@ -173,7 +173,7 @@ object RequirementController extends BaseController {
       // TODO contributors
       if (requirement != null && requirement.author.id == user.id) {
         requireForm.bindFromRequest.fold(
-          formWithErrors => Ok(views.html.require.requirementEdit(id, formWithErrors, "edit")),
+          formWithErrors => Ok(views.html.require.requirementEditDialog(id, formWithErrors, "edit")),
           value => {
             // TODO compare requirement.project with id
             requirement.name = value.requireName
