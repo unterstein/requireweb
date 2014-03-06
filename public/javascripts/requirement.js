@@ -54,14 +54,13 @@ $(function () {
     $("#projectEdit").show();
   }
 
-  window.rEdit = function (id, name, description, estimatedEffort) {
-    $("#requireModal").modal("show");
-    $("#requireName").val(name);
-    $("#requireDescription").val(description);
-    $("#requireId").val(id);
-    $("#requireEstimatedEffort").val(estimatedEffort);
-    $("#requireParent").val("-1"); // TODO not needed yet, but keep in mind ;)
-    $("#requireEdit").show();
+  window.rEdit = function (id) {
+    ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(id), null, function(data) {
+      var modal = $("#requireModal");
+      modal.modal("show");
+      modal.find(".modal-body").html(data);
+      $("#requireEdit").show();
+    });
   }
 
   function hideAll() {
