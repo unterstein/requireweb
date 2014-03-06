@@ -52,7 +52,7 @@ object RequirementController extends BaseController {
   def addProject() = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       projectForm.bindFromRequest.fold(
-        formWithErrors => Ok(formWithErrors.errorsAsJson),
+        formWithErrors => Ok(views.html.require.projectEditDialog(-1L, formWithErrors, "create")),
         value => {
           val project = Project.create(value.shortName.toUpperCase, value.projectName, value.projectDescription, PlaySession.getUser)
           Ok(routes.RequirementController.requirementListId(project.id).url)
@@ -67,7 +67,7 @@ object RequirementController extends BaseController {
       // TODO contributors
       if (project != null && project.author.id == user.id) {
         projectForm.bindFromRequest.fold(
-          formWithErrors => Ok(formWithErrors.errorsAsJson),
+          formWithErrors => Ok(views.html.require.projectEditDialog(id, formWithErrors, "edit")),
           value => {
             project.shortName = value.shortName.toUpperCase
             project.name = value.projectName
@@ -97,6 +97,23 @@ object RequirementController extends BaseController {
         }
       } else {
         Ok(views.html.require.requirementEditDialog(-1L, requireForm, "create"))
+      }
+  }
+
+  def projectEditPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      if(id > 0) {
+        val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
+        val user = PlaySession.getUser
+        // TODO contributors
+        if (project != null && project.author.id == user.id) {
+          val caseProject = CaseProject(project.id, project.shortName, project.name, project.description)
+          Ok(views.html.require.projectEditDialog(-1L, projectForm.fill(caseProject), "edit"))
+        } else {
+          Ok(views.html.require.projectEditDialog(-1L, projectForm, "create"))
+        }
+      } else {
+        Ok(views.html.require.projectEditDialog(-1L, projectForm, "create"))
       }
   }
 
@@ -143,9 +160,7 @@ object RequirementController extends BaseController {
       // TODO contributors ?
       if (project != null && project.author.id == user.id) {
         requireForm.bindFromRequest.fold(
-          formWithErrors => {
-            Ok(views.html.require.requirementEditDialog(-1L, formWithErrors, "create"))
-          },
+          formWithErrors => Ok(views.html.require.requirementEditDialog(-1L, formWithErrors, "create")),
           value => {
             val requirement = Requirement.create(value.requireName, value.requireDescription, user, project)
             if (value.requireParent > 0) {

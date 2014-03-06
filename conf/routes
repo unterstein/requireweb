@@ -26,6 +26,7 @@ POST        /requirements/:id/expand/:expand        controllers.RequirementContr
 POST        /project                                controllers.RequirementController.addProject
 POST        /project/:id/requirement                controllers.RequirementController.addRequirement(id: Long)
 POST        /project/:id                            controllers.RequirementController.editProject(id: Long)
+POST        /project/:id/edit                       controllers.RequirementController.projectEditPanel(id: Long)
 POST        /project/:id/delete                     controllers.RequirementController.deleteProject(id: Long)
 
 # Admin

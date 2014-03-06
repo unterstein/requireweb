@@ -40,7 +40,7 @@
                 <a href="@routes.RequirementController.requirementListId(project.id)">
                     &nbsp; @project.shortName
                     <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteProject(project.id)" data-success="@routes.RequirementController.requirementList" onClick="return false;"></i>
-                    <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id, '@project.name', '@project.shortName', '@project.description'); return false;"></i>
+                    <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id); return false;"></i>
                 </a>
               </li>
             }

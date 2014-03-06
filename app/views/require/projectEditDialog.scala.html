@@ -24,7 +24,7 @@
 <div class="modal-body">
   <form id="projectForm">
     @formErrors(form.asInstanceOf[Form[Any]])
-    <input type="hidden" id="projectId" />
+    <input type="hidden" id="projectId" value="@form.data.get("projectId")" />
     <div class="row">
       <div class="col-md-12">
         @inputRow("projectName", "text", form.data.get("projectName"), form.errors("projectName").size > 0)

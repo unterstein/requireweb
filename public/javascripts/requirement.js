@@ -20,38 +20,26 @@ $(function () {
     $("#newProjectAdd").show();
     return false;
   });
-  /** clear behavior */
-  $("#projectModal").on("show.bs.modal", function () {
-    hideAll();
-    $(this).find(":input").val("");
-  });
   /** add/edit buttons in projet modal */
   $(document).on("click", "#newProjectAdd", function () {
     ajaxCall(jsRoutes.controllers.RequirementController.addProject(), $("#projectForm").serialize(), function (data) {
-      $(".has-error").removeClass("has-error");
-      for (var prop in data) {
-        $("#" + prop).closest(".form-group").addClass("has-error");
-      }
+      $("#projectModal .modal-content").html(data);
+      $("#projectModal").find(".modal-body :input[type!='hidden']")[0].focus();
     });
   });
   $(document).on("click", "#projectEdit", function () {
     var id = $("#projectId").val();
     ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), $("#projectForm").serialize(), function (data) {
-      $(".has-error").removeClass("has-error");
-      for (var prop in data) {
-        $("#" + prop).closest(".form-group").addClass("has-error");
-      }
+      $("#projectModal .modal-content").html(data);
+      $("#projectModal").find(".modal-body :input[type!='hidden']")[0].focus();
     });
   });
-  /** other stuff */
-  hideAll();
-  window.pEdit = function (id, name, shortName, description) {
-    $("#projectModal").modal("show");
-    $("#projectName").val(name);
-    $("#shortName").val(shortName);
-    $("#projectDescription").val(description);
-    $("#projectId").val(id);
-    $("#projectEdit").show();
+  window.pEdit = function (id) {
+    ajaxCall(jsRoutes.controllers.RequirementController.projectEditPanel(id), null, function(data) {
+      var modal = $("#projectModal");
+      modal.modal("show");
+      modal.find(".modal-content").html(data);
+    });
   }
 
   window.rEdit = function (id) {
@@ -60,12 +48,6 @@ $(function () {
       modal.modal("show");
       modal.find(".modal-content").html(data);
     });
-  }
-
-  function hideAll() {
-    $(".has-error").removeClass("has-error");
-    $("#newProjectAdd").hide();
-    $("#projectEdit").hide();
   }
 
   /** requirement stuff */
