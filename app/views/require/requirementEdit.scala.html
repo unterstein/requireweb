@@ -1,0 +1,45 @@
+@**
+* Copyright (C) 2014 Johannes Unterstein, unterstein@me.com, unterstein.info
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+
+* http://www.apache.org/licenses/LICENSE-2.0
+
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*@
+@(id: Long, form: Form[controllers.RequirementController.CaseRequirement], mode: String = "create")(implicit request: play.api.mvc.Request[Any], lang: Lang)
+<form id="requireForm">
+  <input type="hidden" id="requireProjectId" name="requireProjectId" />
+  <input type="hidden" id="requireParent" name="requireParent" />
+  <input type="hidden" id="requireId" name="requireId" />
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="requireName" class="control-label">@Messages("name")</label>
+        <input type="text" class="form-control" id="requireName" name="requireName" placeholder="@Messages("field.name.placeholder")" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="requireDescription" class="control-label">@Messages("field.description")</label>
+        <textarea class="form-control" id="requireDescription" name="requireDescription"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="requireEstimatedEffort" class="control-label">@Messages("field.estimatedEffort")</label>
+        <input type="text" class="form-control" id="requireEstimatedEffort" name="requireEstimatedEffort" placeholder="@Messages("field.estimatedEffort.placeholder")" />
+      </div>
+    </div>
+  </div>
+</form>

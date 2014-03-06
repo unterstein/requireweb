@@ -118,35 +118,7 @@
           <h4 class="modal-title">@Messages("require.new")</h4>
         </div>
         <div class="modal-body">
-          <form id="requireForm">
-            <input type="hidden" id="requireProjectId" name="requireProjectId" />
-            <input type="hidden" id="requireParent" name="requireParent" />
-            <input type="hidden" id="requireId" name="requireId" />
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="requireName" class="control-label">@Messages("name")</label>
-                  <input type="text" class="form-control" id="requireName" name="requireName" placeholder="@Messages("field.name.placeholder")" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="requireDescription" class="control-label">@Messages("field.description")</label>
-                  <textarea class="form-control" id="requireDescription" name="requireDescription"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="requireEstimatedEffort" class="control-label">@Messages("field.estimatedEffort")</label>
-                  <input type="text" class="form-control" id="requireEstimatedEffort" name="requireEstimatedEffort" placeholder="@Messages("field.estimatedEffort.placeholder")" />
-                </div>
-              </div>
-            </div>
-          </form>
+          @views.html.require.requirementEdit(-1L, RequirementController.requireForm, "create")
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
