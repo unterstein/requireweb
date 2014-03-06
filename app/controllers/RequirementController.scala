@@ -139,7 +139,9 @@ object RequirementController extends BaseController {
       // TODO contributors ?
       if (project != null && project.author.id == user.id) {
         requireForm.bindFromRequest.fold(
-          formWithErrors => Ok(views.html.require.requirementEdit(-1L, formWithErrors)),
+          formWithErrors => {
+            Ok(views.html.require.requirementEdit(-1L, formWithErrors))
+          },
           value => {
             val requirement = Requirement.create(value.requireName, value.requireDescription, user, project)
             if (value.requireParent > 0) {
@@ -147,11 +149,11 @@ object RequirementController extends BaseController {
               if (parent != null && parent.project.id == requirement.project.id) {
                 requirement.parent = parent
               }
-              if (StringUtils.isNotBlank(value.requireEstimatedEffort)) {
-                requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort.replace(",", "."))
-              }
-              Neo4JServiceProvider.get().requirementRepository.save(requirement)
             }
+            if (StringUtils.isNotBlank(value.requireEstimatedEffort)) {
+              requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort.replace(",", "."))
+            }
+            Neo4JServiceProvider.get().requirementRepository.save(requirement)
             Ok(routes.RequirementController.requirementListId(id).url)
           }
         )
@@ -210,7 +212,7 @@ object RequirementController extends BaseController {
 
   val requireForm: Form[CaseRequirement] = Form(
     mapping(
-      "requireId" -> longNumber,
+      "requireId" -> default(longNumber, -1L),
       "requireName" -> nonEmptyText,
       "requireDescription" -> text,
       "requireParent" -> longNumber,
