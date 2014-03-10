@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *@
-@(id: Long, form: Form[controllers.RequirementController.CaseRequirement], mode: String)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@(id: Long, projectId: Long, form: Form[controllers.RequirementController.CaseRequirement], mode: String)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
 @import neo4j.models.require.Requirement
 @import views.html.helper.{inputRow, textareaRow, formErrors, dropDownRow}
@@ -29,7 +29,7 @@
     <input type="hidden" id="requireParent" name="requireParent" value="@form.data.get("requireParent")" />
     <div class="row">
       <div class="col-md-12">
-        @dropDownRow("requireParent", form.data.get("requireParent"), form.errors("requireParent").size > 0, Requirement.getPossibleParents(id))
+        @dropDownRow("requireParent", form.data.get("requireParent"), form.errors("requireParent").size > 0, Requirement.getPossibleParents(projectId, id))
       </div>
     </div>
     <input type="hidden" id="requireId" name="requireId" value="@form.data.get("requireId")" />

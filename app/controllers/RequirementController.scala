@@ -82,7 +82,7 @@ object RequirementController extends BaseController {
       }
   }
 
-  def requirementEditPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+  def requirementEditPanel(projectId: Long, id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       if(id > 0) {
         val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
@@ -92,12 +92,12 @@ object RequirementController extends BaseController {
           val caseRequirement = CaseRequirement(requirement.id, requirement.name, requirement.description,
             if(requirement.parent != null) requirement.parent.id else -1L,
             requirement.project.id, "" + requirement.estimatedEffort)
-          Ok(views.html.require.requirementEditDialog(id, requireForm.fill(caseRequirement), "edit"))
+          Ok(views.html.require.requirementEditDialog(id, projectId, requireForm.fill(caseRequirement), "edit"))
         } else {
-          Ok(views.html.require.requirementEditDialog(-1L, requireForm, "create"))
+          Ok(views.html.require.requirementEditDialog(-1L, projectId, requireForm, "create"))
         }
       } else {
-        Ok(views.html.require.requirementEditDialog(-1L, requireForm, "create"))
+        Ok(views.html.require.requirementEditDialog(-1L, projectId, requireForm, "create"))
       }
   }
 
@@ -180,7 +180,7 @@ object RequirementController extends BaseController {
       // TODO contributors ?
       if (project != null && project.author.id == user.id) {
         requireForm.bindFromRequest.fold(
-          formWithErrors => Ok(views.html.require.requirementEditDialog(-1L, formWithErrors, "create")),
+          formWithErrors => Ok(views.html.require.requirementEditDialog(-1L, project.id, formWithErrors, "create")),
           value => {
             val requirement = Requirement.create(value.requireName, value.requireDescription, user, project)
             if (value.requireParent > 0) {
@@ -208,7 +208,7 @@ object RequirementController extends BaseController {
       // TODO contributors
       if (requirement != null && requirement.author.id == user.id) {
         requireForm.bindFromRequest.fold(
-          formWithErrors => Ok(views.html.require.requirementEditDialog(id, formWithErrors, "edit")),
+          formWithErrors => Ok(views.html.require.requirementEditDialog(id, requirement.project.id, formWithErrors, "edit")),
           value => {
             // TODO compare requirement.project with id
             requirement.name = value.requireName

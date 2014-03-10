@@ -45,8 +45,8 @@ $(function () {
     });
   }
 
-  window.rEdit = function (id) {
-    ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(id), null, function(data) {
+  window.rEdit = function (project, id) {
+    ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(project, id), null, function(data) {
       var modal = $("#requireModal");
       modal.modal("show");
       modal.find(".modal-content").html(data);
@@ -57,7 +57,7 @@ $(function () {
   $(document).on("click", ".newRequirement", function () {
     var id = $(this).data("id");
     var parent = $(this).data("parent");
-    ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(-1), null, function(data) {
+    ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(id, -1), null, function(data) {
       var modal = $("#requireModal");
       modal.modal("show");
       modal.find(".modal-content").html(data);

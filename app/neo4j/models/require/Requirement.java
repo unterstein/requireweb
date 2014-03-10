@@ -70,13 +70,23 @@ public class Requirement extends CommentAbleModel {
     return result;
   }
 
-  public static ViewEnumModel getPossibleParents(Long id) {
-    Requirement require = Neo4JServiceProvider.get().requirementRepository.findOne(id);
-    ViewEnumModel result = new ViewEnumModel();
-    for (Requirement requirement : Neo4JServiceProvider.get().requirementRepository.findPossibleParents(require.project, require)) {
-      result.keys.add("" + requirement.id);
-      result.values.put("" + requirement.id, requirement.name);
+  public static ViewEnumModel getPossibleParents(Long projectId, Long requirementId) {
+    if (requirementId > 0) {
+      Requirement require = Neo4JServiceProvider.get().requirementRepository.findOne(requirementId);
+      ViewEnumModel result = new ViewEnumModel();
+      for (Requirement requirement : Neo4JServiceProvider.get().requirementRepository.findPossibleParents(require.project, require)) {
+        result.keys.add("" + requirement.id);
+        result.values.put("" + requirement.id, requirement.name);
+      }
+      return result;
+    } else {
+      Project project = Neo4JServiceProvider.get().projectRepository.findOne(projectId);
+      ViewEnumModel result = new ViewEnumModel();
+      for (Requirement requirement : Neo4JServiceProvider.get().requirementRepository.findForProject(project)) {
+        result.keys.add("" + requirement.id);
+        result.values.put("" + requirement.id, requirement.name);
+      }
+      return result;
     }
-    return result;
   }
 }
