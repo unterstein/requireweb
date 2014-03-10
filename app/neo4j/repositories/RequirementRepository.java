@@ -28,6 +28,9 @@ public interface RequirementRepository extends GraphRepository<Requirement> {
   @Query("START project=node({0}) MATCH project<-[:" + Relations.PROJECT_REQUIREMENT + "]-requirement WHERE NOT requirement-[:" + Relations.REQUIREMENT_REQUIREMENT + "]->() RETURN requirement")
   public List<Requirement> findMainRequirementsByProject(Project project);
 
+  @Query("START start=node({1}), current=node({0}) MATCH project<-[:" + Relations.PROJECT_REQUIREMENT + "]-requirement WHERE NOT requirement-[:" + Relations.REQUIREMENT_REQUIREMENT + "*]->current return requirement")
+  public List<Requirement> findPossibleParents(Project project, Requirement requirement);
+
   @Query("START requirement=node({0}) MATCH requirement<-[:" + Relations.REQUIREMENT_REQUIREMENT + "*]-children RETURN sum(children.estimatedEffort)")
   public double findChildEstimatedEffort(Requirement requirement);
 
@@ -35,7 +38,9 @@ public interface RequirementRepository extends GraphRepository<Requirement> {
   public double findChildRealEffort(Requirement requirement);
 
   public static class RequirementInfo {
+
     public double childEstimatedEffort;
+
     public double childRealEffort;
   }
 }

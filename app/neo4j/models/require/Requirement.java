@@ -15,6 +15,7 @@
  */
 package neo4j.models.require;
 
+import helper.ViewEnumModel;
 import neo4j.models.CommentAbleModel;
 import neo4j.models.user.User;
 import neo4j.relations.Relations;
@@ -66,6 +67,16 @@ public class Requirement extends CommentAbleModel {
     result.project = project;
     result.expanedInUi = true;
     Neo4JServiceProvider.get().requirementRepository.save(result);
+    return result;
+  }
+
+  public static ViewEnumModel getPossibleParents(Long id) {
+    Requirement require = Neo4JServiceProvider.get().requirementRepository.findOne(id);
+    ViewEnumModel result = new ViewEnumModel();
+    for (Requirement requirement : Neo4JServiceProvider.get().requirementRepository.findPossibleParents(require.project, require)) {
+      result.keys.add("" + requirement.id);
+      result.values.put("" + requirement.id, requirement.name);
+    }
     return result;
   }
 }
