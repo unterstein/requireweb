@@ -16,8 +16,11 @@
 $(function () {
   /** project stuff */
   $("#newProject").click(function () {
-    $("#projectModal").modal("show");
-    $("#newProjectAdd").show();
+    ajaxCall(jsRoutes.controllers.RequirementController.projectEditPanel(-1), null, function(data) {
+      var modal = $("#projectModal");
+      modal.modal("show");
+      modal.find(".modal-content").html(data);
+    });
     return false;
   });
   /** add/edit buttons in projet modal */
