@@ -40,6 +40,7 @@
                     &nbsp; @project.shortName
                     <i class="fa fa-trash-o delete pull-right" data-url="@routes.RequirementController.deleteProject(project.id)" data-success="@routes.RequirementController.requirementList" onClick="return false;"></i>
                     <i class="fa fa-edit edit pull-right" onClick="pEdit(@project.id); return false;"></i>
+                    <i class="fa fa-info-circle projectInfo pull-right" data-id="@project.id" onClick="return false;"></i>
                 </a>
               </li>
             }
@@ -62,7 +63,15 @@
     </div>
   </div>
 
-  <!-- project modal -->
+  <!-- project info modal -->
+  <div class="modal fade" id="projectInfoModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+
+  <!-- project edit modal -->
   <div class="modal fade" id="projectModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -70,7 +79,7 @@
     </div>
   </div>
 
-  <!-- requirement modal -->
+  <!-- requirement edit modal -->
   <div class="modal fade" id="requireModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -82,7 +91,6 @@
   <div class="modal fade" id="requireInfoModal">
     <div class="modal-dialog">
       <div class="modal-content">
-
       </div>
     </div>
   </div>

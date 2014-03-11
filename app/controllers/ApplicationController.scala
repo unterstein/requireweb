@@ -41,7 +41,8 @@ object ApplicationController extends BaseController {
             RequirementController.toggleExpandedState,
             RequirementController.requirementEditPanel,
             RequirementController.projectEditPanel,
-            RequirementController.requirementInfoPanel
+            RequirementController.requirementInfoPanel,
+            RequirementController.projectInfoPanel
           )
         ).as("text/javascript")
   }

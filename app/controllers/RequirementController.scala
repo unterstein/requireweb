@@ -111,7 +111,14 @@ object RequirementController extends BaseController {
   def projectInfoPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       if(id > 0) {
-
+        val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
+        val user = PlaySession.getUser
+        // TODO contributors
+        if (project != null && project.author.id == user.id) {
+          Ok(views.html.require.projectInfoDialog(project))
+        } else {
+          Ok("") // TODO error dialog
+        }
       } else {
         Ok("") // TODO error dialog
       }

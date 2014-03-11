@@ -44,6 +44,14 @@ $(function () {
       modal.find(".modal-content").html(data);
     });
   }
+  $(".projectInfo").click(function () {
+    var id = $(this).data("id");
+    ajaxCall(jsRoutes.controllers.RequirementController.projectInfoPanel(id), null, function(data) {
+      var modal = $("#projectInfoModal");
+      modal.modal("show");
+      modal.find(".modal-content").html(data);
+    });
+  });
 
   window.rEdit = function (project, id) {
     ajaxCall(jsRoutes.controllers.RequirementController.requirementEditPanel(project, id), null, function(data) {
