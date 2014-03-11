@@ -115,7 +115,7 @@ object RequirementController extends BaseController {
         val user = PlaySession.getUser
         // TODO contributors
         if (project != null && project.author.id == user.id) {
-          Ok(views.html.require.projectInfoDialog(project))
+          Ok(views.html.require.projectInfoDialog(project, Neo4JServiceProvider.get().projectRepository.calcProjectInfo(project)))
         } else {
           Ok("") // TODO error dialog
         }

@@ -41,8 +41,5 @@ public interface ProjectRepository extends GraphRepository<Project> {
 
     @ResultColumn("realEffort")
     public double getTotalRealEfforts();
-
-    @ResultColumn("")
-    public double getTotalRealCosts();
   }
 }

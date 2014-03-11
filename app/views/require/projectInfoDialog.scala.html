@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *@
-@(project: neo4j.models.require.Project)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@(project: neo4j.models.require.Project, info: neo4j.repositories.ProjectRepository.ProjectInfo)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
 @import views.html.helper.{inputRow, textareaRow, formErrors, dropDownRow}
 
@@ -23,7 +23,7 @@
 </div>
 <div class="modal-body">
   <h5>@Messages("require.efforts")</h5>
-
+  @info.getTotalEstimatedEfforts
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
