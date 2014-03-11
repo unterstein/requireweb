@@ -134,7 +134,7 @@ object RequirementController extends BaseController {
         val user = PlaySession.getUser
         // TODO contributors
         if (project != null && project.author.id == user.id) {
-          val caseProject = CaseProject(project.id, project.shortName, project.name, project.description, "" + project.hourlyRate)
+          val caseProject = CaseProject(project.id, project.shortName, project.name, project.description, if(project.hourlyRate > 0) { "" + project.hourlyRate } else { "" })
           Ok(views.html.require.projectEditDialog(-1L, projectForm.fill(caseProject), "edit"))
         } else {
           Ok(views.html.require.projectEditDialog(-1L, projectForm, "create"))
