@@ -108,6 +108,15 @@ object RequirementController extends BaseController {
       }
   }
 
+  def projectInfoPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      if(id > 0) {
+
+      } else {
+        Ok("") // TODO error dialog
+      }
+  }
+
   def requirementInfoPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       if(id > 0) {

@@ -113,6 +113,9 @@ require.info=Requirement #
 require.efforts=Efforts
 require.root=No parent
 
+# project
+project.info=Project #
+
 # errors
 error.passwordNotMatch=Passwords do not match
 error.duplicateEmail=E-Mail already exists
