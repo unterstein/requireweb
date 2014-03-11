@@ -26,6 +26,9 @@
   @info.getTotalEstimatedEfforts h (@{info.getTotalEstimatedEfforts*project.hourlyRate} &euro;)
   <h5>@Messages("field.realEffort")</h5>
   @info.getTotalRealEfforts h (@{info.getTotalRealEfforts*project.hourlyRate} &euro;)
+  <h5>@Messages("project.requirementAmount")</h5>
+  @info.getRequirementAmount
+
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>

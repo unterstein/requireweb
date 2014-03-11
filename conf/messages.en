@@ -115,6 +115,7 @@ require.root=No parent
 
 # project
 project.info=Project #
+project.requirementAmount=Amount of requirements
 
 # errors
 error.passwordNotMatch=Passwords do not match

@@ -30,7 +30,7 @@ public interface ProjectRepository extends GraphRepository<Project> {
   @Query("START user=node({0}) MATCH user-[:" + Relations.MODEL_AUTHOR + "|" + Relations.PROJECT_CONTRIBUTOR + "]->project WHERE (project: Project) RETURN project ORDER BY project.id ASC")
   public List<Project> findByAuthorOrContributor(User author);
 
-  @Query("START project=node({0}) MATCH project<-[:" + Relations.PROJECT_REQUIREMENT + "*]-requirement RETURN sum(requirement.estimatedEffort) as estimatedEffort, sum(requirement.realEffort) as realEffort")
+  @Query("START project=node({0}) MATCH project<-[:" + Relations.PROJECT_REQUIREMENT + "*]-requirement RETURN sum(requirement.estimatedEffort) as estimatedEffort, sum(requirement.realEffort) as realEffort, count(requirement) as requirementAmount")
   public ProjectInfo calcProjectInfo(Project project);
 
   @QueryResult
@@ -41,5 +41,8 @@ public interface ProjectRepository extends GraphRepository<Project> {
 
     @ResultColumn("realEffort")
     public double getTotalRealEfforts();
+
+    @ResultColumn("requirementAmount")
+    public int getRequirementAmount();
   }
 }
