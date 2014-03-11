@@ -40,6 +40,8 @@ public class Project extends CommentAbleModel {
 
   public String shortName;
 
+  public double hourlyRate;
+
   public static Project create(String shortName, String name, String description, User author) {
     Project result = new Project();
     result.shortName = shortName;

@@ -37,6 +37,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        @inputRow("projectHourlyRate", "text", form.data.get("projectHourlyRate"), form.errors("projectHourlyRate").size > 0)
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         @textareaRow("projectDescription", form.data.get("projectDescription"), form.errors("projectDescription").size > 0)
       </div>
     </div>

@@ -56,6 +56,10 @@ object RequirementController extends BaseController {
         formWithErrors => Ok(views.html.require.projectEditDialog(-1L, formWithErrors, "create")),
         value => {
           val project = Project.create(value.shortName.toUpperCase, value.projectName, value.projectDescription, PlaySession.getUser)
+          if (StringUtils.isNotBlank(value.projectHourlyRate)) {
+            project.hourlyRate = java.lang.Double.parseDouble(value.projectHourlyRate.replace(",", "."))
+            Neo4JServiceProvider.get().projectRepository.save(project)
+          }
           Ok(routes.RequirementController.requirementListId(project.id).url)
         }
       )
@@ -73,6 +77,9 @@ object RequirementController extends BaseController {
             project.shortName = value.shortName.toUpperCase
             project.name = value.projectName
             project.description = value.projectDescription
+            if (StringUtils.isNotBlank(value.projectHourlyRate)) {
+              project.hourlyRate = java.lang.Double.parseDouble(value.projectHourlyRate.replace(",", "."))
+            }
             Neo4JServiceProvider.get().projectRepository.save(project)
             Ok(routes.RequirementController.requirementListId(project.id).url)
           }
@@ -127,7 +134,7 @@ object RequirementController extends BaseController {
         val user = PlaySession.getUser
         // TODO contributors
         if (project != null && project.author.id == user.id) {
-          val caseProject = CaseProject(project.id, project.shortName, project.name, project.description)
+          val caseProject = CaseProject(project.id, project.shortName, project.name, project.description, "" + project.hourlyRate)
           Ok(views.html.require.projectEditDialog(-1L, projectForm.fill(caseProject), "edit"))
         } else {
           Ok(views.html.require.projectEditDialog(-1L, projectForm, "create"))
@@ -260,14 +267,17 @@ object RequirementController extends BaseController {
   }
 
 
-  case class CaseProject(id: Long, shortName: String, projectName: String, projectDescription: String)
+  case class CaseProject(id: Long, shortName: String, projectName: String, projectDescription: String, projectHourlyRate: String)
 
   val projectForm: Form[CaseProject] = Form(
     mapping(
       "projectId" -> default(longNumber, -1L),
       "shortName" -> nonEmptyText(minLength = 3, maxLength = 10),
       "projectName" -> nonEmptyText,
-      "projectDescription" -> text
+      "projectDescription" -> text,
+      "projectHourlyRate" ->  text.verifying("error.format", hourlyRate => {
+        if(StringUtils.isBlank(hourlyRate)) { true } else { isDoubleNumber(hourlyRate.replace("," ,".")) }
+      })
     )(CaseProject.apply)(CaseProject.unapply))
 
   case class CaseRequirement(requireId: Long, requireName: String, requireDescription: String, requireParent: Long, requireProjectId: Long, requireEstimatedEffort: String)
