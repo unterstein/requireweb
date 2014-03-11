@@ -216,6 +216,28 @@ object RequirementController extends BaseController {
             if (StringUtils.isNotBlank(value.requireEstimatedEffort)) {
               requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort.replace(",", "."))
             }
+
+            var parent: Requirement = null
+            // change parent id
+            if (value.requireParent == -1) {
+              // change to root requirement
+              parent = null
+            } else if (value.requireParent > 0 && requirement.parent == null) {
+              // change from root requirement to sub requirement
+              parent = Neo4JServiceProvider.get().requirementRepository.findOne(value.requireParent)
+            } else if (requirement.parent != null && value.requireParent != requirement.parent.id) {
+              // change parent requirement
+              parent = Neo4JServiceProvider.get().requirementRepository.findOne(value.requireParent)
+            }
+            if (parent != null) {
+              // TODO contributors
+              if (parent.author.id == user.id) {
+                requirement.parent = parent
+              }
+            } else {
+              requirement.parent = parent
+            }
+
             Neo4JServiceProvider.get().requirementRepository.save(requirement)
             Ok(routes.RequirementController.requirementListId(requirement.project.id).url)
           }

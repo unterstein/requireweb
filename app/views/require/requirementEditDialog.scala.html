@@ -26,10 +26,9 @@
   <form id="requireForm">
     @formErrors(form.asInstanceOf[Form[Any]])
     <input type="hidden" id="requireProjectId" name="requireProjectId" value="@form.data.get("requireProjectId")" />
-    <input type="hidden" id="requireParent" name="requireParent" value="@form.data.get("requireParent")" />
     <div class="row">
       <div class="col-md-12">
-        @dropDownRow("requireParent", form.data.get("requireParent"), form.errors("requireParent").size > 0, Requirement.getPossibleParents(projectId, id))
+        @dropDownRow("requireParent", form.data.get("requireParent"), form.errors("requireParent").size > 0, Requirement.getPossibleParents(projectId, id, Messages("require.root")))
       </div>
     </div>
     <input type="hidden" id="requireId" name="requireId" value="@form.data.get("requireId")" />
