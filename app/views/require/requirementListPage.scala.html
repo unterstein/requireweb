@@ -75,7 +75,9 @@
                   <a id="newEffort" class="btn btn-primary marginButton newEffort pull-right" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.effort.create")</a>
                 </div>
               </div>
-              muh
+              @Neo4JServiceProvider.get().otherEffortRepository.findForProject(currentProject).sortBy(_.id).map { effort =>
+                @effort.name
+              }
             </div>
           </div>
         </div>
