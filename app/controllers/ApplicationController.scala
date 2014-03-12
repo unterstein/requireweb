@@ -42,7 +42,9 @@ object ApplicationController extends BaseController {
             RequirementController.requirementEditPanel,
             ProjectController.projectEditPanel,
             RequirementController.requirementInfoPanel,
-            ProjectController.projectInfoPanel
+            ProjectController.projectInfoPanel,
+            EffortController.effortEditPanel,
+            EffortController.addEffort
           )
         ).as("text/javascript")
   }

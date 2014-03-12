@@ -113,4 +113,15 @@ $(function () {
     window.history.pushState(null, document.title, $(this).data("url"));
   });
 
+  /** efforts */
+  $(document).on("click", "#newEffort", function () {
+    var id = $(this).data("id");
+    ajaxCall(jsRoutes.controllers.EffortController.effortEditPanel(id, -1), null, function(data) {
+      var modal = $("#effortModal");
+      modal.modal("show");
+      modal.find(".modal-content").html(data);
+      $("#effortProjectId").val(id);
+    });
+    return false;
+  });
 });

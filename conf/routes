@@ -3,52 +3,53 @@
 # ~~~~
 
 # Home page
-GET         /                                        controllers.ApplicationController.index
+GET         /                                                controllers.ApplicationController.index
 
 # Dashboard
-GET         /dashboard                               controllers.DashboardController.dashboard
+GET         /dashboard                                       controllers.DashboardController.dashboard
 
 # User
-GET         /users                                   controllers.UserController.userList
-GET         /users/create                            controllers.UserController.create
-GET         /users/edit/:id                          controllers.UserController.edit(id: Long)
-POST        /users/edit/:id/edit                     controllers.UserController.postEdit(id: Long)
-POST        /users/edit/:id/delete                   controllers.UserController.delete(id: Long)
-POST        /users/postCreate                        controllers.UserController.postCreate
+GET         /users                                           controllers.UserController.userList
+GET         /users/create                                    controllers.UserController.create
+GET         /users/edit/:id                                  controllers.UserController.edit(id: Long)
+POST        /users/edit/:id/edit                             controllers.UserController.postEdit(id: Long)
+POST        /users/edit/:id/delete                           controllers.UserController.delete(id: Long)
+POST        /users/postCreate                                controllers.UserController.postCreate
 
 # Requirements
-GET         /requirements                            controllers.RequirementController.requirementList
-GET         /requirements/:id                        controllers.RequirementController.requirementListId(id: Long)
-GET         /requirements/:projectId/:id/edit        controllers.RequirementController.requirementEditPanel(projectId: Long, id: Long)
-GET         /requirements/:id/info                   controllers.RequirementController.requirementInfoPanel(id: Long)
-POST        /requirements/:id/delete                 controllers.RequirementController.deleteRequirement(id: Long)
-POST        /requirements/:id                        controllers.RequirementController.editRequirement(id: Long)
-POST        /requirements/:id/expand/:expand         controllers.RequirementController.toggleExpandedState(id: Long, expand: Boolean)
-POST        /project/:id/requirement                 controllers.RequirementController.addRequirement(id: Long)
-POST        /project                                 controllers.ProjectController.addProject
-POST        /project/:id                             controllers.ProjectController.editProject(id: Long)
-POST        /project/:id/edit                        controllers.ProjectController.projectEditPanel(id: Long)
-GET         /project/:id/info                        controllers.ProjectController.projectInfoPanel(id: Long)
-POST        /project/:id/delete                      controllers.ProjectController.deleteProject(id: Long)
+GET         /requirements                                    controllers.RequirementController.requirementList
+GET         /requirements/:id                                controllers.RequirementController.requirementListId(id: Long)
+GET         /requirements/:projectId/:id/edit                controllers.RequirementController.requirementEditPanel(projectId: Long, id: Long)
+GET         /requirements/:id/info                           controllers.RequirementController.requirementInfoPanel(id: Long)
+POST        /requirements/:id/delete                         controllers.RequirementController.deleteRequirement(id: Long)
+POST        /requirements/:id                                controllers.RequirementController.editRequirement(id: Long)
+POST        /requirements/:id/expand/:expand                 controllers.RequirementController.toggleExpandedState(id: Long, expand: Boolean)
+POST        /project/:id/requirement                         controllers.RequirementController.addRequirement(id: Long)
+POST        /project                                         controllers.ProjectController.addProject
+POST        /project/:id                                     controllers.ProjectController.editProject(id: Long)
+POST        /project/:id/edit                                controllers.ProjectController.projectEditPanel(id: Long)
+GET         /project/:id/info                                controllers.ProjectController.projectInfoPanel(id: Long)
+POST        /project/:id/delete                              controllers.ProjectController.deleteProject(id: Long)
 #### efforts
-GET         /requirements/:id/efforts                controllers.RequirementController.requirementListIdEffort(id: Long)
-POST        /requirements/:id/efforts/add            controllers.EffortController.addEffort(id: Long)
+GET         /requirements/:id/efforts                        controllers.RequirementController.requirementListIdEffort(id: Long)
+GET         /requirements/:projectId/efforts/:id/edit        controllers.EffortController.effortEditPanel(projectId: Long, id: Long)
+POST        /requirements/:id/efforts/add                    controllers.EffortController.addEffort(id: Long)
 
 # Admin
-GET         /admin/performance                       controllers.AdminController.performance
-GET         /admin/allperformance                    controllers.AdminController.allPerformance
-GET         /admin/logs                              controllers.AdminController.logs
-GET         /admin/logs/:logLevel                    controllers.AdminController.logsByLogLevel(logLevel: String)
+GET         /admin/performance                               controllers.AdminController.performance
+GET         /admin/allperformance                            controllers.AdminController.allPerformance
+GET         /admin/logs                                      controllers.AdminController.logs
+GET         /admin/logs/:logLevel                            controllers.AdminController.logsByLogLevel(logLevel: String)
 
 # Authentication
-GET         /login                                   controllers.AuthenticationController.login
-GET         /logout                                  controllers.AuthenticationController.logout
-POST        /login                                   controllers.AuthenticationController.loginUser
-POST        /register                                controllers.AuthenticationController.registerUser
-GET         /register                                controllers.AuthenticationController.registerRedirect
+GET         /login                                           controllers.AuthenticationController.login
+GET         /logout                                          controllers.AuthenticationController.logout
+POST        /login                                           controllers.AuthenticationController.loginUser
+POST        /register                                        controllers.AuthenticationController.registerUser
+GET         /register                                        controllers.AuthenticationController.registerRedirect
 
 # Javascript routing
-GET         /assets/javascripts/routes.js            controllers.ApplicationController.jsRoutes
+GET         /assets/javascripts/routes.js                    controllers.ApplicationController.jsRoutes
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                            controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                    controllers.Assets.at(path="/public", file)

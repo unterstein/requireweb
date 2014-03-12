@@ -31,7 +31,7 @@ textarea {
   display: none;
 }
 
-#newRequirement {
+#newRequirement, #newEffort {
   margin-top: 20px;
 }
 
