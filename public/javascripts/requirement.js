@@ -108,4 +108,9 @@ $(function () {
     $(this).closest(".panel").removeClass("on").addClass("off");
   });
 
+  /** tabs */
+  $("#tabOthers, #tabRequirement").click(function() {
+    window.history.pushState(null, document.title, $(this).data("url"));
+  });
+
 });
