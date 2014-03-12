@@ -62,6 +62,27 @@ object EffortController extends BaseController {
       }
   }
 
+  def editEffort(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val effort = Neo4JServiceProvider.get().otherEffortRepository.findOne(id)
+      val user = PlaySession.getUser
+      // TODO contributors
+      if (effort != null && effort.author.id == user.id) {
+        effortForm.bindFromRequest.fold(
+          formWithErrors => Ok(views.html.require.effortEditDialog(id, effort.project.id, formWithErrors, "edit")),
+          value => {
+            effort.name = value.effortName
+            effort.description = value.effortDescription
+            effort.effort = value.effortEffort
+            Neo4JServiceProvider.get().otherEffortRepository.save(effort)
+            Ok(routes.RequirementController.requirementListIdEffort(effort.project.id).url)
+          }
+        )
+      } else {
+        Ok(routes.RequirementController.requirementList().url)
+      }
+  }
+
   case class CaseEffort(effortId: Long, effortName: String, effortDescription: String, effortEffort: String)
 
   val effortForm: Form[CaseEffort] = Form(

@@ -138,4 +138,11 @@ $(function () {
       $("#requireModal").find(".modal-body :input[type!='hidden']")[0].focus();
     });
   });
+  window.eEdit = function (project, id) {
+    ajaxCall(jsRoutes.controllers.EffortController.effortEditPanel(project, id), null, function(data) {
+      var modal = $("#effortModal");
+      modal.modal("show");
+      modal.find(".modal-content").html(data);
+    });
+  }
 });

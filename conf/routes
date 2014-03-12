@@ -32,6 +32,7 @@ GET         /project/:id/info                                controllers.Project
 POST        /project/:id/delete                              controllers.ProjectController.deleteProject(id: Long)
 #### efforts
 GET         /requirements/:id/efforts                        controllers.RequirementController.requirementListIdEffort(id: Long)
+POST        /requirements/:id/efforts/edit                   controllers.EffortController.editEffort(id: Long)
 GET         /requirements/:projectId/efforts/:id/edit        controllers.EffortController.effortEditPanel(projectId: Long, id: Long)
 POST        /requirements/:id/efforts/add                    controllers.EffortController.addEffort(id: Long)
 
