@@ -31,7 +31,7 @@ textarea {
   display: none;
 }
 
-.panel-heading i {
+.panel-heading i, .nav i {
   width: 18px;
 }
 
