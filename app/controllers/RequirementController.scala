@@ -32,9 +32,9 @@ object RequirementController extends BaseController {
     // TODO not load all projects
       val projects = Neo4JServiceProvider.get().projectRepository.findByAuthorOrContributor(PlaySession.getUser)
       if (projects.size() > 0) {
-        Ok(views.html.require.requireListPage(projects.get(0)))
+        Ok(views.html.require.requirementListPage(projects.get(0)))
       } else {
-        Ok(views.html.require.requireListPage())
+        Ok(views.html.require.requirementListPage())
       }
   }
 
@@ -44,7 +44,7 @@ object RequirementController extends BaseController {
       val user = PlaySession.getUser
       // TODO contributors
       if (project != null && project.author.id == user.id) {
-        Ok(views.html.require.requireListPage(project))
+        Ok(views.html.require.requirementListPage(project))
       } else {
         Redirect(routes.RequirementController.requirementList())
       }
