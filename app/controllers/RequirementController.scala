@@ -23,6 +23,7 @@ import play.api.data.Forms._
 import scala.collection.JavaConversions._
 import org.apache.commons.lang.StringUtils
 import neo4j.repositories.RequirementRepository.RequirementInfo
+import play.api.mvc.AnyContent
 
 
 object RequirementController extends BaseController {
@@ -40,14 +41,23 @@ object RequirementController extends BaseController {
 
   def requirementListId(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
-      val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
-      val user = PlaySession.getUser
-      // TODO contributors
-      if (project != null && project.author.id == user.id) {
-        Ok(views.html.require.requirementListPage(project))
-      } else {
-        Redirect(routes.RequirementController.requirementList())
-      }
+      internalRequirementListId(id, false)
+  }
+
+  def requirementListIdEffort(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      internalRequirementListId(id, true)
+  }
+
+  private def internalRequirementListId(id: Long, showEfforts: Boolean)(implicit request: play.api.mvc.Request[AnyContent]) = {
+    val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
+    val user = PlaySession.getUser
+    // TODO contributors
+    if (project != null && project.author.id == user.id) {
+      Ok(views.html.require.requirementListPage(project, showEfforts))
+    } else {
+      Redirect(routes.RequirementController.requirementList())
+    }
   }
 
   def addProject() = AuthenticatedLoggingAction(UserRole.USER) {

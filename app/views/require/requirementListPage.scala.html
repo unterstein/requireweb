@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *@
-@(currentProject: neo4j.models.require.Project = null)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@(currentProject: neo4j.models.require.Project = null, showEffort: Boolean = false)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
 @import org.apache.commons.lang.StringUtils
 @import global.Global
@@ -53,8 +53,8 @@
     </div>
     <div class="col-md-9">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#requirement" data-toggle="tab">@Messages("require.tab.requirement")</a></li>
-        <li><a href="#others" data-toggle="tab">@Messages("require.tab.others")</a></li>
+        <li @if(showEffort == false){class="active"}><a href="#requirement" data-toggle="tab">@Messages("require.tab.requirement")</a></li>
+        <li @if(showEffort == true){class="active"}><a href="#others" data-toggle="tab">@Messages("require.tab.others")</a></li>
       </ul>
       <div class="row">
         <div class="col-md-12">
@@ -62,12 +62,12 @@
         </div>
       </div>
       <div class="tab-content">
-        <div class="tab-pane active" id="requirement">
+        <div class="tab-pane @if(showEffort == false){active}" id="requirement">
           @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
             @renderRequirement(currentProject.shortName, requirement)
           }
         </div>
-        <div class="tab-pane active" id="others">
+        <div class="tab-pane @if(showEffort == true){active}" id="others">
           muh
         </div>
       </div>

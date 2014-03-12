@@ -19,6 +19,7 @@ POST        /users/postCreate                        controllers.UserController.
 # Requirements
 GET         /requirements                            controllers.RequirementController.requirementList
 GET         /requirements/:id                        controllers.RequirementController.requirementListId(id: Long)
+GET         /requirements/:id/efforts                controllers.RequirementController.requirementListIdEffort(id: Long)
 GET         /requirements/:projectId/:id/edit        controllers.RequirementController.requirementEditPanel(projectId: Long, id: Long)
 GET         /requirements/:id/info                   controllers.RequirementController.requirementInfoPanel(id: Long)
 POST        /requirements/:id/delete                 controllers.RequirementController.deleteRequirement(id: Long)
