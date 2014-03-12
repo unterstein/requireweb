@@ -16,7 +16,7 @@
 $(function () {
   /** project stuff */
   $("#newProject").click(function () {
-    ajaxCall(jsRoutes.controllers.RequirementController.projectEditPanel(-1), null, function(data) {
+    ajaxCall(jsRoutes.controllers.ProjectController.projectEditPanel(-1), null, function(data) {
       var modal = $("#projectModal");
       modal.modal("show");
       modal.find(".modal-content").html(data);
@@ -25,14 +25,14 @@ $(function () {
   });
   /** add/edit buttons in projet modal */
   $(document).on("click", "#newProjectAdd", function () {
-    ajaxCall(jsRoutes.controllers.RequirementController.addProject(), $("#projectForm").serialize(), function (data) {
+    ajaxCall(jsRoutes.controllers.ProjectController.addProject(), $("#projectForm").serialize(), function (data) {
       $("#projectModal .modal-content").html(data);
       $("#projectModal").find(".modal-body :input[type!='hidden']")[0].focus();
     });
   });
   $(document).on("click", "#projectEdit", function () {
     var id = $("#projectId").val();
-    ajaxCall(jsRoutes.controllers.RequirementController.editProject(id), $("#projectForm").serialize(), function (data) {
+    ajaxCall(jsRoutes.controllers.ProjectController.editProject(id), $("#projectForm").serialize(), function (data) {
       $("#projectModal .modal-content").html(data);
       $("#projectModal").find(".modal-body :input[type!='hidden']")[0].focus();
     });
@@ -46,7 +46,7 @@ $(function () {
   }
   $(".projectInfo").click(function () {
     var id = $(this).data("id");
-    ajaxCall(jsRoutes.controllers.RequirementController.projectInfoPanel(id), null, function(data) {
+    ajaxCall(jsRoutes.controllers.ProjectController.projectInfoPanel(id), null, function(data) {
       var modal = $("#projectInfoModal");
       modal.modal("show");
       modal.find(".modal-content").html(data);
