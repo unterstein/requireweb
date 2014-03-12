@@ -60,45 +60,6 @@ object RequirementController extends BaseController {
     }
   }
 
-  def addProject() = AuthenticatedLoggingAction(UserRole.USER) {
-    implicit request =>
-      projectForm.bindFromRequest.fold(
-        formWithErrors => Ok(views.html.require.projectEditDialog(-1L, formWithErrors, "create")),
-        value => {
-          val project = Project.create(value.shortName.toUpperCase, value.projectName, value.projectDescription, PlaySession.getUser)
-          if (StringUtils.isNotBlank(value.projectHourlyRate)) {
-            project.hourlyRate = java.lang.Double.parseDouble(value.projectHourlyRate.replace(",", "."))
-            Neo4JServiceProvider.get().projectRepository.save(project)
-          }
-          Ok(routes.RequirementController.requirementListId(project.id).url)
-        }
-      )
-  }
-
-  def editProject(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
-    implicit request =>
-      val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
-      val user = PlaySession.getUser
-      // TODO contributors
-      if (project != null && project.author.id == user.id) {
-        projectForm.bindFromRequest.fold(
-          formWithErrors => Ok(views.html.require.projectEditDialog(id, formWithErrors, "edit")),
-          value => {
-            project.shortName = value.shortName.toUpperCase
-            project.name = value.projectName
-            project.description = value.projectDescription
-            if (StringUtils.isNotBlank(value.projectHourlyRate)) {
-              project.hourlyRate = java.lang.Double.parseDouble(value.projectHourlyRate.replace(",", "."))
-            }
-            Neo4JServiceProvider.get().projectRepository.save(project)
-            Ok(routes.RequirementController.requirementListId(project.id).url)
-          }
-        )
-      } else {
-        Ok(routes.RequirementController.requirementList().url)
-      }
-  }
-
   def requirementEditPanel(projectId: Long, id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       if(id > 0) {
@@ -115,22 +76,6 @@ object RequirementController extends BaseController {
         }
       } else {
         Ok(views.html.require.requirementEditDialog(-1L, projectId, requireForm, "create"))
-      }
-  }
-
-  def projectInfoPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
-    implicit request =>
-      if(id > 0) {
-        val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
-        val user = PlaySession.getUser
-        // TODO contributors
-        if (project != null && project.author.id == user.id) {
-          Ok(views.html.require.projectInfoDialog(project, Neo4JServiceProvider.get().projectRepository.calcProjectInfo(project)))
-        } else {
-          Ok("") // TODO error dialog
-        }
-      } else {
-        Ok("") // TODO error dialog
       }
   }
 
@@ -153,38 +98,6 @@ object RequirementController extends BaseController {
       }
   }
 
-  def projectEditPanel(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
-    implicit request =>
-      if(id > 0) {
-        val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
-        val user = PlaySession.getUser
-        // TODO contributors
-        if (project != null && project.author.id == user.id) {
-          val caseProject = CaseProject(project.id, project.shortName, project.name, project.description, if(project.hourlyRate > 0) { "" + project.hourlyRate } else { "" })
-          Ok(views.html.require.projectEditDialog(-1L, projectForm.fill(caseProject), "edit"))
-        } else {
-          Ok(views.html.require.projectEditDialog(-1L, projectForm, "create"))
-        }
-      } else {
-        Ok(views.html.require.projectEditDialog(-1L, projectForm, "create"))
-      }
-  }
-
-  def deleteProject(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
-    implicit request =>
-      val project = Neo4JServiceProvider.get().projectRepository.findOne(id)
-      val user = PlaySession.getUser
-      if (project != null && project.author.id == user.id) {
-        if(project.requirements != null) {
-          project.requirements.map { requirement =>
-            deleteRequirementRecursive(requirement)
-          }
-        }
-        Neo4JServiceProvider.get().projectRepository.delete(project)
-      }
-      Ok(routes.RequirementController.requirementList().url)
-  }
-
   def deleteRequirement(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
       val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(id)
@@ -196,7 +109,7 @@ object RequirementController extends BaseController {
       Ok(routes.RequirementController.requirementListId(projectId).url)
   }
 
-  private def deleteRequirementRecursive(inputRequirement: Requirement): Unit = {
+  def deleteRequirementRecursive(inputRequirement: Requirement): Unit = {
     val requirement = Neo4JServiceProvider.get().requirementRepository.findOne(inputRequirement.id)
     if(requirement.children != null) {
       requirement.children.map { children =>
@@ -291,20 +204,6 @@ object RequirementController extends BaseController {
       }
       Ok("")
   }
-
-
-  case class CaseProject(id: Long, shortName: String, projectName: String, projectDescription: String, projectHourlyRate: String)
-
-  val projectForm: Form[CaseProject] = Form(
-    mapping(
-      "projectId" -> default(longNumber, -1L),
-      "shortName" -> nonEmptyText(minLength = 3, maxLength = 10),
-      "projectName" -> nonEmptyText,
-      "projectDescription" -> text,
-      "projectHourlyRate" ->  text.verifying("error.format", hourlyRate => {
-        if(StringUtils.isBlank(hourlyRate)) { true } else { isDoubleNumber(hourlyRate.replace("," ,".")) }
-      })
-    )(CaseProject.apply)(CaseProject.unapply))
 
   case class CaseRequirement(requireId: Long, requireName: String, requireDescription: String, requireParent: Long, requireProjectId: Long, requireEstimatedEffort: String)
 

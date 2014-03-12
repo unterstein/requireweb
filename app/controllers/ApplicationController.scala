@@ -34,15 +34,15 @@ object ApplicationController extends BaseController {
         import routes.javascript._
         Ok(
           Routes.javascriptRouter("jsRoutes")(
-            RequirementController.addProject,
-            RequirementController.editProject,
+            ProjectController.addProject,
+            ProjectController.editProject,
             RequirementController.addRequirement,
             RequirementController.editRequirement,
             RequirementController.toggleExpandedState,
             RequirementController.requirementEditPanel,
-            RequirementController.projectEditPanel,
+            ProjectController.projectEditPanel,
             RequirementController.requirementInfoPanel,
-            RequirementController.projectInfoPanel
+            ProjectController.projectInfoPanel
           )
         ).as("text/javascript")
   }

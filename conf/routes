@@ -19,18 +19,20 @@ POST        /users/postCreate                        controllers.UserController.
 # Requirements
 GET         /requirements                            controllers.RequirementController.requirementList
 GET         /requirements/:id                        controllers.RequirementController.requirementListId(id: Long)
-GET         /requirements/:id/efforts                controllers.RequirementController.requirementListIdEffort(id: Long)
 GET         /requirements/:projectId/:id/edit        controllers.RequirementController.requirementEditPanel(projectId: Long, id: Long)
 GET         /requirements/:id/info                   controllers.RequirementController.requirementInfoPanel(id: Long)
 POST        /requirements/:id/delete                 controllers.RequirementController.deleteRequirement(id: Long)
 POST        /requirements/:id                        controllers.RequirementController.editRequirement(id: Long)
 POST        /requirements/:id/expand/:expand         controllers.RequirementController.toggleExpandedState(id: Long, expand: Boolean)
-POST        /project                                 controllers.RequirementController.addProject
 POST        /project/:id/requirement                 controllers.RequirementController.addRequirement(id: Long)
-POST        /project/:id                             controllers.RequirementController.editProject(id: Long)
-POST        /project/:id/edit                        controllers.RequirementController.projectEditPanel(id: Long)
-GET         /project/:id/info                        controllers.RequirementController.projectInfoPanel(id: Long)
-POST        /project/:id/delete                      controllers.RequirementController.deleteProject(id: Long)
+POST        /project                                 controllers.ProjectController.addProject
+POST        /project/:id                             controllers.ProjectController.editProject(id: Long)
+POST        /project/:id/edit                        controllers.ProjectController.projectEditPanel(id: Long)
+GET         /project/:id/info                        controllers.ProjectController.projectInfoPanel(id: Long)
+POST        /project/:id/delete                      controllers.ProjectController.deleteProject(id: Long)
+#### efforts
+GET         /requirements/:id/efforts                controllers.RequirementController.requirementListIdEffort(id: Long)
+POST        /requirements/:id/efforts/add            controllers.EffortController.addEffort(id: Long)
 
 # Admin
 GET         /admin/performance                       controllers.AdminController.performance
