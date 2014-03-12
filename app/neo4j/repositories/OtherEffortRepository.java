@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package neo4j.relations;
+package neo4j.repositories;
 
-public interface Relations {
+import neo4j.models.require.OtherEffort;
+import neo4j.models.require.Project;
+import neo4j.relations.Relations;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
-  String ENTITY_LOG = "ENTITY_LOG";
+import java.util.List;
 
-  String COMMENTABLE_COMMENT = "COMMENTABLE_COMMENT";
+public interface OtherEffortRepository extends GraphRepository<OtherEffort> {
 
-  String MODEL_AUTHOR = "MODEL_AUTHOR";
+  @Query("START start=node({0}) MATCH project<-[:" + Relations.PROJECT_EFFORT + "]-effort return effort")
+  public List<OtherEffort> findForProject(Project project);
 
-  String REQUIREMENT_REQUIREMENT = "REQUIREMENT_REQUIREMENT";
-
-  String PROJECT_REQUIREMENT = "PROJECT_REQUIREMENT";
-
-  String PROJECT_CONTRIBUTOR = "PROJECT_CONTRIBUTOR";
-
-  String PROJECT_EFFORT = "PROJECT_EFFORT";
 }

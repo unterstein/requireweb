@@ -39,6 +39,9 @@ public class Neo4JServiceProvider extends ServiceProvider {
   @Autowired
   public ProjectRepository projectRepository;
 
+  @Autowired
+  public OtherEffortRepository otherEffortRepository;
+
   public static Neo4JServiceProvider get() {
     return Neo4JPlugin.get();
   }

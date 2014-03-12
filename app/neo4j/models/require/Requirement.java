@@ -31,7 +31,7 @@ import java.util.Set;
 
 @NodeEntity
 @TypeAlias("Requirement")
-public class Requirement extends CommentAbleModel {
+public class Requirement extends EffortBasedModel {
 
   @RelatedTo(type = Relations.REQUIREMENT_REQUIREMENT, direction = Direction.OUTGOING)
   public Requirement parent;
@@ -45,19 +45,9 @@ public class Requirement extends CommentAbleModel {
   @GraphProperty(propertyType = Long.class)
   public Date dueDate;
 
-  public int orderPosition;
-
-  public boolean accepted;
-
-  public boolean implemented;
-
-  public boolean tested;
-
-  public double estimatedEffort;
-
-  public double realEffort;
-
   public boolean expanedInUi;
+
+  public int orderPosition;
 
   public static Requirement create(String name, String description, User author, Project project) {
     Requirement result = new Requirement();
