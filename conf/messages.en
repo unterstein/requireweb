@@ -85,6 +85,11 @@ field.requireRealEffort=Real effort [hours]
 field.requireRealEffort.placeholder=Please enter real effort in hours
 field.projectHourlyRate=Hourly rate
 field.projectHourlyRate.placeholder=Please enter the hourly rate
+field.effortName=Name
+field.effortName.placeholder=Please enter a name
+field.effortDescription=Description
+field.effortEffort=Effort
+field.effortEffort.placeholder=Please enter a effort
 
 # dashboard
 dashboard.title=<i class="fa fa-signal"></i> Dashboard
