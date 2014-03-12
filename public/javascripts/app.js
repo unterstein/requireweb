@@ -76,9 +76,6 @@
     $(window).on('hashchange', function() {
       handleHash();
     });
-    $(document).on("click", ".hashChange", function() {
-      handleHash();
-    });
     handleHash();
 
     /* focus behavior */
