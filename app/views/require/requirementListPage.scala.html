@@ -18,7 +18,7 @@
 @import org.apache.commons.lang.StringUtils
 @import global.Global
 @import neo4j.services.Neo4JServiceProvider
-@import neo4j.models.require.Requirement
+@import neo4j.models.require.{Requirement, OtherEffort}
 @import scala.collection.JavaConversions._
 
 @scripts = {
@@ -76,7 +76,7 @@
                 </div>
               </div>
               @Neo4JServiceProvider.get().otherEffortRepository.findForProject(currentProject).sortBy(_.id).map { effort =>
-                @effort.name
+                @renderEffort(effort)
               }
             </div>
           </div>
@@ -122,6 +122,30 @@
     <div class="modal-dialog">
       <div class="modal-content">
       </div>
+    </div>
+  </div>
+}
+
+@renderEffort(effort: OtherEffort) = {
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        @effort.name
+      </h3>
+    </div>
+    <div class="panel-body">
+      @if(StringUtils.isNotBlank(effort.description)) {
+        <div class="form-group">
+          <label class="control-label">@Messages("field.description")</label>
+          <p class="form-control-static">@effort.description</p>
+        </div>
+      }
+      @if(StringUtils.isNotBlank(effort.effort)) {
+        <div class="form-group">
+          <label class="control-label">@Messages("field.effortEffort")</label>
+          <p class="form-control-static">@effort.effort</p>
+        </div>
+      }
     </div>
   </div>
 }
