@@ -112,6 +112,8 @@ require.sum=sum
 require.info=Requirement #
 require.efforts=Efforts
 require.root=No parent
+require.tab.requirement=Requirements
+require.tab.others=Other efforts
 
 # project
 project.info=Project #

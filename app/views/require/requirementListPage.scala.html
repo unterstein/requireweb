@@ -52,14 +52,25 @@
       </div>
     </div>
     <div class="col-md-9">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#requirement" data-toggle="tab">@Messages("require.tab.requirement")</a></li>
+        <li><a href="#others" data-toggle="tab">@Messages("require.tab.others")</a></li>
+      </ul>
       <div class="row">
         <div class="col-md-12">
-          <a class="btn btn-primary marginButton newRequirement pull-right" data-parent="0" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.create")</a>
+          <a id="newRequirement" class="btn btn-primary marginButton newRequirement pull-right" data-parent="0" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.create")</a>
         </div>
       </div>
-      @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
-        @renderRequirement(currentProject.shortName, requirement)
-      }
+      <div class="tab-content">
+        <div class="tab-pane active" id="requirement">
+          @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
+            @renderRequirement(currentProject.shortName, requirement)
+          }
+        </div>
+        <div class="tab-pane active" id="others">
+          muh
+        </div>
+      </div>
     </div>
   </div>
 

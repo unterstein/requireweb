@@ -31,6 +31,10 @@ textarea {
   display: none;
 }
 
+#newRequirement {
+  margin-top: 20px;
+}
+
 .panel-heading i, .nav i {
   width: 18px;
 }
