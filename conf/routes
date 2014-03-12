@@ -35,6 +35,7 @@ GET         /requirements/:id/efforts                        controllers.Require
 POST        /requirements/:id/efforts/edit                   controllers.EffortController.editEffort(id: Long)
 GET         /requirements/:projectId/efforts/:id/edit        controllers.EffortController.effortEditPanel(projectId: Long, id: Long)
 POST        /requirements/:id/efforts/add                    controllers.EffortController.addEffort(id: Long)
+POST        /requirements/:id/efforts/delete                 controllers.EffortController.deleteEffort(id: Long)
 
 # Admin
 GET         /admin/performance                               controllers.AdminController.performance

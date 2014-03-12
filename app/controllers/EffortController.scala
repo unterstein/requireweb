@@ -83,6 +83,17 @@ object EffortController extends BaseController {
       }
   }
 
+  def deleteEffort(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
+    implicit request =>
+      val effort = Neo4JServiceProvider.get().otherEffortRepository.findOne(id)
+      val user = PlaySession.getUser
+      val projectId = effort.project.id
+        if (effort != null && effort.author.id == user.id) {
+        Neo4JServiceProvider.get().otherEffortRepository.delete(effort)
+      }
+      Ok(routes.RequirementController.requirementListIdEffort(projectId).url)
+  }
+
   case class CaseEffort(effortId: Long, effortName: String, effortDescription: String, effortEffort: String)
 
   val effortForm: Form[CaseEffort] = Form(
