@@ -119,6 +119,10 @@ require.tab.others=Other efforts
 project.info=Project #
 project.requirementAmount=Amount of requirements
 
+# efforts
+require.effort.create=new effort
+require.effort.edit=edit effort
+
 # errors
 error.passwordNotMatch=Passwords do not match
 error.duplicateEmail=E-Mail already exists

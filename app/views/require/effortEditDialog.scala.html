@@ -1,0 +1,59 @@
+@**
+* Copyright (C) 2014 Johannes Unterstein, unterstein@me.com, unterstein.info
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+
+* http://www.apache.org/licenses/LICENSE-2.0
+
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*@
+@(id: Long, projectId: Long, form: Form[controllers.EffortController.CaseEffort], mode: String)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+
+@import neo4j.models.require.Requirement
+@import views.html.helper.{inputRow, textareaRow, formErrors, dropDownRow}
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">@Messages("require.effort." + mode)</h4>
+</div>
+<div class="modal-body">
+  <form id="requireForm">
+    @formErrors(form.asInstanceOf[Form[Any]])
+    <input type="hidden" id="requireProjectId" name="requireProjectId" value="@form.data.get("requireProjectId")" />
+    <div class="row">
+      <div class="col-md-12">
+      @dropDownRow("requireParent", form.data.get("requireParent"), form.errors("requireParent").size > 0, Requirement.getPossibleParents(projectId, id, Messages("require.root")))
+      </div>
+    </div>
+    <input type="hidden" id="requireId" name="requireId" value="@form.data.get("requireId")" />
+    <div class="row">
+      <div class="col-md-12">
+      @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0)
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      @textareaRow("requireDescription", form.data.get("requireDescription"), form.errors("requireDescription").size > 0)
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      @inputRow("requireEstimatedEffort", "text", form.data.get("requireEstimatedEffort"), form.errors("requireEstimatedEffort").size > 0)
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
+  @if(mode == "create") {
+    <button type="button" class="btn btn-primary submit" id="newRequireAdd">@Messages("create")</button>
+  } else {
+    <button type="button" class="btn btn-primary submit" id="requireEdit">@Messages("edit")</button>
+  }
+</div>

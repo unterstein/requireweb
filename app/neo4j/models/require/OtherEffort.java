@@ -15,12 +15,15 @@ public class OtherEffort extends EffortBasedModel {
   @RelatedTo(type = Relations.PROJECT_EFFORT, direction = Direction.OUTGOING)
   public Project project;
 
-  public static OtherEffort create(String name, String description, User author, Project project) {
+  public String effort;
+
+  public static OtherEffort create(String name, String description, String effort, User author, Project project) {
     OtherEffort result = new OtherEffort();
     result.name = name;
     result.description = description;
     result.author = author;
     result.project = project;
+    result.effort = effort;
     Neo4JServiceProvider.get().otherEffortRepository.save(result);
     return result;
   }
