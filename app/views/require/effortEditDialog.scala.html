@@ -22,9 +22,10 @@
   <h4 class="modal-title">@Messages("require.effort." + mode)</h4>
 </div>
 <div class="modal-body">
-  <form id="requireForm">
+  <form id="effortForm">
     @formErrors(form.asInstanceOf[Form[Any]])
-    <input type="hidden" id="effortProjectId" name="requireProjectId" value="@form.data.get("requireProjectId")" />
+    <input type="hidden" id="effortProjectId" name="effortProjectId" value="@form.data.get("effortProjectId")" />
+    <input type="hidden" id="effortId" name="effortId" value="@form.data.get("effortId")" />
     <div class="row">
       <div class="col-md-12">
         @inputRow("effortName", "text", form.data.get("effortName"), form.errors("effortName").size > 0)
@@ -45,8 +46,8 @@
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>
   @if(mode == "create") {
-    <button type="button" class="btn btn-primary submit" id="newRequireAdd">@Messages("create")</button>
+    <button type="button" class="btn btn-primary submit" id="newEffortAdd">@Messages("create")</button>
   } else {
-    <button type="button" class="btn btn-primary submit" id="requireEdit">@Messages("edit")</button>
+    <button type="button" class="btn btn-primary submit" id="effortEdit">@Messages("edit")</button>
   }
 </div>

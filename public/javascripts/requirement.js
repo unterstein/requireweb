@@ -124,4 +124,18 @@ $(function () {
     });
     return false;
   });
+  $(document).on("click", "#newEffortAdd", function () {
+    var id = $("#effortProjectId").val();
+    ajaxCall(jsRoutes.controllers.EffortController.addEffort(id), $("#effortForm").serialize(), function (data) {
+      $("#requireModal .modal-content").html(data);
+      $("#requireModal").find(".modal-body :input[type!='hidden']")[0].focus();
+    });
+  });
+  $(document).on("click", "#effortEdit", function () {
+    var id = $("#effortId").val();
+    ajaxCall(jsRoutes.controllers.EffortController.editEffort(id), $("#effortForm").serialize(), function (data) {
+      $("#requireModal .modal-content").html(data);
+      $("#requireModal").find(".modal-body :input[type!='hidden']")[0].focus();
+    });
+  });
 });
