@@ -127,6 +127,7 @@ project.requirementAmount=Amount of requirements
 # efforts
 require.effort.create=new effort
 require.effort.edit=edit effort
+require.effort.description.explain=You can use "h" for multiplied values or static efforts in euro.
 
 # errors
 error.passwordNotMatch=Passwords do not match

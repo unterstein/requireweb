@@ -39,6 +39,7 @@
     <div class="row">
       <div class="col-md-12">
         @inputRow("effortEffort", "text", form.data.get("effortEffort"), form.errors("effortEffort").size > 0)
+        <span class="explain">@Messages("require.effort.description.explain")</span>
       </div>
     </div>
   </form>

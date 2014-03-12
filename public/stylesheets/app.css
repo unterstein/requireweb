@@ -35,6 +35,16 @@ textarea {
   margin-top: 20px;
 }
 
+.explain {
+    width: 100%;
+    font-size: 14px;
+    font-style: italic;
+    display: block;
+    color: #9C9C9C;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
 .panel-heading i, .nav i {
   width: 18px;
 }
