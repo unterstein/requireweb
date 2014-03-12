@@ -25,7 +25,7 @@ import java.util.List;
 
 public interface OtherEffortRepository extends GraphRepository<OtherEffort> {
 
-  @Query("START start=node({0}) MATCH project<-[:" + Relations.PROJECT_EFFORT + "]-effort return effort")
+  @Query("START project=node({0}) MATCH project<-[:" + Relations.PROJECT_EFFORT + "]-effort return effort")
   public List<OtherEffort> findForProject(Project project);
 
 }
