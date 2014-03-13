@@ -71,7 +71,12 @@ object ProjectController extends BaseController {
         val user = PlaySession.getUser
         // TODO contributors
         if (project != null && project.author.id == user.id) {
-          Ok(views.html.require.projectInfoDialog(project, Neo4JServiceProvider.get().projectRepository.calcProjectInfo(project)))
+          val info = Neo4JServiceProvider.get().projectRepository.calcProjectInfo(project)
+          var otherEfforts = 0.0
+          info.getEfforts.map { effort =>
+            otherEfforts += EffortController.calcGroovyExpression(effort, project.hourlyRate)
+          }
+          Ok(views.html.require.projectInfoDialog(project, info, otherEfforts))
         } else {
           Ok("") // TODO error dialog
         }

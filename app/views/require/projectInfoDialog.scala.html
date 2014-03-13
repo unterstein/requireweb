@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *@
-@(project: neo4j.models.require.Project, info: neo4j.repositories.ProjectRepository.ProjectInfo)(implicit request: play.api.mvc.Request[Any], lang: Lang)
+@(project: neo4j.models.require.Project, info: neo4j.repositories.ProjectRepository.ProjectInfo, otherEfforts: Double)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
 @import views.html.helper.{inputRow, textareaRow, formErrors, dropDownRow}
 
@@ -23,12 +23,19 @@
 </div>
 <div class="modal-body">
   <h5>@Messages("field.estimatedEffort")</h5>
-  @info.getTotalEstimatedEfforts h (@{info.getTotalEstimatedEfforts*project.hourlyRate} &euro;)
+  @info.getTotalEstimatedEfforts h (@{info.getTotalEstimatedEfforts * project.hourlyRate} &euro;)
   <h5>@Messages("field.realEffort")</h5>
-  @info.getTotalRealEfforts h (@{info.getTotalRealEfforts*project.hourlyRate} &euro;)
+  @info.getTotalRealEfforts h (@{info.getTotalRealEfforts * project.hourlyRate} &euro;)
   <h5>@Messages("project.requirementAmount")</h5>
   @info.getRequirementAmount
-
+  <h5>@Messages("require.effort.title")</h5>
+  @{
+    "%.2f".format(otherEfforts)
+  }  &euro;
+  <h5>@Messages("project.total")</h5>
+  @{
+    "%.2f".format(otherEfforts + info.getTotalEstimatedEfforts * project.hourlyRate)
+  }  &euro;
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("close")</button>

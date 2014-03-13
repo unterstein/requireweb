@@ -119,6 +119,11 @@ object EffortController extends BaseController {
   def calcGroovyExpression(effort: String, hourlyRate: Double): Double = {
     val script = groovyEngine.parse(effort.replace("," ,".").replace("h" ,"*h"))
     script.setProperty("h", hourlyRate)
-    script.run().asInstanceOf[Double]
+    val result = script.run()
+    if (result.isInstanceOf[Int]) {
+      1.0 * result.asInstanceOf[Int]
+    } else {
+      result.asInstanceOf[Double]
+    }
   }
 }

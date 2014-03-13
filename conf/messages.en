@@ -123,11 +123,13 @@ require.tab.others=Other efforts
 # project
 project.info=Project #
 project.requirementAmount=Amount of requirements
+project.total=Total costs
 
 # efforts
 require.effort.create=new effort
 require.effort.edit=edit effort
 require.effort.description.explain=You can use "h" for multiplied values or static efforts in euro. Allowed chars: +, -, *, /, h
+require.effort.title=Other efforts
 
 # errors
 error.passwordNotMatch=Passwords do not match
