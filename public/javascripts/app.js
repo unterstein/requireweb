@@ -51,7 +51,7 @@
 
   $(function () {
     /* submit behavior */
-    $(document).on("keypress", ".modal form :input", function (e) {
+    $(document).on("keypress", ".modal form input", function (e) {
       if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
         $(".modal button.submit:visible").click();
         e.stopImmediatePropagation();
