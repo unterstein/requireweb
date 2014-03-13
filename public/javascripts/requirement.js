@@ -38,7 +38,7 @@ $(function () {
     });
   });
   window.pEdit = function (id) {
-    ajaxCall(jsRoutes.controllers.RequirementController.projectEditPanel(id), null, function(data) {
+    ajaxCall(jsRoutes.controllers.ProjectController.projectEditPanel(id), null, function(data) {
       var modal = $("#projectModal");
       modal.modal("show");
       modal.find(".modal-content").html(data);
