@@ -107,9 +107,7 @@ object EffortController extends BaseController {
       "effortEffort" -> text.verifying("error.format", effort => {
         if(StringUtils.isBlank(effort)) { true } else {
           try {
-            val script = groovyEngine.parse(effort.replace("," ,".").replace("h" ,"*h"))
-            script.setProperty("h", 10)
-            script.run()
+            calcGroovyExpression(effort, 10)
             true
           } catch {
             case e: Exception => false
@@ -118,4 +116,10 @@ object EffortController extends BaseController {
       })
     )(CaseEffort.apply)(CaseEffort.unapply))
 
+
+  def calcGroovyExpression(effort: String, hourlyRate: Double): Double = {
+    val script = groovyEngine.parse(effort.replace("," ,".").replace("h" ,"*h"))
+    script.setProperty("h", hourlyRate)
+    script.run().asInstanceOf[Double]
+  }
 }
