@@ -116,7 +116,6 @@ object EffortController extends BaseController {
       })
     )(CaseEffort.apply)(CaseEffort.unapply))
 
-
   def calcGroovyExpression(effort: String, hourlyRate: Double): Double = {
     val script = groovyEngine.parse(effort.replace("," ,".").replace("h" ,"*h"))
     script.setProperty("h", hourlyRate)
