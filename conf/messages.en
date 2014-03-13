@@ -90,6 +90,7 @@ field.effortName.placeholder=Please enter a name
 field.effortDescription=Description
 field.effortEffort=Effort
 field.effortEffort.placeholder=Please enter a effort
+field.requireSeverity=Severity
 
 # dashboard
 dashboard.title=<i class="fa fa-signal"></i> Dashboard

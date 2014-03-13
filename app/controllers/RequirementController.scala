@@ -15,8 +15,8 @@
  */
 package controllers
 
-import neo4j.models.user.UserRole
-import neo4j.models.require.{Requirement, Project}
+import neo4j.models.user.{UserState, UserRole}
+import neo4j.models.require.{Severity, Requirement, Project}
 import neo4j.services.Neo4JServiceProvider
 import play.api.data.Form
 import play.api.data.Forms._
@@ -69,6 +69,7 @@ object RequirementController extends BaseController {
         if (requirement != null && requirement.author.id == user.id) {
           val caseRequirement = CaseRequirement(requirement.id, requirement.name, requirement.description,
             if(requirement.parent != null) requirement.parent.id else -1L,
+            if(requirement.severity != null) requirement.severity.name() else Severity.MEDIUM.name(),
             requirement.project.id, "" + requirement.estimatedEffort)
           Ok(views.html.require.requirementEditDialog(id, projectId, requireForm.fill(caseRequirement), "edit"))
         } else {
@@ -128,7 +129,7 @@ object RequirementController extends BaseController {
         requireForm.bindFromRequest.fold(
           formWithErrors => Ok(views.html.require.requirementEditDialog(-1L, project.id, formWithErrors, "create")),
           value => {
-            val requirement = Requirement.create(value.requireName, value.requireDescription, user, project)
+            val requirement = Requirement.create(value.requireName, value.requireDescription, user, Severity.valueOf(value.requireSeverity), project)
             if (value.requireParent > 0) {
               val parent = Neo4JServiceProvider.get().requirementRepository.findOne(value.requireParent)
               if (parent != null && parent.project.id == requirement.project.id) {
@@ -159,6 +160,7 @@ object RequirementController extends BaseController {
             // TODO compare requirement.project with id
             requirement.name = value.requireName
             requirement.description = value.requireDescription
+            requirement.severity = Severity.valueOf(value.requireSeverity)
             if (StringUtils.isNotBlank(value.requireEstimatedEffort)) {
               requirement.estimatedEffort = java.lang.Double.parseDouble(value.requireEstimatedEffort.replace(",", "."))
             }
@@ -205,7 +207,7 @@ object RequirementController extends BaseController {
       Ok("")
   }
 
-  case class CaseRequirement(requireId: Long, requireName: String, requireDescription: String, requireParent: Long, requireProjectId: Long, requireEstimatedEffort: String)
+  case class CaseRequirement(requireId: Long, requireName: String, requireDescription: String, requireParent: Long, requireSeverity: String, requireProjectId: Long, requireEstimatedEffort: String)
 
   val requireForm: Form[CaseRequirement] = Form(
     mapping(
@@ -213,6 +215,7 @@ object RequirementController extends BaseController {
       "requireName" -> nonEmptyText,
       "requireDescription" -> text,
       "requireParent" -> longNumber,
+      "requireSeverity" -> default(nonEmptyText, Severity.MEDIUM.name()).verifying("error.choose", severity => Severity.enumModel().keys.contains(severity.toString)),
       "requireProjectId" -> longNumber,
       "requireEstimatedEffort" -> text.verifying("error.format", effort => {
         if(StringUtils.isBlank(effort)) { true } else { isDoubleNumber(effort.replace("," ,".")) }

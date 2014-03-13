@@ -15,6 +15,7 @@
 *@
 @(id: Long, projectId: Long, form: Form[controllers.RequirementController.CaseRequirement], mode: String)(implicit request: play.api.mvc.Request[Any], lang: Lang)
 
+@import neo4j.models.require.Severity
 @import neo4j.models.require.Requirement
 @import views.html.helper.{inputRow, textareaRow, formErrors, dropDownRow}
 
@@ -35,6 +36,11 @@
     <div class="row">
       <div class="col-md-12">
         @inputRow("requireName", "text", form.data.get("requireName"), form.errors("requireName").size > 0)
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 select2">
+        @dropDownRow("requireSeverity", form.data.get("requireSeverity"), form.errors("requireSeverity").size > 0, Severity.enumModel())
       </div>
     </div>
     <div class="row">

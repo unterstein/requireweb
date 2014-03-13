@@ -47,14 +47,17 @@ public class Requirement extends EffortBasedModel {
 
   public boolean expanedInUi;
 
+  public Severity severity;
+
   public int orderPosition;
 
-  public static Requirement create(String name, String description, User author, Project project) {
+  public static Requirement create(String name, String description, User author, Severity severity, Project project) {
     Requirement result = new Requirement();
     result.name = name;
     result.description = description;
     result.author = author;
     result.project = project;
+    result.severity = severity;
     result.expanedInUi = true;
     Neo4JServiceProvider.get().requirementRepository.save(result);
     return result;
