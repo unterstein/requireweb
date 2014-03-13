@@ -13,7 +13,8 @@ object ApplicationBuild extends Build {
     "commons-io" % "commons-io" % "2.4",
     "com.typesafe" %% "play-plugins-mailer" % "2.1-RC2",
     "joda-time" % "joda-time" % "2.3",
-    "com.google.code.gson" % "gson" % "2.2.4"
+    "com.google.code.gson" % "gson" % "2.2.4",
+    "org.codehaus.groovy" % "groovy-all" % "2.2.2"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

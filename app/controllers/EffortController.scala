@@ -24,9 +24,12 @@ import scala.collection.JavaConversions._
 import org.apache.commons.lang.StringUtils
 import neo4j.repositories.RequirementRepository.RequirementInfo
 import play.api.mvc.AnyContent
+import groovy.lang.{Binding,GroovyShell,Script}
 
 
 object EffortController extends BaseController {
+
+  val groovyEngine = new GroovyShell(new Binding())
 
   def addEffort(id: Long) = AuthenticatedLoggingAction(UserRole.USER) {
     implicit request =>
@@ -101,7 +104,18 @@ object EffortController extends BaseController {
       "effortId" -> default(longNumber, -1L),
       "effortName" -> nonEmptyText,
       "effortDescription" -> text,
-      "effortEffort" -> text
+      "effortEffort" -> text.verifying("error.format", effort => {
+        if(StringUtils.isBlank(effort)) { true } else {
+          try {
+            val script = groovyEngine.parse(effort.replace("," ,".").replace("h" ,"*h"))
+            script.setProperty("h", 10)
+            script.run()
+            true
+          } catch {
+            case e: Exception => false
+          }
+        }
+      })
     )(CaseEffort.apply)(CaseEffort.unapply))
 
 }
