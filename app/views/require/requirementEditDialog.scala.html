@@ -40,7 +40,7 @@
     </div>
     <div class="row">
       <div class="col-md-12 select2">
-        @dropDownRow("requireSeverity", form.data.get("requireSeverity"), form.errors("requireSeverity").size > 0, Severity.enumModel())
+        @dropDownRow("requireSeverity", if(form.data.get("requireSeverity") != None) { form.data.get("requireSeverity") } else { Some(Severity.MEDIUM.name()) }, form.errors("requireSeverity").size > 0, Severity.enumModel())
       </div>
     </div>
     <div class="row">
