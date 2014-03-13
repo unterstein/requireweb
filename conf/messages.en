@@ -138,6 +138,7 @@ error.signInFailed=Login failed
 error.email=Email required
 error.required=Field required
 error.format=Wrong input format
+no.project=No project available
 
 #########################################################################################################
 ##################### ADMIN AREA

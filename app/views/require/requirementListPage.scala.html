@@ -52,36 +52,40 @@
       </div>
     </div>
     <div class="col-md-9">
-      <ul class="nav nav-tabs">
-        <li @if(showEffort == false){class="active"} id="tabRequirement" data-url="@routes.RequirementController.requirementListId(currentProject.id)"><a href="#requirement" data-toggle="tab">@Messages("require.tab.requirement")</a></li>
-        <li @if(showEffort == true){class="active"} id="tabOthers" data-url="@routes.RequirementController.requirementListIdEffort(currentProject.id)"><a href="#others" data-toggle="tab">@Messages("require.tab.others")</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane @if(showEffort == false){active}" id="requirement">
-          <div class="row">
-            <div class="col-md-12">
-              <a id="newRequirement" class="btn btn-primary marginButton newRequirement pull-right" data-parent="-1" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.create")</a>
-            </div>
-          </div>
-          @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
-            @renderRequirement(currentProject.shortName, requirement)
-          }
-        </div>
-        <div class="tab-pane @if(showEffort == true){active}" id="others">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-12">
-                  <a id="newEffort" class="btn btn-primary marginButton newEffort pull-right" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.effort.create")</a>
-                </div>
+      @if(currentProject != null) {
+        <ul class="nav nav-tabs">
+          <li @if(showEffort == false){class="active"} id="tabRequirement" data-url="@routes.RequirementController.requirementListId(currentProject.id)"><a href="#requirement" data-toggle="tab">@Messages("require.tab.requirement")</a></li>
+          <li @if(showEffort == true){class="active"} id="tabOthers" data-url="@routes.RequirementController.requirementListIdEffort(currentProject.id)"><a href="#others" data-toggle="tab">@Messages("require.tab.others")</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane @if(showEffort == false){active}" id="requirement">
+            <div class="row">
+              <div class="col-md-12">
+                <a id="newRequirement" class="btn btn-primary marginButton newRequirement pull-right" data-parent="-1" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.create")</a>
               </div>
-              @Neo4JServiceProvider.get().otherEffortRepository.findForProject(currentProject).sortBy(_.id).map { effort =>
-                @renderEffort(effort)
-              }
+            </div>
+            @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
+              @renderRequirement(currentProject.shortName, requirement)
+            }
+          </div>
+          <div class="tab-pane @if(showEffort == true){active}" id="others">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <a id="newEffort" class="btn btn-primary marginButton newEffort pull-right" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.effort.create")</a>
+                  </div>
+                </div>
+                @Neo4JServiceProvider.get().otherEffortRepository.findForProject(currentProject).sortBy(_.id).map { effort =>
+                  @renderEffort(effort)
+                }
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      } else {
+        @Messages("no.project")
+      }
     </div>
   </div>
 
