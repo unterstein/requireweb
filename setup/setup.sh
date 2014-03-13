@@ -8,7 +8,7 @@ http://downloads.typesafe.com/play/2.2.1/play-2.2.1.zip
 
 
 # install play
-tar unzip play-2.2.1.zip
+unzip play-2.2.1.zip
 rm play-2.2.1.zip
 
 # update .bashrc
