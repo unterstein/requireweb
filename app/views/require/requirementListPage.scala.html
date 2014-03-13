@@ -60,7 +60,7 @@
         <div class="tab-pane @if(showEffort == false){active}" id="requirement">
           <div class="row">
             <div class="col-md-12">
-              <a id="newRequirement" class="btn btn-primary marginButton newRequirement pull-right" data-parent="0" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.create")</a>
+              <a id="newRequirement" class="btn btn-primary marginButton newRequirement pull-right" data-parent="-1" data-id="@currentProject.id" href="#"><i class="fa fa-plus"></i> @Messages("require.create")</a>
             </div>
           </div>
           @Neo4JServiceProvider.get().requirementRepository.findMainRequirementsByProject(currentProject).sortBy(_.id).map { requirement =>
