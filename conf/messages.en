@@ -125,6 +125,7 @@ require.tab.others=Other efforts
 project.info=Project #
 project.requirementAmount=Amount of requirements
 project.total=Total costs
+project.no.project=No project available
 
 # efforts
 require.effort.create=new effort
@@ -139,7 +140,6 @@ error.signInFailed=Login failed
 error.email=Email required
 error.required=Field required
 error.format=Wrong input format
-no.project=No project available
 
 #########################################################################################################
 ##################### ADMIN AREA
